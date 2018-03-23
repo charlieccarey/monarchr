@@ -6,9 +6,8 @@ Author: Charles Champney Carey
 Maintainer: The package maintainer <charlieccarey@gmail.com>
 Description: The Monarch Initiative integrates and manages ontologies,
     phenotypes, genetics and genotypes across many species from many 
-    resources. The monaRch package uses the Monarch web API to retrieve 
-    that information into an R
-    environment.
+    resources. The monarchr package uses the monarch web API to retrieve 
+    that information into an R environment.
 License: CC0
 Encoding: UTF-8
 LazyData: true

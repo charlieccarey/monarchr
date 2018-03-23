@@ -2,7 +2,7 @@
 % Please edit documentation in R/monarchr.R
 \name{bioentity_homologs}
 \alias{bioentity_homologs}
-\title{Gets homologs to a gene.}
+\title{Get homologs for a gene.}
 \usage{
 bioentity_homologs(gene)
 }
@@ -13,7 +13,12 @@ bioentity_homologs(gene)
 A list of (tibble of homolog information, monarch_api S3 class).
 }
 \description{
+Replicates info in view: https://api.monarchinitiative.org/api/#!/bioentity/get_gene_homolog_associations
+}
+\details{
 The monarch_api class is included in return mainly for debugging.
+
+https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/homologs/?rows=100&fetch_objects=true
 }
 \examples{
 gene <-"NCBIGene:8314"
