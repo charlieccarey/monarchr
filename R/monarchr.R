@@ -58,7 +58,7 @@ monarch_api <- function(url) {
 #' @return A summary of x and, invisibly, x.
 #' @export
 print.monarch_api <- function(x, depth = 2, ...) {
-  cat("<monarch", x$url, ">\n", sep = "")
+  cat("<monarch ", x$url, ">\n", sep = "")
   cat("<Showing parsed R objects from json response.", depth, "level(s) deep>\n")
   utils::str(x$content, max.level = depth)
   # TODO: Some response content might be geared towards GUI of monarch_initiative.org website.
@@ -132,7 +132,11 @@ flatten_list_of_strings <- function(strings) {
   # TODO: protect against NULLs (warn, or convert to NAs?)
   strings <- lapply(strings,
                     function(x) {
-                      ifelse(length(x) > 1, paste(x, collapse = ', '), x)
+                      result = NA
+                      if (length(x) > 0) {
+                         result = paste(x, collapse = ', ')
+                      }
+                      result
                     })
   unlist(strings)
 }
@@ -172,12 +176,14 @@ list_of_paths_to_basenames <- function(paths) {
 #' @examples
 #' #evidence <- extract_matching_phrases_from_lists(homs$evidence_graph.nodes, 'evidence')
 extract_matching_phrases_from_lists <- function(things, phrase) {
-  # TODO: protect and or warn against NULL in lists?
+  # TODO: Prefill the results?
   matches <- lapply(things,
                     function(x) {
-                      y <- unlist(x)
-                      y[grepl(phrase, y)]
+                        y <- unlist(x)
+                        y[grepl(phrase, y)]
                     })
+  # TODO: We need to fix the ordering or give some conditionals here to get it to work on both
+  # TODO: multiple matches, and when there is nothing to match.
   matches <- flatten_list_of_strings(matches)
   matches <- lapply(matches,
                     function(x) ifelse(length(x) == 0, NA, x))
@@ -223,12 +229,14 @@ bioentity_gene_homology_associations <- function(gene) { # TODO: definitely want
                   list(homs,
                        evidence = evids,
                        publications = pubs, provided_by = sources))
-  return(list(homologs = homs, response = resp))
+  homs <- tibble::as_tibble(homs)
+  return(list(homologs = homs,
+              response = resp))
 }
 
 #' Get homologs for a gene.
 #'
-#' Replicates info in view: https://api.monarchinitiative.org/api/#!/bioentity/get_gene_homolog_associations
+#' Replicates info in view: https://api.monarchinitiative.org/api/#!/bioentity/get_gene_homologs
 #'
 #' The monarch_api class is included in return mainly for debugging.
 #'
@@ -248,7 +256,8 @@ bioentity_homologs <- function(gene) { # TODO: definitely want to add response t
   gene <- utils::URLencode(gene, reserved = TRUE)
 
   query <- list(rows=100, fetch_objects="true")
-  url <- build_monarch_url(path = list("/api/bioentity/gene", gene, "homologs/"),
+  url <- build_monarch_url(path = list("/api/bioentity/gene",
+                                       gene, "homologs/"),
                            query = query)
   resp <- monarch_api(url)
   homs <- jsonlite::flatten(resp$content$associations, recursive=TRUE)
@@ -264,12 +273,21 @@ bioentity_homologs <- function(gene) { # TODO: definitely want to add response t
   pubs <- extract_matching_phrases_from_lists(homs$publications, 'PMID')
   sources <- list_of_paths_to_basenames(homs$provided_by)
   homs <- homs[!names(homs) %in% c("publications", "provided_by")]
-  homs <- homs[c("subject.taxon.label", "subject.id", "subject.label", "relation.label",  "object.label", "object.id", "object.taxon.label")]
+  homs <- homs[c("subject.taxon.label",
+                 "subject.id",
+                 "subject.label",
+                 "relation.label",
+                 "object.label",
+                 "object.id",
+                 "object.taxon.label")]
   homs <- do.call('cbind.data.frame',
                   list(homs,
                        evidence = evids,
-                       publications = pubs, provided_by = sources))
-  return(list(homologs = homs, response = resp))
+                       publications = pubs,
+                       provided_by = sources))
+  homs <- tibble::as_tibble(homs)
+  return( list(homologs = homs,
+               response = resp) )
 }
 
 

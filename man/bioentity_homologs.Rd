@@ -13,7 +13,7 @@ bioentity_homologs(gene)
 A list of (tibble of homolog information, monarch_api S3 class).
 }
 \description{
-Replicates info in view: https://api.monarchinitiative.org/api/#!/bioentity/get_gene_homolog_associations
+Replicates info in view: https://api.monarchinitiative.org/api/#!/bioentity/get_gene_homologs
 }
 \details{
 The monarch_api class is included in return mainly for debugging.
