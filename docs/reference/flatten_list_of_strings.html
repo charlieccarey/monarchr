@@ -127,8 +127,9 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># words &lt;- list("a", c("few", "words"), NA, NULL, c("to", "try")) # not passing...</span>
-<span class='no'>words</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='st'>"a"</span>, <span class='fu'>c</span>(<span class='st'>"few"</span>, <span class='st'>"words"</span>), <span class='fl'>NA</span>, <span class='fu'>c</span>(<span class='st'>"to"</span>, <span class='st'>"try"</span>))
-<span class='fu'>flatten_list_of_strings</span>(<span class='no'>words</span>)</div><div class='output co'>#&gt; [1] "a"          "few, words" NA           "to, try"   </div></pre>
+<span class='no'>words</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='st'>"a"</span>, <span class='kw'>NULL</span>, <span class='fu'>c</span>(<span class='st'>"few"</span>, <span class='st'>"words"</span>), <span class='fl'>NA</span>, <span class='fu'>c</span>(<span class='st'>"to"</span>, <span class='st'>"try"</span>), <span class='fu'>c</span>(<span class='fl'>NA</span>, <span class='fl'>NA</span>), <span class='fu'>c</span>(<span class='st'>"and"</span>, <span class='fl'>NA</span>, <span class='st'>"finally"</span>))
+<span class='fu'>flatten_list_of_strings</span>(<span class='no'>words</span>)</div><div class='output co'>#&gt; [1] "a"            NA             "few, words"   NA             "to, try"     
+#&gt; [6] NA             "and, finally"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
