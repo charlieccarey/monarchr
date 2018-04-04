@@ -118,7 +118,7 @@ Replacing HGNC:950 with NCBIGene ID, we are successfully directed to the same vi
 
 You should see something similar to the following view.
 
-![Homologs as seen on Monarch Inititiative Website.](./readme_images/BAP1_homologs.png)
+![Homologs as seen on Monarch Inititiative Website.](images/BAP1_homologs.png)
 
 These results shoud be consistent with what we saw in our tibble above, as displayed by DataTables (R DT package).
 
