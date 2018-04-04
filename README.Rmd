@@ -1,7 +1,7 @@
 ---
 title: "monarchr"
 author: "charlie c carey"
-date: "3/26/2018"
+date: "4/3/2018"
 output: html_document
 ---
 
@@ -47,27 +47,9 @@ The results are a tibble of homologs (paralogs, orthologs and homologs).
 When we ran this query, we retrieved ```r nrow(results$homologs)``` homologs.
 
 ```{r ex_homologs_resu, echo = TRUE}
-head(data.frame(results$homologs), 5)
+library(DT)
+DT::datatable(results$homologs)
 ```
-
-<!-- In this README we convert that to a Data Table so you can scrolll through them. -->
-
-<!-- ```{r } -->
-<!-- library(DT) -->
-<!-- DT::datatable(results$homologs) -->
-<!-- ``` -->
-
-#### (Optional) Verify that this search returns the same list of homologs as found searching Monarch Inititive's website.
-
-1. Go to Monarch's front page: [https://monarchinitiative.org/]
-1. In the search box, enter and search for: NCBIGene:8314.
-2. Select the exact match (of thousands) from Homo sapiens.
-   (This is the first match and shows the gene name is BAP1.)
-3. Select homologs from the tabs at the top of the next page.
-
-You should see something similar to the following view.
-
-![*Homologs as seen on Monarch Inititiative Website.*](readme_images/BAP1_homologs.png)
 
 ## Troubleshooting.
 
@@ -76,13 +58,36 @@ response to our query.
 
 ### Response from Monarch Initiative.
 
-Here is the response from Monarch Inititative's API as we captured it in monarchr.
+We returned the response as a monarch_api (S3) class with its own print method
 
 ```{r ex_homologs_resp, echo = TRUE}
+class(results$response)
+```
+
+The print method only shows the URL and highest 2 levels of the contents.
+
+```{r, echo = TRUE}
 results$response
 ```
 
-The server responded with an OK (200) status, and appears to have some content associated with it.
+To view at an alternative depth, supply the *depth* setting to the print method.
+
+```{r ex_homologs_resp_depth, echo = TRUE, eval = FALSE}
+# print(results$response, depth=3) # not run.
+```
+
+#### Troubleshooting the server status
+
+```{r inspect_response, echo = TRUE, eval = TRUE}
+class(results$response$response) # this is the response we saved from the call to httr GET(url)
+results$response$url
+results$response$response$status_code
+#str(results$response$response)
+#results$response$response$headers
+#results$response$response$request
+```
+
+The server should have responded with an OK (200) status. If not, we can confirm the URL ourselves by pasting into a browser, or look at the response and response headers for more info (courtesy of httr).
 
 ### View JSON directly from the server.
 
@@ -102,3 +107,18 @@ on Monarch Initiative website ended up at a table for Monarch's preferred ID (HG
 Replacing HGNC:950 with NCBIGene ID, we are successfully directed to the same view.
 
 [https://monarchinitiative.org/gene/NCBIGene:8314#homologs]
+
+## Verify your search returns something consistent with searching Monarch Initiative's website directly.
+
+1. Go to Monarch's front page: [https://monarchinitiative.org/]
+1. In the search box, enter and search for: NCBIGene:8314.
+2. Select the exact match (of thousands) from Homo sapiens.
+   (This is the first match and shows the gene name is BAP1.)
+3. Select homologs from the tabs at the top of the next page.
+
+You should see something similar to the following view.
+
+![Homologs as seen on Monarch Inititiative Website.](./readme_images/BAP1_homologs.png)
+
+These results shoud be consistent with what we saw in our tibble above, as displayed by DataTables (R DT package).
+

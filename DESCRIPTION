@@ -1,8 +1,9 @@
 Package: monarchr
 Type: Package
 Title: Interface to Monarch Initiative API for Phenotype Ontology and Genotype
-Version: 0.1.0
-Author: Charles Champney Carey
+Version: 0.0.1
+Authors@R: c(person(given="Charles Champney", family="Carey", email = "charlieccarey@gmail.com", role = c("cre", "aut")),
+             person("Ted", "Laderas", role = c("ctb")))
 Maintainer: The package maintainer <charlieccarey@gmail.com>
 Description: The Monarch Initiative integrates and manages ontologies,
     phenotypes, genetics and genotypes across many species from many 
