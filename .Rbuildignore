@@ -3,3 +3,4 @@
 ^README\.Rmd$
 ^_pkgdown\.yml$
 ^docs$
+^R/scratch\.R$

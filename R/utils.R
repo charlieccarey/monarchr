@@ -1,6 +1,81 @@
 # utils.R
 #
-# These are print and processing utilities functions for monarchr.
+# These are processing and print utility functions for monarchr.
+
+monarch_homolog_url <-
+  "https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314?rows=100&fetch_objects=true&format=json"
+monarch_homolog_url_tf <-
+  "https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314?rows=100&fetch_objects=true&unselect_evidence=false&format=json"
+
+
+# -----------------------------------------------------------------------------
+#
+#
+#                     USEFUL FOR GENERATING REQUESTS
+#
+#
+# -----------------------------------------------------------------------------
+
+
+#' Converts R booleans to monarch_api values and drops NULL parameters from query list.
+#'
+#' @param query List of api query parameters and their values.
+#'
+#' @return list of query paramters and cleaned values.
+#' @importFrom purrr map compact
+#' @importFrom magrittr %>%
+#' @export
+#'
+#' @examples
+#' clean_query(list(rows = 100, fetch_objects = TRUE, use_compact_associations = FALSE,
+#'                   unselect_evidence=NULL, format = "json"))
+clean_query <- function(query) {
+  # TODO: Additional error checking on parameter names and values.
+  # TODO: (If these are consistent across most methods for one or more of the APIs.)
+  # TODO: (And delete query parameters that seem to have fatal errors.
+  # TODO: e.g. bioentity_homologs crashes query specifies 'true' or 'false'?
+  # TODO: (And delete query parameters that have no effects.
+  # TODO: e.g. I've seen no effect of toggling some of the other parameters?
+  # TODO: unselect_evidence?)
+  query %>%
+    compact() %>%
+    map(function(x) ifelse(is.logical(x), tolower(as.character(x)), x))
+}
+
+
+#' Builds URL for a monarch GET request.
+#'
+#' @param path A path to the monarch resource to use.
+#' @param query A list of url parameter settings. TRUE FALSE set to
+#' "true" "false".
+#'
+#' @return URL as a string.
+#' @export
+#'
+#' @examples
+#' url <- build_monarch_url(path = list("/api/bioentity/gene", "NCBIGene%3A8314"),
+#'                          query = list(rows = 100, fetch_objects = "true",
+#'                           format = "json"))
+#' url <- build_monarch_url(path = list("/api/bioentity/gene", "NCBIGene%3A8314"),
+#'                          query = list(rows = 100, fetch_objects = TRUE,
+#'                          unselect_evidence=FALSE, format = "json"))
+#' url <- build_monarch_url(path = list("/api/bioentity/gene", "NCBIGene%3A8314"),
+#'                          query = list(rows = 100, fetch_objects = TRUE,
+#'                          unselect_evidence=NULL, format = "json"))
+build_monarch_url <- function(path, query=NULL) {
+  q <- clean_query(query)
+  url <- httr::modify_url("https://api.monarchinitiative.org", path = path, query = q)
+  url
+}
+
+
+# -----------------------------------------------------------------------------
+#
+#
+#                     USEFUL FOR (TEXTUAL) DISPLAY OF RESULTS
+#
+#
+# -----------------------------------------------------------------------------
 
 
 #' Print method for monarch_api.
@@ -21,6 +96,15 @@ print.monarch_api <- function(x, depth = 2, ...) {
 }
 
 
+# -----------------------------------------------------------------------------
+#
+#
+#                    USEFUL FOR PROCESSING RESULTS
+#
+#
+# -----------------------------------------------------------------------------
+
+
 #' Flattens and concatenates character vectors in a list
 #'
 #' @param strings A list of character vectors.
@@ -29,7 +113,6 @@ print.monarch_api <- function(x, depth = 2, ...) {
 #' @export
 #'
 #' @examples
-#' # words <- list("a", c("few", "words"), NA, NULL, c("to", "try")) # not passing...
 #' words <- list("a", NULL, c("few", "words"), NA, c("to", "try"), c(NA, NA), c("and", NA, "finally"))
 #' flatten_list_of_strings(words)
 flatten_list_of_strings <- function(strings) {
@@ -60,6 +143,7 @@ flatten_list_of_strings <- function(strings) {
 #' paths <- list('a/b.w', c('c/d.x', 'e/f.y'), 'g/h.z')
 #' list_of_paths_to_basenames(paths)
 list_of_paths_to_basenames <- function(paths) {
+  # e.g. Use to trim 'sources' for the source .ttl files down to simple source names.
   paths <- lapply(paths,
                   function(x) {
                     y <- sub("\\.[[:alnum:]]+$", '', basename(x))
@@ -80,8 +164,12 @@ list_of_paths_to_basenames <- function(paths) {
 #' @export
 #'
 #' @examples
-#' #evidence <- extract_matching_phrases_from_lists(homs$evidence_graph.nodes, 'evidence')
+#'
+#' evidence <- extract_matching_phrases_from_lists(homs$evidence_graph.nodes, 'evidence')
 extract_matching_phrases_from_lists <- function(things, phrase) {
+  # Note: This is a hack so we can ignore the actual structures, which might
+  #       be graphs as dataframes or simply dataframes.
+  # TODO? Target replacing this with better reasoning over the JSON types?
   matches <- lapply(things,
                     function(x) {
                       y <- unlist(x)
@@ -91,4 +179,5 @@ extract_matching_phrases_from_lists <- function(things, phrase) {
   #matches <- lapply(matches,
   #                  function(x) ifelse(length(x) == 0, NA, x))
   #unlist(matches)
+  matches
 }
