@@ -1,6 +1,6 @@
-library(testthat)
 library(monarchr)
 library(httr)
+context("monarchr")
 
 monarch_base_url <- "https://api.monarchinitiative.org"
 monarch_gene_url <-
