@@ -1,12 +1,9 @@
 library(monarchr)
 library(httr)
+library(tibble)
+
 context("monarchr")
 
-monarch_base_url <- "https://api.monarchinitiative.org"
-monarch_gene_url <-
-  "https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A84570?rows=100&fetch_objects=true"
-monarch_bad_gene_url <-
-  "https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene84570?rows=100&fetch_objects=true"
 
 # -----------------------------------------------------------------------------
 #
@@ -15,6 +12,12 @@ monarch_bad_gene_url <-
 #
 #
 # -----------------------------------------------------------------------------
+
+monarch_base_url <- "https://api.monarchinitiative.org"
+monarch_gene_url <-
+  "https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A84570?rows=100&fetch_objects=true"
+monarch_bad_gene_url <-
+  "https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene84570?rows=100&fetch_objects=true"
 
 
 test_that("monarch initiative is up!", {
@@ -35,4 +38,42 @@ test_that("Failure status 500 for improperly formatted gene id for api.monarchin
 test_that("monarch_api returns an S3 class of type 'monarch_api'.", {
   r <- monarch_api(monarch_gene_url)
   expect_is(r, 'monarch_api')
+})
+
+# -----------------------------------------------------------------------------
+#
+#
+#              TEST FXNS FOR BIOENTITY RESULTS
+#
+#
+# -----------------------------------------------------------------------------
+
+bap1 <- "NCBIGene:8314"
+
+
+#        bioentity homologs
+
+resp <- bioentity_homologs(bap1)
+
+test_that("bioentity_homologs returns non-zero length homologs'.", {
+  expect_gt(nrow(resp$homologs), 0)
+})
+
+test_that("bioentity_homologs returns homologs as tibble.", {
+  resp <- bioentity_homologs(bap1)
+  expect_true(is.tibble(resp$homologs))
+})
+
+
+#        bioentity_gene_homolog_associations
+
+resp <- bioentity_gene_homology_associations(bap1)
+
+test_that("bioentity_gene_homology_associations returns non-zero length homolog associations.", {
+  expect_gt(nrow(resp$homologs), 0)
+})
+
+
+test_that("bioentity_gene_homology_associations returns homolog associations as tibble.", {
+  expect_true(is.tibble(resp$homologs))
 })
