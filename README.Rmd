@@ -5,6 +5,8 @@ date: "4/3/2018"
 output: html_document
 ---
 
+[![Build Status](https://travis-ci.org/charlieccarey/monarchr.svg?branch=master)](https://travis-ci.org/charlieccarey/monarchr)
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
