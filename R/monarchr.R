@@ -175,7 +175,7 @@ bioentity_homologs <- function(gene) { # TODO: definitely want to add response t
 # -----------------------------------------------------------------------------
 #
 #
-#                   EACH IMPLEMENTED BIOENTITY REQUESTS AND RESULTS
+#                   UNIMPLEMENTED BIOENTITY REQUESTS AND RESULTS
 #                   (not all Bioentity APIs are (fully?) functional)
 #
 #
