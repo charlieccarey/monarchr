@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This is the README for the monarchr package.
 
+Also see Github pages for [monarchr](https://charlieccarey.github.io/monarchr/index.html)
+
 We use monarchr to retrieve and work with genetic, phenotype, and ontological 
 information from the Monarch Inititiative [monarchinitiative.org](https://monarchinitiative.org).
 
