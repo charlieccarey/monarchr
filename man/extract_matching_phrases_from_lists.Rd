@@ -20,5 +20,7 @@ dataframes in which we know the phrase occurs somewhere but we don't
 no the column, or don't care about preserving the source column name.
 }
 \examples{
-#evidence <- extract_matching_phrases_from_lists(homs$evidence_graph.nodes, 'evidence')
+gene <-"NCBIGene:8314"
+homs <- bioentity_homologs(gene)$homologs
+evidence <- extract_matching_phrases_from_lists(homs$evidence_graph.nodes, 'evidence')
 }

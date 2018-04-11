@@ -13,9 +13,11 @@ bioentity_gene_homology_associations(gene)
 A list of (tibble of homolog information, monarch_api S3 class).
 }
 \description{
-The monarch_api class is included in return mainly for debugging.
+e.g. Given a gene ID, finds homologs for that gene and lists their associations
 }
 \details{
+The monarch_api class is included in return mainly for debugging the REST requests.
+
 https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314?rows=100&fetch_objects=true
 }
 \examples{

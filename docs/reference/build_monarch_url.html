@@ -87,7 +87,12 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/charlieccarey/monarchr">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -101,7 +106,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Builds URL for a monarch GET request.</h1>
-    
+    <small>Source: <a href='https://github.com/charlieccarey/monarchr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
     <p class="hidden name"><code>build_monarch_url.Rd</code></p>
     </div>
 
@@ -116,30 +121,42 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>path</th>
-      <td><p>A path to the monarch resource to use.</p></td>
+      <td><p>A path as a list to the monarch resource to use.</p></td>
     </tr>
     <tr>
       <th>query</th>
       <td><p>A list of url parameter settings. TRUE FALSE set to
-"true" "false".</p></td>
+"true" "false".</p>
+<p>The path needs to be safely encoded.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>URL as a string.</p>
+    <p>URL as a safely encoded string.</p>
+    
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/utils/topics/URLencode'>URLencode</a></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='fu'>build_monarch_url</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='st'>"/api/bioentity/gene"</span>, <span class='st'>"NCBIGene%3A8314"</span>),
-                         <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>fetch_objects</span> <span class='kw'>=</span> <span class='st'>"true"</span>,
-                          <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"json"</span>))
-<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='fu'>build_monarch_url</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='st'>"/api/bioentity/gene"</span>, <span class='st'>"NCBIGene%3A8314"</span>),
-                         <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>fetch_objects</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                         <span class='kw'>unselect_evidence</span><span class='kw'>=</span><span class='fl'>FALSE</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"json"</span>))
-<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='fu'>build_monarch_url</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='st'>"/api/bioentity/gene"</span>, <span class='st'>"NCBIGene%3A8314"</span>),
-                         <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>fetch_objects</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-                         <span class='kw'>unselect_evidence</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"json"</span>))</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>m_path</span> <span class='kw'>&lt;-</span> <span class='st'>"/api/bioentity/gene"</span>
+<span class='no'>gene</span> <span class='kw'>&lt;-</span> <span class='st'>"NCBIGene%3A8314"</span>
+<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='fu'>build_monarch_url</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>m_path</span>, <span class='no'>gene</span>),
+                         <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+                         <span class='kw'>fetch_objects</span> <span class='kw'>=</span> <span class='st'>"true"</span>,
+                         <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"json"</span>))
+<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='fu'>build_monarch_url</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>m_path</span>, <span class='no'>gene</span>),
+                         <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+                         <span class='kw'>fetch_objects</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                         <span class='kw'>unselect_evidence</span><span class='kw'>=</span><span class='fl'>FALSE</span>,
+                         <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"json"</span>))
+<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='fu'>build_monarch_url</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='no'>m_path</span>, <span class='no'>gene</span>),
+                         <span class='kw'>query</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+                         <span class='kw'>fetch_objects</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+                         <span class='kw'>unselect_evidence</span><span class='kw'>=</span><span class='kw'>NULL</span>,
+                         <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"json"</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -147,6 +164,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

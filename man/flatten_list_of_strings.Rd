@@ -16,7 +16,6 @@ Character vector, same length as the initial list.
 Flattens and concatenates character vectors in a list
 }
 \examples{
-# words <- list("a", c("few", "words"), NA, NULL, c("to", "try")) # not passing...
 words <- list("a", NULL, c("few", "words"), NA, c("to", "try"), c(NA, NA), c("and", NA, "finally"))
 flatten_list_of_strings(words)
 }

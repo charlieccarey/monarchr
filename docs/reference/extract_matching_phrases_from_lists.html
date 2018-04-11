@@ -89,7 +89,12 @@ no the column, or don't care about preserving the source column name." />
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/charlieccarey/monarchr">
+    <span class="fa fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -103,7 +108,7 @@ no the column, or don't care about preserving the source column name." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Finds phrases from list of things, like a list of dataframes.</h1>
-    
+    <small>Source: <a href='https://github.com/charlieccarey/monarchr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
     <p class="hidden name"><code>extract_matching_phrases_from_lists.Rd</code></p>
     </div>
 
@@ -134,8 +139,9 @@ no the column, or don't care about preserving the source column name.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>#evidence <- extract_matching_phrases_from_lists(homs$evidence_graph.nodes, 'evidence')
-</div></pre>
+    <pre class="examples"><div class='input'><span class='no'>gene</span> <span class='kw'>&lt;-</span><span class='st'>"NCBIGene:8314"</span>
+<span class='no'>homs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bioentity_homologs.html'>bioentity_homologs</a></span>(<span class='no'>gene</span>)$<span class='no'>homologs</span>
+<span class='no'>evidence</span> <span class='kw'>&lt;-</span> <span class='fu'>extract_matching_phrases_from_lists</span>(<span class='no'>homs</span>$<span class='no'>evidence_graph.nodes</span>, <span class='st'>'evidence'</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: 'evidence_graph.nodes'.</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

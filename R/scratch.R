@@ -16,23 +16,6 @@
 #' # We think following methods at least are available so start there.
 #' # These all return results with human BAP1 at least.
 #' #
-#' # HGNC:950
-#' # overview
-#' # phenotypes (20) https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/phenotypes/?rows=100&fetch_objects=true
-#' # Diseases (25)  https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/diseases/?rows=100&fetch_objects=true
-#' # Variants (308)  https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/phenotypes/?rows=100&fetch_objects=true URL   # clinvarvariants apparent using web browser
-#' #                 https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/phenotypes/?rows=100&fetch_objects=true # but doesn't seem to be the case in our response object
-#' #                 resp_variants_is_phenos$content$associations$evidence_graph$nodes
-#' #               # never mind... found it with NCBI...  https://api.monarchinitiative.org/api/bioentity/gene/HGNC%3A950/phenotypes/?rows=100&fetch_objects=true # but doesn't seem to be the case in our response object
-#' #               # never mind... found it with NCBI  resp_variants_is_phenos_hgnc$content$associations$evidence_graph$nodes
-#' # Anatomy (20)  https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/expression/anatomy?rows=100&fetch_objects=true
-#' # Homologs (17)
-#' # Ortholog-Phenotypes (76)
-#' # Pathways (8)
-#' # Interactions associated with HGNC:950 Interactions (148)
-#' # compare? empty and loading
-#'
-#' # --------------------- QUESTIONS ----------------------------
 #' #
 #' # What are 'homolog_associations' as we get them from, e.g. HGNC:1100? 10 homologs. vs. 9 on monarch website.
 #' # Produces different (but overlapping) results than when we search on monarch website and get.
@@ -41,13 +24,6 @@
 #' #
 #' #
 #'
-#'
-#'
-#'
-#' # Functions (23)  ? is  https://api.monarchinitiative.org/api/bioentity/gene/ZFIN%3AZDB-GENE-050417-357/function/?rows=100&fetch_objects=true this works
-#' # Functions (23)  ? But even though documentation says "NCBIGene:3630" should get translated behind the scenes to Uniprot for the solr query, it doesn't work.
-#' # Functions (23)  ? Probably: https://github.com/biolink/biolink-api/issues/118
-#' # Functions (23)  ? Using the HGNC works: https://api.monarchinitiative.org/api/bioentity/gene/HGNC%3A950/function/?rows=100&fetch_objects=true
 #'
 #'
 #' # ------ Implemented At Monarch API? -----------------
@@ -193,6 +169,7 @@
 #'
 #' #' Returns function associations for a gene
 #' bioentity_gene_id_function_ <- function(id) {
+#'
 #'   url <- build_monarch_url(path = list("/api/bioentity/allele", id))
 #'   resp <- monarch_api(url)
 #' }
@@ -211,7 +188,7 @@
 #'
 #' #' Returns pathways associated with gene
 #' bioentity_gene_id_pathways_ <- function(id) {
-#'   url <- build_monarch_url(path = list("/api/bioentity/allele", id))
+#'   url <- build_monarch_url(path = list("/api/bioentity/gene", id, pathways))
 #'   resp <- monarch_api(url)
 #' }
 #'

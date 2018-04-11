@@ -23,3 +23,5 @@ Imports: httr,
     purrr
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
+URL: https://github.com/charlieccarey/monarchr
+BugReports: https://github.com/charlieccarey/monarchr/issues

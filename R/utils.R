@@ -22,13 +22,14 @@ monarch_homolog_url_tf <-
 #' @param query List of api query parameters and their values.
 #'
 #' @return list of query paramters and cleaned values.
-#' @importFrom purrr map compact
 #' @importFrom magrittr %>%
 #' @export
 #'
 #' @examples
-#' clean_query(list(rows = 100, fetch_objects = TRUE, use_compact_associations = FALSE,
-#'                   unselect_evidence=NULL, format = "json"))
+#' clean_query(list(rows = 100,
+#'                  fetch_objects = TRUE,
+#'                  use_compact_associations = FALSE,
+#'                  unselect_evidence=NULL, format = "json"))
 clean_query <- function(query) {
   # TODO: Additional error checking on parameter names and values.
   # TODO: (If these are consistent across most methods for one or more of the APIs.)
@@ -38,30 +39,39 @@ clean_query <- function(query) {
   # TODO: e.g. I've seen no effect of toggling some of the other parameters?
   # TODO: unselect_evidence?)
   query %>%
-    compact() %>%
-    map(function(x) ifelse(is.logical(x), tolower(as.character(x)), x))
+    purrr::compact() %>%
+    purrr::map(function(x) ifelse(is.logical(x), tolower(as.character(x)), x))
 }
 
 
 #' Builds URL for a monarch GET request.
 #'
-#' @param path A path to the monarch resource to use.
+#' @param path A path as a list to the monarch resource to use.
 #' @param query A list of url parameter settings. TRUE FALSE set to
 #' "true" "false".
 #'
-#' @return URL as a string.
+#' The path needs to be safely encoded.
+#' @seealso \link[utils]{URLencode}
+#' @return URL as a safely encoded string.
 #' @export
 #'
 #' @examples
-#' url <- build_monarch_url(path = list("/api/bioentity/gene", "NCBIGene%3A8314"),
-#'                          query = list(rows = 100, fetch_objects = "true",
-#'                           format = "json"))
-#' url <- build_monarch_url(path = list("/api/bioentity/gene", "NCBIGene%3A8314"),
-#'                          query = list(rows = 100, fetch_objects = TRUE,
-#'                          unselect_evidence=FALSE, format = "json"))
-#' url <- build_monarch_url(path = list("/api/bioentity/gene", "NCBIGene%3A8314"),
-#'                          query = list(rows = 100, fetch_objects = TRUE,
-#'                          unselect_evidence=NULL, format = "json"))
+#' m_path <- "/api/bioentity/gene"
+#' gene <- "NCBIGene%3A8314"
+#' url <- build_monarch_url(path = list(m_path, gene),
+#'                          query = list(rows = 100,
+#'                          fetch_objects = "true",
+#'                          format = "json"))
+#' url <- build_monarch_url(path = list(m_path, gene),
+#'                          query = list(rows = 100,
+#'                          fetch_objects = TRUE,
+#'                          unselect_evidence=FALSE,
+#'                          format = "json"))
+#' url <- build_monarch_url(path = list(m_path, gene),
+#'                          query = list(rows = 100,
+#'                          fetch_objects = TRUE,
+#'                          unselect_evidence=NULL,
+#'                          format = "json"))
 build_monarch_url <- function(path, query=NULL) {
   q <- clean_query(query)
   url <- httr::modify_url("https://api.monarchinitiative.org", path = path, query = q)
@@ -164,7 +174,8 @@ list_of_paths_to_basenames <- function(paths) {
 #' @export
 #'
 #' @examples
-#'
+#' gene <-"NCBIGene:8314"
+#' homs <- bioentity_homologs(gene)$homologs
 #' evidence <- extract_matching_phrases_from_lists(homs$evidence_graph.nodes, 'evidence')
 extract_matching_phrases_from_lists <- function(things, phrase) {
   # Note: This is a hack so we can ignore the actual structures, which might
