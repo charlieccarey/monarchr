@@ -10,7 +10,9 @@
 #     gene <- bioentity_homologs("NCBIGene:8314")
 #     homologs <- bioentity_homologs(gene)
 
-
+EVID_TAGS = c("evidence")
+DISEASE_TAGS = c("MONDO:")
+PUBS_TAGS = c("PMID:")
 
 # -----------------------------------------------------------------------------
 #
@@ -69,6 +71,7 @@ monarch_api <- function(url) {
 #
 # -----------------------------------------------------------------------------
 
+
 #' Gets homolog associations for a gene.
 #'
 #' e.g. Given a gene ID, finds homologs for that gene and lists their associations
@@ -102,7 +105,7 @@ bioentity_gene_homology_associations <- function(gene) { # TODO: definitely want
   # dataframes embedded in lists are most problematic as they aren't flattened.
 
   evids <- extract_matching_phrases_from_lists(homs$evidence_graph.nodes, 'evidence')
-  pubs <- extract_matching_phrases_from_lists(homs$publications, 'PMID')
+  pubs <- extract_matching_phrases_from_lists(homs$publications, PUBS_TAGS)
   sources <- list_of_paths_to_basenames(homs$provided_by)
   homs <- homs[!names(homs) %in% c("publications", "provided_by")]
   homs <- homs[c("subject.taxon.label", "subject.id", "subject.label", "relation.label",  "object.label", "object.id", "object.taxon.label")]
@@ -114,6 +117,7 @@ bioentity_gene_homology_associations <- function(gene) { # TODO: definitely want
   return(list(homologs = homs,
               response = resp))
 }
+
 
 #' Get homologs for a gene.
 #'
@@ -134,14 +138,16 @@ bioentity_gene_homology_associations <- function(gene) { # TODO: definitely want
 #' bioentity_homologs(gene)
 bioentity_homologs <- function(gene) { # TODO: definitely want to add response taxons.
   # TODO: Needs extensive testing with various NCBIGene and other IDs.
-  gene <- utils::URLencode(gene, reserved = TRUE)
+  gene <- utils::URLencode(gene,
+                           reserved = TRUE)
 
   query <- list(rows=100, fetch_objects="true")
   url <- build_monarch_url(path = list("/api/bioentity/gene",
                                        gene, "homologs/"),
                            query = query)
   resp <- monarch_api(url)
-  homs <- jsonlite::flatten(resp$content$associations, recursive=TRUE)
+  homs <- jsonlite::flatten(resp$content$associations,
+                            recursive=TRUE)
 
   #   debugging:
   #     homs <- as_tibble(homs[, !apply(is.na(homs), 2, all)]) # deselect columns w/ no info
@@ -151,7 +157,7 @@ bioentity_homologs <- function(gene) { # TODO: definitely want to add response t
   evids <- extract_matching_phrases_from_lists(homs$evidence_graph.nodes, 'evidence')
   # TODO: We need to know all publications types so we don't miss any. e.g. for NCBIGene:8314, we miss the only publications "ZFIN:ZDB-PUB-030905-1"
   # TODO: OR this is a case where we really do want to drill into data.frames within the lists?
-  pubs <- extract_matching_phrases_from_lists(homs$publications, 'PMID')
+  pubs <- extract_matching_phrases_from_lists(homs$publications, PUBS_TAGS)
   sources <- list_of_paths_to_basenames(homs$provided_by)
   homs <- homs[!names(homs) %in% c("publications", "provided_by")]
   homs <- homs[c("subject.taxon.label",
@@ -172,6 +178,52 @@ bioentity_homologs <- function(gene) { # TODO: definitely want to add response t
                response = resp) )
 }
 
+
+#' Diseases associated with a gene.
+#'
+#' Given a gene, what diseases are associated with it.
+#'
+#' https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/diseases/?rows=100&fetch_objects=true&format=json
+#'
+#' @param gene A valid monarch initiative gene id.
+#'
+#' @return A list of (tibble of homolog information, monarch_api S3 class).
+#' @export
+#'
+#' @examples
+#' gene <- "NCBIGene:8314"
+#' bioentity_disease_assoc_w_gene(gene)
+bioentity_disease_assoc_w_gene <- function(gene) { # TODO: definitely want to add response taxons.
+  gene <- utils::URLencode(gene, reserved = TRUE)
+  query <- list(rows=100, fetch_objects="true")
+  url <- build_monarch_url(path = list("/api/bioentity/gene",
+                                       gene, "diseases/"),
+                           query = query)
+  resp <- monarch_api(url)
+
+  dis <- jsonlite::flatten(resp$content$associations,
+                           recursive=TRUE)
+
+  pubs <- extract_matching_phrases_from_lists(dis$publications, PUBS_TAGS)
+  sources <- list_of_paths_to_basenames(dis$provided_by)
+  dis <- dis[!names(dis) %in% c("publications", "provided_by")]
+  dis <- dis[c("subject.taxon.label",
+                 "subject.id",
+                 "subject.label",
+                 "relation.label",
+                 "object.label",
+                 "object.id")]
+  dis <- do.call('cbind.data.frame',
+                  list(dis,
+                       publications = pubs,
+                       provided_by = sources))
+  names(dis) <- sub('.label', '', names(dis))
+  dis <- tibble::as_tibble(dis)
+  return( list(diseases = dis,
+               response = resp) )
+}
+
+
 # -----------------------------------------------------------------------------
 #
 #
@@ -181,3 +233,10 @@ bioentity_homologs <- function(gene) { # TODO: definitely want to add response t
 #
 # -----------------------------------------------------------------------------
 
+
+# Accessing in a legit manner via the evidence_graph.nodes, ex. with disease assoc w a gene.
+# (As opposed to extract_matching_phrases_from_lists())
+# d_terms <- lapply(dis$evidence_graph.nodes, function(x) { # each data.frame 'id', 'lbl'
+#   x[which(grepl(paste(DISEASE_TAGS, collapse = "|"), x$id)),]
+# })
+#'d_terms <- dplyr::bind_rows(d_terms)

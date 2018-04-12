@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Finds phrases from list of things, like a list of dataframes. — extract_matching_phrases_from_lists • monarchr</title>
+<title>Diseases associated with a gene. — bioentity_disease_assoc_w_gene • monarchr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,11 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Finds phrases from list of things, like a list of dataframes. — extract_matching_phrases_from_lists" />
+<meta property="og:title" content="Diseases associated with a gene. — bioentity_disease_assoc_w_gene" />
 
-<meta property="og:description" content="Wherever the phrase exists, it is extracted. Convenient for list of
-dataframes in which we know the phrase occurs somewhere but we don't
-no the column, or don't care about preserving the source column name." />
+<meta property="og:description" content="Given a gene, what diseases are associated with it." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -107,41 +105,81 @@ no the column, or don't care about preserving the source column name." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Finds phrases from list of things, like a list of dataframes.</h1>
-    <small>Source: <a href='https://github.com/charlieccarey/monarchr/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
-    <p class="hidden name"><code>extract_matching_phrases_from_lists.Rd</code></p>
+    <h1>Diseases associated with a gene.</h1>
+    <small>Source: <a href='https://github.com/charlieccarey/monarchr/blob/master/R/monarchr.R'><code>R/monarchr.R</code></a></small>
+    <p class="hidden name"><code>bioentity_disease_assoc_w_gene.Rd</code></p>
     </div>
 
     
-    <p>Wherever the phrase exists, it is extracted. Convenient for list of
-dataframes in which we know the phrase occurs somewhere but we don't
-no the column, or don't care about preserving the source column name.</p>
+    <p>Given a gene, what diseases are associated with it.</p>
     
 
-    <pre class="usage"><span class='fu'>extract_matching_phrases_from_lists</span>(<span class='no'>things</span>, <span class='no'>phrase</span>)</pre>
+    <pre class="usage"><span class='fu'>bioentity_disease_assoc_w_gene</span>(<span class='no'>gene</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>things</th>
-      <td><p>Lists. Maybe lists of dataframes.</p></td>
-    </tr>
-    <tr>
-      <th>phrase</th>
-      <td><p>An anchor phrase. (maybe to fetch cell matching that from df). Can be character vector (multiple phrases).</p></td>
+      <th>gene</th>
+      <td><p>A valid monarch initiative gene id.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>List matching the phrase</p>
+    <p>A list of (tibble of homolog information, monarch_api S3 class).</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene<!-- %3A8314/diseases/?rows=100&amp;fetch_objects=true&amp;format=json --></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>gene</span> <span class='kw'>&lt;-</span><span class='st'>"NCBIGene:8314"</span>
-<span class='no'>homs</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bioentity_homologs.html'>bioentity_homologs</a></span>(<span class='no'>gene</span>)$<span class='no'>homologs</span>
-<span class='no'>evidence</span> <span class='kw'>&lt;-</span> <span class='fu'>extract_matching_phrases_from_lists</span>(<span class='no'>homs</span>$<span class='no'>evidence_graph.nodes</span>, <span class='st'>'evidence'</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Unknown or uninitialised column: 'evidence_graph.nodes'.</span></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>gene</span> <span class='kw'>&lt;-</span> <span class='st'>"NCBIGene:8314"</span>
+<span class='fu'>bioentity_disease_assoc_w_gene</span>(<span class='no'>gene</span>)</div><div class='output co'>#&gt; $diseases
+#&gt; # A tibble: 25 x 8
+#&gt;    subject.taxon subject.id subject relation  object  object.id publications   
+#&gt;  * &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;     &lt;fct&gt;          
+#&gt;  1 Homo sapiens  HGNC:950   BAP1    is marke… lipoma  MONDO:00… PMID:25231345  
+#&gt;  2 Homo sapiens  HGNC:950   BAP1    is marke… leukem… MONDO:00… PMID:25231345  
+#&gt;  3 Homo sapiens  HGNC:950   BAP1    is marke… bone c… MONDO:00… PMID:25231345  
+#&gt;  4 Homo sapiens  HGNC:950   BAP1    is marke… epithe… MONDO:00… PMID:25231345  
+#&gt;  5 Homo sapiens  HGNC:950   BAP1    is marke… testic… MONDO:00… PMID:25231345  
+#&gt;  6 Homo sapiens  HGNC:950   BAP1    is marke… mening… MONDO:00… PMID:25231345  
+#&gt;  7 Homo sapiens  HGNC:950   BAP1    has phen… uveal … MONDO:00… PMID:25231345,…
+#&gt;  8 Homo sapiens  HGNC:950   BAP1    is marke… malign… MONDO:00… PMID:25231345,…
+#&gt;  9 Homo sapiens  HGNC:950   BAP1    is marke… neuroe… MONDO:00… PMID:25231345  
+#&gt; 10 Homo sapiens  HGNC:950   BAP1    is marke… lung a… MONDO:00… PMID:25231345  
+#&gt; # ... with 15 more rows, and 1 more variable: provided_by &lt;fct&gt;
+#&gt; 
+#&gt; $response
+#&gt; &lt;monarch https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/diseases/?rows=100&amp;fetch_objects=true&amp;format=json&gt;
+#&gt; &lt;Showing parsed R objects from json response. 2 level(s) deep&gt;
+#&gt; List of 7
+#&gt;  $ compact_associations: NULL
+#&gt;  $ objects             : chr [1:25] "MONDO:0000448" "MONDO:0002120" "MONDO:0002129" "MONDO:0002367" ...
+#&gt;  $ associations        :'data.frame':	25 obs. of  14 variables:
+#&gt;   ..$ type              : logi [1:25] NA NA NA NA NA NA ...
+#&gt;   ..$ qualifiers        : logi [1:25] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_graph    :'data.frame':	25 obs. of  2 variables:
+#&gt;   ..$ evidence_types    : logi [1:25] NA NA NA NA NA NA ...
+#&gt;   ..$ publications      :List of 25
+#&gt;   ..$ relation          :'data.frame':	25 obs. of  2 variables:
+#&gt;   ..$ id                : chr [1:25] "fe8e4862-c2ee-4268-aacc-5c1b3fdc7f87" "b86a9452-7dd4-4bbc-903e-58deb5342121" "83831e6d-e228-45f9-bf9b-048eb8be4e9d" "b8162a96-b43d-44fe-b8d8-d213cf2d9b9b" ...
+#&gt;   ..$ subject_extensions: logi [1:25] NA NA NA NA NA NA ...
+#&gt;   ..$ negated           : logi [1:25] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#&gt;   ..$ slim              : logi [1:25] NA NA NA NA NA NA ...
+#&gt;   ..$ subject           :'data.frame':	25 obs. of  3 variables:
+#&gt;   ..$ object_extensions : logi [1:25] NA NA NA NA NA NA ...
+#&gt;   ..$ provided_by       :List of 25
+#&gt;   ..$ object            :'data.frame':	25 obs. of  3 variables:
+#&gt;  $ start               : NULL
+#&gt;  $ numFound            : NULL
+#&gt;  $ facet_pivot         : NULL
+#&gt;  $ facet_counts        :List of 2
+#&gt;   ..$ subject_taxon_label:List of 1
+#&gt;   ..$ object_closure     :List of 25
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -149,6 +187,8 @@ no the column, or don't care about preserving the source column name.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

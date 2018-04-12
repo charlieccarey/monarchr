@@ -16,7 +16,32 @@ knitr::opts_chunk$set(
 )
 ```
 
-TODO: simple vignette, more than the readme.
+Replicate the 11 tabs from Monarch Initiative that result from a search on a human gene.
+
+Here are a couple of them for now.
+
+We load the monarchr client and the DT libraries. 
+
+(DT is the datatables package which we use to display the results.)
+
+```{r} 
+library(monarchr)
+library(DT)
+gene <- "NCBIGene:8314"
+```
+
+```{r}
+homs <- bioentity_homologs(gene)
+dis <- bioentity_disease_assoc_w_gene(gene)
+```
+
+```{r homologs}
+datatable(homs$homologs)
+```
+
+```{r diseases}
+datatable(dis$diseases)
+```
 
 <!-- Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format: -->
 

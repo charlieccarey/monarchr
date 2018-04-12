@@ -9,7 +9,7 @@ extract_matching_phrases_from_lists(things, phrase)
 \arguments{
 \item{things}{Lists. Maybe lists of dataframes.}
 
-\item{phrase}{An anchor phrase. (maybe to fetch cell matching that from df).}
+\item{phrase}{An anchor phrase. (maybe to fetch cell matching that from df). Can be character vector (multiple phrases).}
 }
 \value{
 List matching the phrase

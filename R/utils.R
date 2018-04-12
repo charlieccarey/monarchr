@@ -168,7 +168,7 @@ list_of_paths_to_basenames <- function(paths) {
 #' no the column, or don't care about preserving the source column name.
 #'
 #' @param things Lists. Maybe lists of dataframes.
-#' @param phrase An anchor phrase. (maybe to fetch cell matching that from df).
+#' @param phrase An anchor phrase. (maybe to fetch cell matching that from df). Can be character vector (multiple phrases).
 #'
 #' @return List matching the phrase
 #' @export
@@ -184,7 +184,7 @@ extract_matching_phrases_from_lists <- function(things, phrase) {
   matches <- lapply(things,
                     function(x) {
                       y <- unlist(x)
-                      y[grepl(phrase, y)]
+                      y[grepl(paste(phrase, collapse = "|"), y)] # there might be more than one phrase to match.
                     })
   matches <- flatten_list_of_strings(matches)
   #matches <- lapply(matches,

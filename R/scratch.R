@@ -13,6 +13,14 @@
 #' resp <- monarch_api(url)
 #' homs <- jsonlite::flatten(resp$content$homology_associations, recursive=TRUE)
 #'
+#' # approach variants like this?
+#' # No, need different starting place than disease sum(unlist(lapply(dis$evidence_graph.nodes, nrow))) == 245 (and some of these are disease terms) whereas website shows 308
+#'  clin_var <- lapply(dis$evidence_graph.nodes, function(x) { # each data.frame 'id', 'lbl'
+#' # Think we previously determined they were in phenotypes.
+#' x[which(grepl(paste(CLINVAR_TAGS, collapse = "|"), x$id)),]
+#' })
+#' d_terms <- dplyr::bind_rows(d_terms)
+#'
 #' # We think following methods at least are available so start there.
 #' # These all return results with human BAP1 at least.
 #' #

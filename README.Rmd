@@ -56,7 +56,7 @@ When we ran this query, we retrieved ```r nrow(results$homologs)``` homologs.
 
 ```{r ex_homologs_resu, echo = TRUE}
 library(DT)
-DT::datatable(results$homologs)
+datatable(results$homologs)
 ```
 
 ## Troubleshooting.

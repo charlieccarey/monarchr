@@ -73,13 +73,17 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
+      </header><script src="monarchr-simple-ex_files/htmlwidgets-1.0/htmlwidgets.js"></script><script src="monarchr-simple-ex_files/jquery-1.12.4/jquery.min.js"></script><link href="monarchr-simple-ex_files/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="monarchr-simple-ex_files/datatables-binding-0.4/datatables.js"></script><link href="monarchr-simple-ex_files/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="monarchr-simple-ex_files/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="monarchr-simple-ex_files/dt-core-1.10.16/js/jquery.dataTables.min.js"></script><link href="monarchr-simple-ex_files/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet">
+<script src="monarchr-simple-ex_files/crosstalk-1.0.0/js/crosstalk.min.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Simple Example</h1>
                         <h4 class="author">Charles Champney Carey</h4>
             
-            <h4 class="date">2018-04-10</h4>
+            <h4 class="date">2018-04-12</h4>
       
       <small>Source: <a href="https://github.com/charlieccarey/monarchr/blob/master/vignettes/monarchr-simple-ex.Rmd"><code>vignettes/monarchr-simple-ex.Rmd</code></a></small>
       <p class="hidden name"><code>monarchr-simple-ex.Rmd</code></p>
@@ -88,38 +92,21 @@
 
     
     
-<p>TODO: simple vignette, more than the readme.</p>
-<!-- Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format: -->
-<!-- - Never uses retina figures -->
-<!-- - Has a smaller default figure size -->
-<!-- - Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style -->
-<!-- ## Vignette Info -->
-<!-- Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette. -->
-<!-- ## Styles -->
-<!-- The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows: -->
-<!--     output:  -->
-<!--       rmarkdown::html_vignette: -->
-<!--         css: mystyles.css -->
-<!-- ## Figures -->
-<!-- The figure sizes have been customised so that you can easily put two images side-by-side.  -->
-<!-- ```{r, fig.show='hold'} -->
-<!-- plot(1:10) -->
-<!-- plot(10:1) -->
-<!-- ``` -->
-<!-- You can enable figure captions by `fig_caption: yes` in YAML: -->
-<!--     output: -->
-<!--       rmarkdown::html_vignette: -->
-<!--         fig_caption: yes -->
-<!-- Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**. -->
-<!-- ## More Examples -->
-<!-- You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`. -->
-<!-- ```{r, echo=FALSE, results='asis'} -->
-<!-- knitr::kable(head(mtcars, 10)) -->
-<!-- ``` -->
-<!-- Also a quote using `>`: -->
-<!-- > "He who gives up [code] safety for [code] speed deserves neither." -->
-<!-- ([via](https://twitter.com/hadleywickham/status/504368538874703872)) -->
-  </div>
+<p>Replicate the 11 tabs from Monarch Initiative that result from a search on a human gene.</p>
+<p>Here are a couple of them for now.</p>
+<p>We load the monarchr client and the DT libraries.</p>
+<p>(DT is the datatables package which we use to display the results.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(monarchr)
+<span class="kw">library</span>(DT)
+gene &lt;-<span class="st"> "NCBIGene:8314"</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">homs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bioentity_homologs.html">bioentity_homologs</a></span>(gene)
+dis &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bioentity_disease_assoc_w_gene.html">bioentity_disease_assoc_w_gene</a></span>(gene)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/DT/topics/datatable">datatable</a></span>(homs<span class="op">$</span>homologs)</code></pre></div>
+<div id="htmlwidget-775245e4a90c97592695" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-775245e4a90c97592695">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"],["Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens"],["HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950"],["BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1"],["in paralogy relationship with","in paralogy relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in paralogy relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in orthology relationship with","in 1 to 1 orthology relationship with","in orthology relationship with","in 1 to 1 orthology relationship with"],["UCHL5","UCHL3","BAP1","Bap1","UCH2","Bap1","BAP1","UCHL1","bap1","BAP1","BAP1","BAP1","BAP1","UCH1","bap1","bap1","calypso"],["HGNC:19678","HGNC:12515","NCBIGene:100051934","RGD:1311938","NCBIGene:842876","MGI:1206586","NCBIGene:100124510","HGNC:12513","Xenbase:XB-GENE-494978","NCBIGene:460426","NCBIGene:100030960","NCBIGene:100154798","NCBIGene:697221","NCBIGene:831492","NCBIGene:100557123","ZFIN:ZDB-GENE-050208-492","FlyBase:FBgn0262166"],["Homo sapiens","Homo sapiens","Equus caballus","Rattus norvegicus","Arabidopsis thaliana","Mus musculus","Bos taurus","Homo sapiens","Xenopus (Silurana) tropicalis","Pan troglodytes","Monodelphis domestica","Sus scrofa","Macaca mulatta","Arabidopsis thaliana","Anolis carolinensis","Danio rerio","Drosophila melanogaster"],["phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","sequence similarity evidence, phylogenetic evidence, protein BLAST evidence used in manual assertion","phylogenetic evidence"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],["panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther, zfin","panther"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>subject.taxon<\/th>\n      <th>subject.id<\/th>\n      <th>subject<\/th>\n      <th>relation<\/th>\n      <th>object<\/th>\n      <th>object.id<\/th>\n      <th>object.taxon<\/th>\n      <th>evidence<\/th>\n      <th>publications<\/th>\n      <th>provided_by<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script><div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="http://www.rdocumentation.org/packages/DT/topics/datatable">datatable</a></span>(dis<span class="op">$</span>diseases)</code></pre></div>
+<div id="htmlwidget-697aaf3770f6ebb28f91" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-697aaf3770f6ebb28f91">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25"],["Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens"],["HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950"],["BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1"],["is marker for","is marker for","is marker for","is marker for","is marker for","is marker for","has phenotype","is marker for","is marker for","is marker for","is marker for","is marker for","is marker for","is marker for","is marker for","is marker for","is marker for","is marker for","likely_pathogenic_for_condition","is marker for","contributes to","is marker for","is marker for","is marker for","is marker for"],["lipoma","leukemia (disease)","bone cancer","epithelioid and spindle cell nevus","testicular cancer","meningioma (disease)","uveal melanoma","malignant mesothelioma (disease)","neuroendocrine carcinoma","lung adenocarcinoma","mesothelioma","mucoepidermoid carcinoma","central nervous system cancer","kidney cancer","colonic neoplasm","paraganglioma","renal cell carcinoma (disease)","pancreatic neoplasm","BAP1-related tumor predisposition syndrome","gastric neoplasm","familial melanoma","cholangiocarcinoma","ovarian cancer","nasopharyngeal carcinoma","uterine cancer"],["MONDO:0005106","MONDO:0005059","MONDO:0002129","MONDO:0006749","MONDO:0005447","MONDO:0016642","MONDO:0006486","MONDO:0006292","MONDO:0002120","MONDO:0005061","MONDO:0005065","MONDO:0003036","MONDO:0002714","MONDO:0002367","MONDO:0005401","MONDO:0000448","MONDO:0005086","MONDO:0021040","MONDO:0013692","MONDO:0021085","MONDO:0018961","MONDO:0019087","MONDO:0008170","MONDO:0015459","MONDO:0002715"],["PMID:25231345","PMID:25231345","PMID:25231345","PMID:25231345","PMID:25231345","PMID:25231345","PMID:25231345, PMID:26719535, PMID:21874000","PMID:25231345, PMID:26463840, PMID:29112861, PMID:26928227, PMID:24928783","PMID:25231345","PMID:25231345","PMID:26119930, PMID:26719535, PMID:21874000, PMID:21642991","PMID:25231345","PMID:25231345","PMID:26719535","PMID:25231345","PMID:25231345","PMID:25231345, PMID:23797736, PMID:22683710, PMID:22138691","PMID:25231345","PMID:21941004, PMID:23684012, PMID:21874000, PMID:21874003","PMID:25231345, PMID:26719535",null,"PMID:25231345, PMID:24185509","PMID:25231345","PMID:24952746","PMID:25231345"],["ctd","ctd","ctd","ctd","ctd","ctd","ctd, orphanet","ctd","ctd","ctd","ctd","ctd","ctd","ctd","ctd","ctd","ctd","ctd","omim, ctd, orphanet, clinvar","ctd","orphanet","ctd","ctd","ctd","ctd"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>subject.taxon<\/th>\n      <th>subject.id<\/th>\n      <th>subject<\/th>\n      <th>relation<\/th>\n      <th>object<\/th>\n      <th>object.id<\/th>\n      <th>publications<\/th>\n      <th>provided_by<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script><!-- Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format: --><!-- - Never uses retina figures --><!-- - Has a smaller default figure size --><!-- - Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style --><!-- ## Vignette Info --><!-- Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette. --><!-- ## Styles --><!-- The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows: --><!--     output:  --><!--       rmarkdown::html_vignette: --><!--         css: mystyles.css --><!-- ## Figures --><!-- The figure sizes have been customised so that you can easily put two images side-by-side.  --><!-- ```{r, fig.show='hold'} --><!-- plot(1:10) --><!-- plot(10:1) --><!-- ``` --><!-- You can enable figure captions by `fig_caption: yes` in YAML: --><!--     output: --><!--       rmarkdown::html_vignette: --><!--         fig_caption: yes --><!-- Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**. --><!-- ## More Examples --><!-- You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`. --><!-- ```{r, echo=FALSE, results='asis'} --><!-- knitr::kable(head(mtcars, 10)) --><!-- ``` --><!-- Also a quote using `>`: --><!-- > "He who gives up [code] safety for [code] speed deserves neither." --><!-- ([via](https://twitter.com/hadleywickham/status/504368538874703872)) -->
+</div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
       </div>
