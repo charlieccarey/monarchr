@@ -1,8 +1,10 @@
 ---
-title: "`monarchr` - An R package for Monarch"
-author: "Ted Laderas and Charlie Carey"
+title: '`monarchr` - An R package for Monarch'
+author: "Charlie Carey and Ted Laderas"
 date: "4/13/2018"
-output: html_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -17,20 +19,20 @@ We are suggesting to develop the `monarchr` based on the [Bioconductor annotatio
 
 [Swagger Codegen](https://swagger.io/swagger-codegen/) is a code generation framework that is helpful in developing API clients for any API that fits the OpenAPI specification. API clients can be developed, tested and deployed in an automated fashion for a number of languages (including R, Python and Rust). 
 
-Using Swagger Codegen will be the starting point for the `monarchr` package, as it generates stubs and auto-documentation in the R Package format. However, putting together the 
+Using Swagger Codegen on the Biolink API will be the starting point for the `monarchr` package, as it generates stubs and auto-documentation in the R Package format. However, putting together the functions into use cases that are useful 
 
 ## Development of Monarch Use Cases
 
-Swagger is just the starting point for `monarchr`.  
+Swagger Codegen is just the starting point for `monarchr`. The real meat of development will be directed by use cases to utilize the HPO. This development will be `vignette`/documentation driven, where Monarch developers will describe a use case for `monarchr` (such as mapping disease homologs).
 
 ## Submission of `monarchr` as a Bioconductor annotation package
 
-We are recommending that the package be part of [Bioconductor]() as it has the largest potential audience of users. 
+We are recommending that the package be part of [Bioconductor](https://www.bioconductor.org) as it has the largest potential audience of users who would want to leverage the HPO. Doing this would add needed resource/development time to `monarchr`. 
 
 [Submission Guidelines to Bioconductor](https://www.bioconductor.org/developers/package-guidelines/) are fairly strict. The data structures output should be current Bioconductor objects (such as `ExpressionSet` and `AnnotatedDataFrame`). Bioconductor also has strict instructions on [web query packages](https://bioconductor.org/developers/how-to/web-query/) to ensure that the package continues to work. 
 
-Packages must also pass their build tests
+Packages must also pass their nightly build tests on a number of machines. Using a continuous integration framework such as [Travis CI](https://travis-ci.org/getting_started) will help alleviate this.  
 
+# Future Directions: Python Client 
 
-
-# Python Client 
+Depending on funding, it is possible to use Swagger to generate an API Client for Python as well.
