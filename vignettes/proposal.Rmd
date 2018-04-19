@@ -11,28 +11,39 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-R/[Bioconductor](https://www.bioconductor.org) is highly used in bioinformatics workflows, allowing users to quickly connect identifiers that are technology specific to gene/transcript/protein identifiers. However, mapping disease phenotypes is a relatively underserved area in the Bioconductor Annotation Framework. An R-based interface to the Human Phenotype Ontology (HPO) would not only increase use, but also enable better open science. 
+R/[Bioconductor](https://www.bioconductor.org) -- with approximately 1,500 software, 325 experiment data and 900 annotation packages and 50,000 users -- is highly used in bioinformatics workflows. It is a rich source of both experimental data and annotations.  allowing users to quickly connect identifiers that are technology specific to gene/transcript/protein identifiers. 
 
-We are suggesting to develop the `monarchr` based on the [Bioconductor annotation workflow](https://www.bioconductor.org/help/workflows/annotation-data/).
+While Bioconductor has many packages for annotation, mapping disease descriptions is a relatively underserved area. An R-based interface to the Human Phenotype Ontology (HPO) would not only increase use, but also enable better open science. Further, we anticipate that the variety of ID and annotation types available in a one-stop manner from Monarch Initiative would be valued by the community.
+
+We are suggesting to develop the `monarchr` package based on the [Bioconductor annotation workflow](https://www.bioconductor.org/help/workflows/annotation-data/).
 
 ## Starting Steps: Using Swagger on the Biolink API
 
-[Swagger Codegen](https://swagger.io/swagger-codegen/) is a code generation framework that is helpful in developing API clients for any API that fits the OpenAPI specification. API clients can be developed, tested and deployed in an automated fashion for a number of languages (including R, Python and Rust). 
+[Swagger Codegen](https://swagger.io/swagger-codegen/) is a code generation framework that is helpful in developing API clients for any API that fits the OpenAPI specification. API clients can be developed, tested and deployed in an automated fashion for a number of languages (including R, Python and Rust). In R, we've found a need to further modify the client code. 
 
 Using Swagger Codegen on the Biolink API will be the starting point for the `monarchr` package, as it generates stubs and auto-documentation in the R Package format. However, putting together the functions into use cases that are useful 
 
 ## Development of Monarch Use Cases
 
-Swagger Codegen is just the starting point for `monarchr`. The real meat of development will be directed by use cases to utilize the HPO. This development will be `vignette`/documentation driven, where Monarch developers will describe a use case for `monarchr` (such as mapping disease homologs).
+Swagger Codegen is just the starting point for `monarchr`. The real meat of development will be showcasing uses of monarchr. Especially, but not exclusively, we imagine good use cases exploring phenotype and disease ontologies (esp. HPO). This development will be `vignette`/documentation driven, where Monarch developers and users will describe a use case for `monarchr` (such as mapping disease homologs). We'll show how to accomplish their goals.
 
 ## Submission of `monarchr` as a Bioconductor annotation package
 
 We are recommending that the package be part of [Bioconductor](https://www.bioconductor.org) as it has the largest potential audience of users who would want to leverage the HPO. Doing this would add needed resource/development time to `monarchr`. 
 
-[Submission Guidelines to Bioconductor](https://www.bioconductor.org/developers/package-guidelines/) are fairly strict. The data structures output should be current Bioconductor objects (such as `ExpressionSet` and `AnnotatedDataFrame`). Bioconductor also has strict instructions on [web query packages](https://bioconductor.org/developers/how-to/web-query/) to ensure that the package continues to work. 
+[Submission Guidelines to Bioconductor](https://www.bioconductor.org/developers/package-guidelines/) are fairly strict. The data structures output should be current Bioconductor objects (such as `ExpressionSet` and `AnnotatedDataFrame`). Bioconductor also has strict instructions on [web query packages](https://bioconductor.org/developers/how-to/web-query/) to ensure that the package continues to work or fails gracefully. 
 
 Packages must also pass their nightly build tests on a number of machines. Using a continuous integration framework such as [Travis CI](https://travis-ci.org/getting_started) will help alleviate this.  
 
-# Future Directions: Python Client 
+Bioconductor is released twice a year. We would target the October 2018 release. Interim releases would be made available on github with easy to follow installation instructions.
 
-Depending on funding, it is possible to use Swagger to generate an API Client for Python as well.
+# Future Directions: 
+
+## Python Client 
+
+Depending on funding, it is possible to use Swagger to generate and showcase an API Client for Python as well. The package community for Python in biology is far less organized and centralized than for Bioconductor. A main set of tools is offered by [biopython](http://biopython.org/). We would demonstrate the client in conjunction with many common biopython tasks.
+
+## Outreach
+
+Depending on funding, the July 2018 Bioconductor conference (BioC 2018)[http://bioc2018.bioconductor.org/schedule] might be a useful place to introduce the R community to monarchr. Additionally it would be the best place to seek feedback and further elaborate on vignette goals.
+
