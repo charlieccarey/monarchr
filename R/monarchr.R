@@ -10,7 +10,7 @@
 #     gene <- bioentity_homologs("NCBIGene:8314")
 #     homologs <- bioentity_homologs(gene)
 
-EVID_TAGS = c("evidence")
+EVID_TAGS = c("evidence", "traceable author statement", "asserted information")
 DISEASE_TAGS = c("MONDO:")
 PUBS_TAGS = c("PMID:")
 
@@ -204,6 +204,7 @@ bioentity_disease_assoc_w_gene <- function(gene) { # TODO: definitely want to ad
   dis <- jsonlite::flatten(resp$content$associations,
                            recursive=TRUE)
 
+  evids <- extract_matching_phrases_from_lists(dis$evidence_graph.nodes, EVID_TAGS)
   pubs <- extract_matching_phrases_from_lists(dis$publications, PUBS_TAGS)
   sources <- list_of_paths_to_basenames(dis$provided_by)
   dis <- dis[!names(dis) %in% c("publications", "provided_by")]
@@ -215,6 +216,7 @@ bioentity_disease_assoc_w_gene <- function(gene) { # TODO: definitely want to ad
                  "object.id")]
   dis <- do.call('cbind.data.frame',
                   list(dis,
+                       evidence = evids,
                        publications = pubs,
                        provided_by = sources))
   names(dis) <- sub('.label', '', names(dis))

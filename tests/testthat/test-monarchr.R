@@ -77,3 +77,16 @@ test_that("bioentity_gene_homology_associations returns non-zero length homolog 
 test_that("bioentity_gene_homology_associations returns homolog associations as tibble.", {
   expect_true(is.tibble(resp$homologs))
 })
+
+#        bioentity_diseases_assoc_w_gene
+
+resp <- bioentity_disease_assoc_w_gene(bap1)
+
+test_that("bioentity_diseases_assoc_w_gene returns non-zero length disease associations.", {
+  expect_gt(nrow(resp$disease), 0)
+})
+
+
+test_that("bioentity_diseases_assoc_w_gene returns disease associations as tibble.", {
+  expect_true(is.tibble(resp$homologs))
+})
