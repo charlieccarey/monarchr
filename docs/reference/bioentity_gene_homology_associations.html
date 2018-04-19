@@ -82,6 +82,9 @@
     <li>
       <a href="../articles/monarchr-simple-ex.html">Simple Example</a>
     </li>
+    <li>
+      <a href="../articles/proposal.html">`monarchr` - An R package for Monarch</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -158,88 +161,88 @@
 #&gt; &lt;monarch https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314?rows=100&amp;fetch_objects=true&amp;format=json&gt;
 #&gt; &lt;Showing parsed R objects from json response. 2 level(s) deep&gt;
 #&gt; List of 26
-#&gt;  $ transcripts             : NULL
-#&gt;  $ sequence_features       : NULL
-#&gt;  $ literature_associations : NULL
-#&gt;  $ systematic_name         : NULL
-#&gt;  $ families                : NULL
-#&gt;  $ full_name               : NULL
-#&gt;  $ summaries               : NULL
-#&gt;  $ phenotype_associations  :'data.frame':	10 obs. of  14 variables:
-#&gt;   ..$ type              : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ qualifiers        : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ evidence_graph    :'data.frame':	10 obs. of  2 variables:
-#&gt;   ..$ evidence_types    : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ publications      :List of 10
-#&gt;   ..$ relation          :'data.frame':	10 obs. of  2 variables:
-#&gt;   ..$ id                : chr [1:10] "45389be9-cfc5-4d4a-bb39-b30268ca80aa" "1319a2e1-61c2-4635-bd13-a87573deec4c" "ed49f5c7-5646-4716-a017-5cf826cdf1ca" "46e48687-f429-4da4-8dc9-d07fedd8b249" ...
-#&gt;   ..$ subject_extensions: logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ negated           : logi [1:10] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;   ..$ slim              : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ subject           :'data.frame':	10 obs. of  3 variables:
-#&gt;   ..$ object_extensions : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ provided_by       :List of 10
-#&gt;   ..$ object            :'data.frame':	10 obs. of  3 variables:
-#&gt;  $ disease_associations    :'data.frame':	10 obs. of  14 variables:
-#&gt;   ..$ type              : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ qualifiers        : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ evidence_graph    :'data.frame':	10 obs. of  2 variables:
-#&gt;   ..$ evidence_types    : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ publications      :List of 10
-#&gt;   ..$ relation          :'data.frame':	10 obs. of  2 variables:
-#&gt;   ..$ id                : chr [1:10] "fe8e4862-c2ee-4268-aacc-5c1b3fdc7f87" "b86a9452-7dd4-4bbc-903e-58deb5342121" "83831e6d-e228-45f9-bf9b-048eb8be4e9d" "b8162a96-b43d-44fe-b8d8-d213cf2d9b9b" ...
-#&gt;   ..$ subject_extensions: logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ negated           : logi [1:10] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;   ..$ slim              : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ subject           :'data.frame':	10 obs. of  3 variables:
-#&gt;   ..$ object_extensions : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ provided_by       :List of 10
-#&gt;   ..$ object            :'data.frame':	10 obs. of  3 variables:
-#&gt;  $ pathway_associations    : NULL
-#&gt;  $ description             : NULL
+#&gt;  $ genotype_associations   : list()
 #&gt;  $ chromosome              :List of 11
-#&gt;   ..$ xrefs      : NULL
 #&gt;   ..$ taxon      :List of 2
+#&gt;   ..$ xrefs      : NULL
 #&gt;   ..$ categories : NULL
-#&gt;   ..$ types      : NULL
-#&gt;   ..$ description: NULL
-#&gt;   ..$ replaced_by: NULL
-#&gt;   ..$ consider   : NULL
-#&gt;   ..$ synonyms   : NULL
 #&gt;   ..$ deprecated : NULL
+#&gt;   ..$ replaced_by: NULL
+#&gt;   ..$ description: NULL
+#&gt;   ..$ synonyms   : NULL
+#&gt;   ..$ types      : NULL
+#&gt;   ..$ consider   : NULL
 #&gt;   ..$ id         : NULL
 #&gt;   ..$ label      : NULL
+#&gt;  $ summaries               : NULL
+#&gt;  $ description             : NULL
+#&gt;  $ full_name               : NULL
+#&gt;  $ families                : NULL
 #&gt;  $ interaction_associations: NULL
-#&gt;  $ homology_associations   :'data.frame':	10 obs. of  14 variables:
-#&gt;   ..$ type              : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ qualifiers        : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ evidence_graph    :'data.frame':	10 obs. of  2 variables:
-#&gt;   ..$ evidence_types    : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ publications      :List of 10
-#&gt;   ..$ relation          :'data.frame':	10 obs. of  2 variables:
-#&gt;   ..$ id                : chr [1:10] "275ab5b0-c1e5-4ff5-87f7-874feed8bae8" "beb2860f-b6ab-472e-8c77-eb8ff2a5da99" "47931d07-86d6-40a2-82d8-d7919a0e8ad5" "2e655269-b09d-4c5f-afd3-a6b3e33d1ddd" ...
-#&gt;   ..$ subject_extensions: logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ negated           : logi [1:10] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;   ..$ slim              : logi [1:10] NA NA NA NA NA NA ...
-#&gt;   ..$ subject           :'data.frame':	10 obs. of  3 variables:
+#&gt;  $ phenotype_associations  :'data.frame':	10 obs. of  14 variables:
 #&gt;   ..$ object_extensions : logi [1:10] NA NA NA NA NA NA ...
 #&gt;   ..$ provided_by       :List of 10
+#&gt;   ..$ publications      :List of 10
+#&gt;   ..$ qualifiers        : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_graph    :'data.frame':	10 obs. of  2 variables:
+#&gt;   ..$ id                : chr [1:10] "45389be9-cfc5-4d4a-bb39-b30268ca80aa" "1319a2e1-61c2-4635-bd13-a87573deec4c" "ed49f5c7-5646-4716-a017-5cf826cdf1ca" "46e48687-f429-4da4-8dc9-d07fedd8b249" ...
+#&gt;   ..$ subject_extensions: logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ type              : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_types    : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ slim              : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ subject           :'data.frame':	10 obs. of  3 variables:
+#&gt;   ..$ negated           : logi [1:10] FALSE FALSE FALSE FALSE FALSE FALSE ...
 #&gt;   ..$ object            :'data.frame':	10 obs. of  3 variables:
-#&gt;  $ genotype_associations   : list()
+#&gt;   ..$ relation          :'data.frame':	10 obs. of  2 variables:
+#&gt;  $ sequence_features       : NULL
+#&gt;  $ systematic_name         : NULL
+#&gt;  $ disease_associations    :'data.frame':	10 obs. of  14 variables:
+#&gt;   ..$ object_extensions : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ provided_by       :List of 10
+#&gt;   ..$ publications      :List of 10
+#&gt;   ..$ qualifiers        : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_graph    :'data.frame':	10 obs. of  2 variables:
+#&gt;   ..$ id                : chr [1:10] "fe8e4862-c2ee-4268-aacc-5c1b3fdc7f87" "b86a9452-7dd4-4bbc-903e-58deb5342121" "83831e6d-e228-45f9-bf9b-048eb8be4e9d" "b8162a96-b43d-44fe-b8d8-d213cf2d9b9b" ...
+#&gt;   ..$ subject_extensions: logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ type              : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_types    : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ slim              : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ subject           :'data.frame':	10 obs. of  3 variables:
+#&gt;   ..$ negated           : logi [1:10] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#&gt;   ..$ object            :'data.frame':	10 obs. of  3 variables:
+#&gt;   ..$ relation          :'data.frame':	10 obs. of  2 variables:
+#&gt;  $ pathway_associations    : NULL
+#&gt;  $ transcripts             : NULL
+#&gt;  $ literature_associations : NULL
 #&gt;  $ function_associations   : NULL
-#&gt;  $ xrefs                   : NULL
+#&gt;  $ homology_associations   :'data.frame':	10 obs. of  14 variables:
+#&gt;   ..$ object_extensions : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ provided_by       :List of 10
+#&gt;   ..$ publications      :List of 10
+#&gt;   ..$ qualifiers        : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_graph    :'data.frame':	10 obs. of  2 variables:
+#&gt;   ..$ id                : chr [1:10] "275ab5b0-c1e5-4ff5-87f7-874feed8bae8" "beb2860f-b6ab-472e-8c77-eb8ff2a5da99" "47931d07-86d6-40a2-82d8-d7919a0e8ad5" "2e655269-b09d-4c5f-afd3-a6b3e33d1ddd" ...
+#&gt;   ..$ subject_extensions: logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ type              : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_types    : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ slim              : logi [1:10] NA NA NA NA NA NA ...
+#&gt;   ..$ subject           :'data.frame':	10 obs. of  3 variables:
+#&gt;   ..$ negated           : logi [1:10] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#&gt;   ..$ object            :'data.frame':	10 obs. of  3 variables:
+#&gt;   ..$ relation          :'data.frame':	10 obs. of  2 variables:
 #&gt;  $ taxon                   :List of 2
 #&gt;   ..$ id   : NULL
 #&gt;   ..$ label: NULL
+#&gt;  $ xrefs                   : NULL
 #&gt;  $ categories              : chr [1:2] "gene" "sequence feature"
-#&gt;  $ types                   : NULL
+#&gt;  $ deprecated              : NULL
 #&gt;  $ replaced_by             : NULL
-#&gt;  $ consider                : NULL
 #&gt;  $ synonyms                :'data.frame':	11 obs. of  3 variables:
 #&gt;   ..$ val  : chr [1:11] "ubiquitin carboxyl-terminal hydrolase BAP1" "HUCEP-13" "cerebral protein 6" "BRCA1 associated protein-1 (ubiquitin carboxy-terminal hydrolase)" ...
 #&gt;   ..$ xrefs: logi [1:11] NA NA NA NA NA NA ...
 #&gt;   ..$ pred : chr [1:11] "synonym" "synonym" "synonym" "synonym" ...
-#&gt;  $ deprecated              : NULL
+#&gt;  $ types                   : NULL
+#&gt;  $ consider                : NULL
 #&gt;  $ id                      : chr "NCBIGene:8314"
 #&gt;  $ label                   : chr "BAP1"
 #&gt; </div></pre>
@@ -261,7 +264,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Charles C Carey.</p>
+  <p>Developed by Charles C Carey, Ted Laderas.</p>
 </div>
 
 <div class="pkgdown">

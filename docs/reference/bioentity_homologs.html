@@ -82,6 +82,9 @@
     <li>
       <a href="../articles/monarchr-simple-ex.html">Simple Example</a>
     </li>
+    <li>
+      <a href="../articles/proposal.html">`monarchr` - An R package for Monarch</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -166,28 +169,28 @@
 #&gt; &lt;Showing parsed R objects from json response. 2 level(s) deep&gt;
 #&gt; List of 7
 #&gt;  $ compact_associations: NULL
-#&gt;  $ objects             : chr [1:17] "FlyBase:FBgn0262166" "HGNC:12513" "HGNC:12515" "HGNC:19678" ...
 #&gt;  $ associations        :'data.frame':	17 obs. of  14 variables:
-#&gt;   ..$ type              : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ qualifiers        : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ evidence_graph    :'data.frame':	17 obs. of  2 variables:
-#&gt;   ..$ evidence_types    : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ publications      :List of 17
-#&gt;   ..$ relation          :'data.frame':	17 obs. of  2 variables:
-#&gt;   ..$ id                : chr [1:17] "beb2860f-b6ab-472e-8c77-eb8ff2a5da99" "47931d07-86d6-40a2-82d8-d7919a0e8ad5" "5eea0259-b923-49f5-a344-86820defa027" "bfe3507a-f8bf-4a7d-949b-ab3e63dd8e95" ...
-#&gt;   ..$ subject_extensions: logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ negated           : logi [1:17] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;   ..$ slim              : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ subject           :'data.frame':	17 obs. of  3 variables:
 #&gt;   ..$ object_extensions : logi [1:17] NA NA NA NA NA NA ...
 #&gt;   ..$ provided_by       :List of 17
+#&gt;   ..$ publications      :List of 17
+#&gt;   ..$ qualifiers        : logi [1:17] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_graph    :'data.frame':	17 obs. of  2 variables:
+#&gt;   ..$ id                : chr [1:17] "beb2860f-b6ab-472e-8c77-eb8ff2a5da99" "47931d07-86d6-40a2-82d8-d7919a0e8ad5" "5eea0259-b923-49f5-a344-86820defa027" "bfe3507a-f8bf-4a7d-949b-ab3e63dd8e95" ...
+#&gt;   ..$ subject_extensions: logi [1:17] NA NA NA NA NA NA ...
+#&gt;   ..$ type              : logi [1:17] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_types    : logi [1:17] NA NA NA NA NA NA ...
+#&gt;   ..$ slim              : logi [1:17] NA NA NA NA NA NA ...
+#&gt;   ..$ subject           :'data.frame':	17 obs. of  3 variables:
+#&gt;   ..$ negated           : logi [1:17] FALSE FALSE FALSE FALSE FALSE FALSE ...
 #&gt;   ..$ object            :'data.frame':	17 obs. of  3 variables:
-#&gt;  $ start               : NULL
-#&gt;  $ numFound            : NULL
+#&gt;   ..$ relation          :'data.frame':	17 obs. of  2 variables:
+#&gt;  $ objects             : chr [1:17] "FlyBase:FBgn0262166" "HGNC:12513" "HGNC:12515" "HGNC:19678" ...
 #&gt;  $ facet_pivot         : NULL
 #&gt;  $ facet_counts        :List of 2
 #&gt;   ..$ subject_taxon_label:List of 1
 #&gt;   ..$ object_closure     :List of 25
+#&gt;  $ numFound            : NULL
+#&gt;  $ start               : NULL
 #&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -207,7 +210,7 @@
 
       <footer>
       <div class="copyright">
-  <p>Developed by Charles C Carey.</p>
+  <p>Developed by Charles C Carey, Ted Laderas.</p>
 </div>
 
 <div class="pkgdown">

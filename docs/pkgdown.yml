@@ -3,4 +3,5 @@ pkgdown: 0.1.0.9000
 pkgdown_sha: cc081c30e20c69ad54a4f9fc9d4d42faba0bf1e5
 articles:
   monarchr-simple-ex: monarchr-simple-ex.html
+  proposal: proposal.html
 

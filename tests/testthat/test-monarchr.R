@@ -88,5 +88,5 @@ test_that("bioentity_diseases_assoc_w_gene returns non-zero length disease assoc
 
 
 test_that("bioentity_diseases_assoc_w_gene returns disease associations as tibble.", {
-  expect_true(is.tibble(resp$homologs))
+  expect_true(is.tibble(resp$disease))
 })
