@@ -142,20 +142,20 @@
     <pre class="examples"><div class='input'><span class='no'>gene</span> <span class='kw'>&lt;-</span><span class='st'>"NCBIGene:8314"</span>
 <span class='fu'>bioentity_gene_homology_associations</span>(<span class='no'>gene</span>)</div><div class='output co'>#&gt; $homologs
 #&gt; # A tibble: 10 x 10
-#&gt;    subject.taxon.la… subject.id subject.label relation.label       object.label
-#&gt;  * &lt;chr&gt;             &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;                &lt;chr&gt;       
-#&gt;  1 Homo sapiens      HGNC:950   BAP1          interacts with       IPO4        
-#&gt;  2 Homo sapiens      HGNC:950   BAP1          in paralogy relatio… UCHL5       
-#&gt;  3 Homo sapiens      HGNC:950   BAP1          in paralogy relatio… UCHL3       
-#&gt;  4 Homo sapiens      HGNC:950   BAP1          interacts with       USP28       
-#&gt;  5 Homo sapiens      HGNC:950   BAP1          interacts with       MAP3K1      
-#&gt;  6 Homo sapiens      HGNC:950   BAP1          interacts with       XRCC3       
-#&gt;  7 Homo sapiens      HGNC:950   BAP1          in 1 to 1 orthology… BAP1        
-#&gt;  8 Homo sapiens      HGNC:950   BAP1          interacts with       PSMB2       
-#&gt;  9 Homo sapiens      HGNC:950   BAP1          interacts with       AHCYL2      
-#&gt; 10 Homo sapiens      HGNC:950   BAP1          colocalizes with     UBE2O       
-#&gt; # ... with 5 more variables: object.id &lt;chr&gt;, object.taxon.label &lt;chr&gt;,
-#&gt; #   evidence &lt;fct&gt;, publications &lt;fct&gt;, provided_by &lt;fct&gt;
+#&gt;    subject.taxon subject.id subject relation     object object.id  object.taxon
+#&gt;  * &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;       
+#&gt;  1 Homo sapiens  HGNC:950   BAP1    interacts w… IPO4   HGNC:19426 Homo sapiens
+#&gt;  2 Homo sapiens  HGNC:950   BAP1    in paralogy… UCHL5  HGNC:19678 Homo sapiens
+#&gt;  3 Homo sapiens  HGNC:950   BAP1    in paralogy… UCHL3  HGNC:12515 Homo sapiens
+#&gt;  4 Homo sapiens  HGNC:950   BAP1    interacts w… USP28  HGNC:12625 Homo sapiens
+#&gt;  5 Homo sapiens  HGNC:950   BAP1    interacts w… MAP3K1 HGNC:6848  Homo sapiens
+#&gt;  6 Homo sapiens  HGNC:950   BAP1    interacts w… XRCC3  HGNC:12830 Homo sapiens
+#&gt;  7 Homo sapiens  HGNC:950   BAP1    in 1 to 1 o… BAP1   NCBIGene:… Equus cabal…
+#&gt;  8 Homo sapiens  HGNC:950   BAP1    interacts w… PSMB2  HGNC:9539  Homo sapiens
+#&gt;  9 Homo sapiens  HGNC:950   BAP1    interacts w… AHCYL2 HGNC:22204 Homo sapiens
+#&gt; 10 Homo sapiens  HGNC:950   BAP1    colocalizes… UBE2O  HGNC:29554 Homo sapiens
+#&gt; # ... with 3 more variables: evidence &lt;fct&gt;, publications &lt;fct&gt;,
+#&gt; #   provided_by &lt;fct&gt;
 #&gt; 
 #&gt; $response
 #&gt; &lt;monarch https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314?rows=100&amp;fetch_objects=true&amp;format=json&gt;

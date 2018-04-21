@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gets homologs for a gene. — bioentity_homologs • monarchr</title>
+<title>Extracts simplified content from response. — extract_be_content • monarchr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Gets homologs for a gene. — bioentity_homologs" />
+<meta property="og:title" content="Extracts simplified content from response. — extract_be_content" />
 
-<meta property="og:description" content="Replicates info in view: https://api.monarchinitiative.org/api/#!/bioentity/get_gene_homologs" />
+<meta property="og:description" content="Extracts simplified content from response." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,90 +108,57 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gets homologs for a gene.</h1>
+    <h1>Extracts simplified content from response.</h1>
     <small>Source: <a href='https://github.com/charlieccarey/monarchr/blob/master/R/monarchr.R'><code>R/monarchr.R</code></a></small>
-    <p class="hidden name"><code>bioentity_homologs.Rd</code></p>
+    <p class="hidden name"><code>extract_be_content.Rd</code></p>
     </div>
 
     
-    <p>Replicates info in view: https://api.monarchinitiative.org/api/#!/bioentity/get_gene_homologs</p>
+    <p>Extracts simplified content from response.</p>
     
 
-    <pre class="usage"><span class='fu'>bioentity_homologs</span>(<span class='no'>gene</span>)</pre>
+    <pre class="usage"><span class='fu'>extract_be_content</span>(<span class='no'>df</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>gene</th>
-      <td><p>A valid monarch initiative gene id.</p></td>
+      <th>df</th>
+      <td><p>a data.frame obtained by flattening the json response's content.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of (tibble of homolog information, monarch_api S3 class).</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>The monarch_api class is included in return mainly for debugging.</p>
-<p>https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene<!-- %3A8314/homologs/?rows=100&amp;fetch_objects=true --></p>
+    <p>a tibble with just the core information of interest.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>gene</span> <span class='kw'>&lt;-</span><span class='st'>"NCBIGene:8314"</span>
-<span class='fu'>bioentity_homologs</span>(<span class='no'>gene</span>)</div><div class='output co'>#&gt; $homologs
-#&gt; # A tibble: 17 x 10
-#&gt;    subject.taxon subject.id subject relation    object object.id  object.taxon 
-#&gt;  * &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;        
-#&gt;  1 Homo sapiens  HGNC:950   BAP1    in paralog… UCHL5  HGNC:19678 Homo sapiens 
-#&gt;  2 Homo sapiens  HGNC:950   BAP1    in paralog… UCHL3  HGNC:12515 Homo sapiens 
-#&gt;  3 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Equus caball…
-#&gt;  4 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … Bap1   RGD:13119… Rattus norve…
-#&gt;  5 Homo sapiens  HGNC:950   BAP1    in ortholo… UCH2   NCBIGene:… Arabidopsis …
-#&gt;  6 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … Bap1   MGI:12065… Mus musculus 
-#&gt;  7 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Bos taurus   
-#&gt;  8 Homo sapiens  HGNC:950   BAP1    in paralog… UCHL1  HGNC:12513 Homo sapiens 
-#&gt;  9 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … bap1   Xenbase:X… Xenopus (Sil…
-#&gt; 10 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Pan troglody…
-#&gt; 11 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Monodelphis …
-#&gt; 12 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Sus scrofa   
-#&gt; 13 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Macaca mulat…
-#&gt; 14 Homo sapiens  HGNC:950   BAP1    in ortholo… UCH1   NCBIGene:… Arabidopsis …
-#&gt; 15 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … bap1   NCBIGene:… Anolis carol…
-#&gt; 16 Homo sapiens  HGNC:950   BAP1    in ortholo… bap1   ZFIN:ZDB-… Danio rerio  
-#&gt; 17 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … calyp… FlyBase:F… Drosophila m…
-#&gt; # ... with 3 more variables: evidence &lt;fct&gt;, publications &lt;fct&gt;,
-#&gt; #   provided_by &lt;fct&gt;
-#&gt; 
-#&gt; $response
-#&gt; &lt;monarch https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/homologs/?rows=100&amp;fetch_objects=true&amp;format=json&gt;
-#&gt; &lt;Showing parsed R objects from json response. 2 level(s) deep&gt;
-#&gt; List of 7
-#&gt;  $ compact_associations: NULL
-#&gt;  $ associations        :'data.frame':	17 obs. of  14 variables:
-#&gt;   ..$ object_extensions : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ provided_by       :List of 17
-#&gt;   ..$ publications      :List of 17
-#&gt;   ..$ qualifiers        : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ evidence_graph    :'data.frame':	17 obs. of  2 variables:
-#&gt;   ..$ id                : chr [1:17] "beb2860f-b6ab-472e-8c77-eb8ff2a5da99" "47931d07-86d6-40a2-82d8-d7919a0e8ad5" "5eea0259-b923-49f5-a344-86820defa027" "bfe3507a-f8bf-4a7d-949b-ab3e63dd8e95" ...
-#&gt;   ..$ subject_extensions: logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ type              : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ evidence_types    : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ slim              : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ subject           :'data.frame':	17 obs. of  3 variables:
-#&gt;   ..$ negated           : logi [1:17] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;   ..$ object            :'data.frame':	17 obs. of  3 variables:
-#&gt;   ..$ relation          :'data.frame':	17 obs. of  2 variables:
-#&gt;  $ objects             : chr [1:17] "FlyBase:FBgn0262166" "HGNC:12513" "HGNC:12515" "HGNC:19678" ...
-#&gt;  $ facet_pivot         : NULL
-#&gt;  $ facet_counts        :List of 2
-#&gt;   ..$ subject_taxon_label:List of 1
-#&gt;   ..$ object_closure     :List of 25
-#&gt;  $ numFound            : NULL
-#&gt;  $ start               : NULL
-#&gt; </div></pre>
+<span class='no'>gene</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>utils</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/utils/topics/URLencode'>URLencode</a></span>(<span class='no'>gene</span>, <span class='kw'>reserved</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>query</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(<span class='kw'>rows</span><span class='kw'>=</span><span class='fl'>100</span>, <span class='kw'>fetch_objects</span><span class='kw'>=</span><span class='st'>"true"</span>)
+<span class='no'>url</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='build_monarch_url.html'>build_monarch_url</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='st'>"/api/bioentity/gene"</span>,
+                                     <span class='no'>gene</span>,
+                                     <span class='st'>"diseases/"</span>),
+                         <span class='kw'>query</span> <span class='kw'>=</span> <span class='no'>query</span>)
+<span class='no'>resp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='monarch_api.html'>monarch_api</a></span>(<span class='no'>url</span>)
+<span class='no'>resp</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>jsonlite</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/jsonlite/topics/flatten'>flatten</a></span>(<span class='no'>resp</span>$<span class='no'>content</span>$<span class='no'>associations</span>,
+                          <span class='kw'>recursive</span><span class='kw'>=</span><span class='fl'>TRUE</span>)
+<span class='fu'>extract_be_content</span>(<span class='no'>resp</span>)</div><div class='output co'>#&gt; # A tibble: 25 x 10
+#&gt;    subject.taxon subject.id subject relation  object     object.id object.taxon
+#&gt;  * &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;lgl&gt;       
+#&gt;  1 Homo sapiens  HGNC:950   BAP1    is marke… lipoma     MONDO:00… NA          
+#&gt;  2 Homo sapiens  HGNC:950   BAP1    is marke… leukemia … MONDO:00… NA          
+#&gt;  3 Homo sapiens  HGNC:950   BAP1    is marke… bone canc… MONDO:00… NA          
+#&gt;  4 Homo sapiens  HGNC:950   BAP1    is marke… epithelio… MONDO:00… NA          
+#&gt;  5 Homo sapiens  HGNC:950   BAP1    is marke… testicula… MONDO:00… NA          
+#&gt;  6 Homo sapiens  HGNC:950   BAP1    is marke… meningiom… MONDO:00… NA          
+#&gt;  7 Homo sapiens  HGNC:950   BAP1    has phen… uveal mel… MONDO:00… NA          
+#&gt;  8 Homo sapiens  HGNC:950   BAP1    is marke… malignant… MONDO:00… NA          
+#&gt;  9 Homo sapiens  HGNC:950   BAP1    is marke… neuroendo… MONDO:00… NA          
+#&gt; 10 Homo sapiens  HGNC:950   BAP1    is marke… lung aden… MONDO:00… NA          
+#&gt; # ... with 15 more rows, and 3 more variables: evidence &lt;fct&gt;,
+#&gt; #   publications &lt;fct&gt;, provided_by &lt;fct&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -199,8 +166,6 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gets homologs for a gene. — bioentity_homologs • monarchr</title>
+<title>Gets pathways associated with a gene. — bioentity_pathways_assoc_w_gene • monarchr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Gets homologs for a gene. — bioentity_homologs" />
+<meta property="og:title" content="Gets pathways associated with a gene. — bioentity_pathways_assoc_w_gene" />
 
-<meta property="og:description" content="Replicates info in view: https://api.monarchinitiative.org/api/#!/bioentity/get_gene_homologs" />
+<meta property="og:description" content="Given a gene, what pathways are associated with it." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,16 +108,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gets homologs for a gene.</h1>
+    <h1>Gets pathways associated with a gene.</h1>
     <small>Source: <a href='https://github.com/charlieccarey/monarchr/blob/master/R/monarchr.R'><code>R/monarchr.R</code></a></small>
-    <p class="hidden name"><code>bioentity_homologs.Rd</code></p>
+    <p class="hidden name"><code>bioentity_pathways_assoc_w_gene.Rd</code></p>
     </div>
 
     
-    <p>Replicates info in view: https://api.monarchinitiative.org/api/#!/bioentity/get_gene_homologs</p>
+    <p>Given a gene, what pathways are associated with it.</p>
     
 
-    <pre class="usage"><span class='fu'>bioentity_homologs</span>(<span class='no'>gene</span>)</pre>
+    <pre class="usage"><span class='fu'>bioentity_pathways_assoc_w_gene</span>(<span class='no'>gene</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -130,65 +130,55 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of (tibble of homolog information, monarch_api S3 class).</p>
+    <p>A list of (tibble of variant information, monarch_api S3 class).</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The monarch_api class is included in return mainly for debugging.</p>
-<p>https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene<!-- %3A8314/homologs/?rows=100&amp;fetch_objects=true --></p>
+    <p>https://api.monarchinitiative.org/api/bioentity/gene/HGNC<!-- %3A950/pathways/?rows=100&amp;fetch_objects=true --></p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>gene</span> <span class='kw'>&lt;-</span><span class='st'>"NCBIGene:8314"</span>
-<span class='fu'>bioentity_homologs</span>(<span class='no'>gene</span>)</div><div class='output co'>#&gt; $homologs
-#&gt; # A tibble: 17 x 10
-#&gt;    subject.taxon subject.id subject relation    object object.id  object.taxon 
-#&gt;  * &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;      &lt;chr&gt;        
-#&gt;  1 Homo sapiens  HGNC:950   BAP1    in paralog… UCHL5  HGNC:19678 Homo sapiens 
-#&gt;  2 Homo sapiens  HGNC:950   BAP1    in paralog… UCHL3  HGNC:12515 Homo sapiens 
-#&gt;  3 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Equus caball…
-#&gt;  4 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … Bap1   RGD:13119… Rattus norve…
-#&gt;  5 Homo sapiens  HGNC:950   BAP1    in ortholo… UCH2   NCBIGene:… Arabidopsis …
-#&gt;  6 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … Bap1   MGI:12065… Mus musculus 
-#&gt;  7 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Bos taurus   
-#&gt;  8 Homo sapiens  HGNC:950   BAP1    in paralog… UCHL1  HGNC:12513 Homo sapiens 
-#&gt;  9 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … bap1   Xenbase:X… Xenopus (Sil…
-#&gt; 10 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Pan troglody…
-#&gt; 11 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Monodelphis …
-#&gt; 12 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Sus scrofa   
-#&gt; 13 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … BAP1   NCBIGene:… Macaca mulat…
-#&gt; 14 Homo sapiens  HGNC:950   BAP1    in ortholo… UCH1   NCBIGene:… Arabidopsis …
-#&gt; 15 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … bap1   NCBIGene:… Anolis carol…
-#&gt; 16 Homo sapiens  HGNC:950   BAP1    in ortholo… bap1   ZFIN:ZDB-… Danio rerio  
-#&gt; 17 Homo sapiens  HGNC:950   BAP1    in 1 to 1 … calyp… FlyBase:F… Drosophila m…
+    <pre class="examples"><div class='input'><span class='no'>gene</span> <span class='kw'>&lt;-</span> <span class='st'>"NCBIGene:8314"</span>
+<span class='fu'>bioentity_pathways_assoc_w_gene</span>(<span class='no'>gene</span>)</div><div class='output co'>#&gt; $pathways
+#&gt; # A tibble: 8 x 10
+#&gt;   subject.taxon subject.id subject relation  object      object.id object.taxon
+#&gt; * &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;     &lt;lgl&gt;       
+#&gt; 1 Homo sapiens  HGNC:950   BAP1    involved… UCH protei… REACT:R-… NA          
+#&gt; 2 Homo sapiens  HGNC:950   BAP1    involved… Post-trans… REACT:R-… NA          
+#&gt; 3 Homo sapiens  HGNC:950   BAP1    involved… Recruitmen… REACT:R-… NA          
+#&gt; 4 Homo sapiens  HGNC:950   BAP1    involved… Deubiquiti… REACT:R-… NA          
+#&gt; 5 Homo sapiens  HGNC:950   BAP1    involved… Metabolism… REACT:R-… NA          
+#&gt; 6 Homo sapiens  HGNC:950   BAP1    involved… DNA Repair  REACT:R-… NA          
+#&gt; 7 Homo sapiens  HGNC:950   BAP1    involved… DNA Double… REACT:R-… NA          
+#&gt; 8 Homo sapiens  HGNC:950   BAP1    involved… DNA Double… REACT:R-… NA          
 #&gt; # ... with 3 more variables: evidence &lt;fct&gt;, publications &lt;fct&gt;,
 #&gt; #   provided_by &lt;fct&gt;
 #&gt; 
 #&gt; $response
-#&gt; &lt;monarch https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/homologs/?rows=100&amp;fetch_objects=true&amp;format=json&gt;
+#&gt; &lt;monarch https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/pathways/?rows=100&amp;fetch_objects=true&amp;format=json&gt;
 #&gt; &lt;Showing parsed R objects from json response. 2 level(s) deep&gt;
 #&gt; List of 7
 #&gt;  $ compact_associations: NULL
-#&gt;  $ associations        :'data.frame':	17 obs. of  14 variables:
-#&gt;   ..$ object_extensions : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ provided_by       :List of 17
-#&gt;   ..$ publications      :List of 17
-#&gt;   ..$ qualifiers        : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ evidence_graph    :'data.frame':	17 obs. of  2 variables:
-#&gt;   ..$ id                : chr [1:17] "beb2860f-b6ab-472e-8c77-eb8ff2a5da99" "47931d07-86d6-40a2-82d8-d7919a0e8ad5" "5eea0259-b923-49f5-a344-86820defa027" "bfe3507a-f8bf-4a7d-949b-ab3e63dd8e95" ...
-#&gt;   ..$ subject_extensions: logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ type              : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ evidence_types    : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ slim              : logi [1:17] NA NA NA NA NA NA ...
-#&gt;   ..$ subject           :'data.frame':	17 obs. of  3 variables:
-#&gt;   ..$ negated           : logi [1:17] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;   ..$ object            :'data.frame':	17 obs. of  3 variables:
-#&gt;   ..$ relation          :'data.frame':	17 obs. of  2 variables:
-#&gt;  $ objects             : chr [1:17] "FlyBase:FBgn0262166" "HGNC:12513" "HGNC:12515" "HGNC:19678" ...
+#&gt;  $ associations        :'data.frame':	8 obs. of  14 variables:
+#&gt;   ..$ object_extensions : logi [1:8] NA NA NA NA NA NA ...
+#&gt;   ..$ provided_by       :List of 8
+#&gt;   ..$ publications      : logi [1:8] NA NA NA NA NA NA ...
+#&gt;   ..$ qualifiers        : logi [1:8] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_graph    :'data.frame':	8 obs. of  2 variables:
+#&gt;   ..$ id                : chr [1:8] "438a3246-26e5-4fc2-9972-faa602ce67c2" "55287580-d39c-4bbe-af41-288d836420a5" "860918db-088d-49b1-9a65-d647e5c9b851" "d8aba127-3175-4f1c-81f1-227753dc7611" ...
+#&gt;   ..$ subject_extensions: logi [1:8] NA NA NA NA NA NA ...
+#&gt;   ..$ type              : logi [1:8] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_types    : logi [1:8] NA NA NA NA NA NA ...
+#&gt;   ..$ slim              : logi [1:8] NA NA NA NA NA NA ...
+#&gt;   ..$ subject           :'data.frame':	8 obs. of  3 variables:
+#&gt;   ..$ negated           : logi [1:8] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#&gt;   ..$ object            :'data.frame':	8 obs. of  3 variables:
+#&gt;   ..$ relation          :'data.frame':	8 obs. of  2 variables:
+#&gt;  $ objects             : chr [1:8] "REACT:R-HSA-392499" "REACT:R-HSA-5688426" "REACT:R-HSA-5689603" "REACT:R-HSA-5693532" ...
 #&gt;  $ facet_pivot         : NULL
 #&gt;  $ facet_counts        :List of 2
 #&gt;   ..$ subject_taxon_label:List of 1
-#&gt;   ..$ object_closure     :List of 25
+#&gt;   ..$ object_closure     :List of 19
 #&gt;  $ numFound            : NULL
 #&gt;  $ start               : NULL
 #&gt; </div></pre>

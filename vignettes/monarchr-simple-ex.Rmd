@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 Replicate the 11 tabs from Monarch Initiative that result from a search on a human gene.
 
-Here are a couple of them for now.
+Here are a some of them for now.
 
 We load the monarchr client and the DT libraries. 
 
@@ -27,20 +27,71 @@ We load the monarchr client and the DT libraries.
 ```{r} 
 library(monarchr)
 library(DT)
+library(knitr)
 gene <- "NCBIGene:8314"
 ```
 
-```{r}
-homs <- bioentity_homologs(gene)
-dis <- bioentity_disease_assoc_w_gene(gene)
-```
+## Get the homologs (paralogs, orthologs and homologs) to a gene.
+
+Homologs of gene, displayed using DataTable.
 
 ```{r homologs}
+homs <- bioentity_homologs(gene)
 datatable(homs$homologs)
 ```
 
+## Get the diseases associated with a gene.
+
+Diseases associated with gene, displayed using kable.
+
+Note, the publications look clickable, but are not. This is a bug in the formatting. They are meant to be raw text.
+
 ```{r diseases}
-datatable(dis$diseases)
+dis <- bioentity_diseases_assoc_w_gene(gene)
+kable(dis$diseases)
+```
+
+## Get the phenotypes associated with a gene.
+
+Phenotypes associated with gene, displayed using kable.
+
+Note, the publications look clickable, but are not. This is a bug in the formatting. They are meant to be raw text.
+
+```{r phenotypes}
+phe <- bioentity_phenotypes_assoc_w_gene(gene)
+kable(head(phe$phenotypes))
+```
+
+
+## Get the anatomy associated with a gene.
+
+Anatomy associated with gene, displayed using kable.
+
+Molecularly defined by expression data?
+
+```{r anatomy}
+anat <- bioentity_exp_anatomy_assoc_w_gene(gene)
+kable(head(anat$anatomy))
+```
+
+## Get the pathways associated with a gene.
+
+Pathways associated with gene, displayed using kable.
+
+```{r pathways}
+pth <- bioentity_pathways_assoc_w_gene(gene)
+kable(pth$pathways)
+```
+
+## Get the interactions associated with a gene.
+
+Interactions associated with gene, displayed using kable.
+
+Note, the publications look clickable, but are not. This is a bug in the formatting. They are meant to be raw text.
+
+```{r interactions}
+intx <- bioentity_interactions_assoc_w_gene(gene)
+kable(head(intx$interactions))
 ```
 
 <!-- Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format: -->

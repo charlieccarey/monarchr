@@ -1,7 +1,6 @@
 ---
 title: "monarchr"
 author: "charlie c carey"
-date: "4/10/2018"
 output: html_document
 ---
 

@@ -50,12 +50,23 @@ test_that("monarch_api returns an S3 class of type 'monarch_api'.", {
 
 bap1 <- "NCBIGene:8314"
 
-
 #        bioentity homologs
 
 resp <- bioentity_homologs(bap1)
 
-test_that("bioentity_homologs returns non-zero length homologs'.", {
+# ----------- Tests helper method common to all (?) bioentity content --------------
+
+test_that("extract_be_content returns content as a non-zero length tibble", {
+  df <- jsonlite::flatten(resp$response$content$associations, recursive=TRUE) # a complex data.frame
+  content <- extract_be_content(df) # a simple tibble
+  expect_gt(nrow(resp$homologs), 0)
+})
+
+# ----------- Test each bioentity method --------------
+
+#             bioentity_homologs
+
+test_that("bioentity_homologs returns non-zero length homologs.", {
   expect_gt(nrow(resp$homologs), 0)
 })
 
@@ -65,7 +76,7 @@ test_that("bioentity_homologs returns homologs as tibble.", {
 })
 
 
-#        bioentity_gene_homolog_associations
+#             bioentity_gene_homolog_associations
 
 resp <- bioentity_gene_homology_associations(bap1)
 
@@ -78,9 +89,9 @@ test_that("bioentity_gene_homology_associations returns homolog associations as 
   expect_true(is.tibble(resp$homologs))
 })
 
-#        bioentity_diseases_assoc_w_gene
+#             bioentity_diseases_assoc_w_gene
 
-resp <- bioentity_disease_assoc_w_gene(bap1)
+resp <- bioentity_diseases_assoc_w_gene(bap1)
 
 test_that("bioentity_diseases_assoc_w_gene returns non-zero length disease associations.", {
   expect_gt(nrow(resp$disease), 0)

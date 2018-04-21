@@ -2,7 +2,7 @@
 % Please edit documentation in R/monarchr.R
 \name{bioentity_homologs}
 \alias{bioentity_homologs}
-\title{Get homologs for a gene.}
+\title{Gets homologs for a gene.}
 \usage{
 bioentity_homologs(gene)
 }
