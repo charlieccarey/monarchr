@@ -16,7 +16,8 @@ EVID_TAGS = c("evidence", "traceable author statement", "asserted information")
 PUBS_TAGS = c("PMID:", "-PUB-") # "ZFIN:ZDB-PUB-030905-1"
 
 
-# TODO(?): handle more than 100 rows of results. We need to know whether the API pages beyond some number of results or size of results.
+# TODO(?): handle more than 100 rows of results.
+#          We need to know whether the API pages beyond some number of results or size of results. maybe by checking count in facet counts.
 # TODO: Add setting query parameter values on each method. for example, 100 row limit is insufficient for interactions.
 # TODO: When object.taxon is empty, remove column.
 # TODO: Remove any empty columns in tibbles.
@@ -408,15 +409,76 @@ bioentity_pathways_assoc_w_gene <- function(gene) {
                response = resp) )
 }
 
+#' Get genes associated with a disease
+#'
+#' mimics https://api.monarchinitiative.org/api/bioentity/disease/MONDO%3A0006486/genes/?fetch_objects=true&rows=100
+#'
+#' @param disease An id for a disease, like a MONDO ID.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' disease <- ""MONDO:0006486" # uveal melanoma
+#' bioentity_genes_assoc_w_disease(disease)
+bioentity_genes_assoc_w_disease <- function(disease) {
+  disease <- utils::URLencode(disease, reserved = TRUE)
+  query <- list(rows=100, fetch_objects="true")
+  url <- build_monarch_url(path = list("/api/bioentity/disease",
+                                       disease, "genes/"),
+                           query = query)
+  resp <- monarch_api(url)
+
+  genes <- jsonlite::flatten(resp$content$associations,
+                             recursive=TRUE)
+
+  tb <- extract_be_content(genes)
+
+  return( list(genes = tb,
+               response = resp) )
+}
 
 # -----------------------------------------------------------------------------
 #
 #
-#                   UNIMPLEMENTED BIOENTITY REQUESTS AND RESULTS
-#                   (not all Bioentity APIs are (fully?) functional)
+#                   BIOLINK REQUESTS
 #
 #
 # -----------------------------------------------------------------------------
 
+#' Get a list of results matching a search term.
+#'
+#' https://api.monarchinitiative.org/api/search/entity/uveal%20melanoma?rows=20&start=1&category=disease
+#'
+#' Note, as opposed to the bioentity_ functions, the biolink_search results are not standardized to a tibble?
+#'
+#'  https://api.monarchinitiative.org/api/search/entity/autocomplete/MELANOMA%2C%20UVEAL?rows=20&start=1&category=disease # finds MONDO:0006486 as 3rd result.
+#' @param phrase_or_id Something for which we are looking for more information, or to find useful entities.
+#'
+#' @return A list of (the search results, and monarch_api S3 class.)
+#' @export
+#'
+#' @examples
+#' term <- "uveal melanoma"
+#' biolink_search(term)
+biolink_search <- function(phrase_or_id) {
+  term <- utils::URLencode(phrase_or_id, reserved = TRUE)
+  query <- list(rows=20)
+  url <- build_monarch_url(path = list("/api/search/entity",
+                                       term),
+                           query = query)
+  resp <- monarch_api(url)
 
-# no skeleton code yet.
+  docs <- jsonlite::flatten(resp$content$docs,
+                            recursive=TRUE)
+
+  # Remove mostly redundant columns and simplify everything to character.
+  # TODO(?): keep non-character lists as non-character?
+
+  docs<- docs[!grepl( '_kw$|_std$|_eng$', names(docs), perl=TRUE)]
+  docs <- lapply(docs, flatten_list_of_strings)
+  docs <- tibble::as_tibble(docs)
+
+  return( list(search_results = docs,
+               response = resp) )
+}

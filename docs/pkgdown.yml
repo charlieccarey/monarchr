@@ -2,6 +2,7 @@ pandoc: 1.19.2.1
 pkgdown: 0.1.0.9000
 pkgdown_sha: cc081c30e20c69ad54a4f9fc9d4d42faba0bf1e5
 articles:
+  ex_human_cancer_to_model_org_gene_networks: ex_human_cancer_to_model_org_gene_networks.html
   monarchr-simple-ex: monarchr-simple-ex.html
   proposal: proposal.html
 

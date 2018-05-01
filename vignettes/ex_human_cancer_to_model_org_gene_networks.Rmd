@@ -1,0 +1,212 @@
+---
+title: "ex_human_cancer_genes_to_model_org"
+author: "charles carey"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Goal: Generate a network diagram view of cancer gene homologs in a model organism.
+
+We'll look for genes in model organisms that might make useful models for a human cancer phenotype.
+We'll display these genes in a graph diagram.
+
+To do this we need to define:
+
+1. A cancer phenotype.
+2. Find genes assoiated with that cancer phenotype.
+    + possibly ID map those genes.
+    + possibly subset those genes by certain attributes.
+3. Find homologs to those genes in other organisms.
+4. Find interactions to those genes in human and in other organisms.
+5. Display the graph of gene interactions in those other organisms.
+6. Elaborate on 5. by looking for coexpression in tissues relevant to this cancer.
+
+We'll try to do these using monarch as follows:
+
+1. We'll attempt to use Monarch to find a list of cancer phenotypes, and select one of these as our goal.
+    + We'll compare that to using NIH's The Cancer Genome Atlas [TCGA](https://cancergenome.nih.gov/).
+2. We'll use Monarch to find what human genes are associated with that cancer phenotype.
+3. We'll use Monarch to find homologs to those genes in other model organisms.
+4. We'll use Monarch to find interactions to those genes in the other model organisms (these will define a core network..
+    + We'll use Monarch to find interactions of these interactors (so that we can have some chance of defining a closed network.
+5. We'll display a view of the networks by organism.
+6. We'll paint or subset the views according to attributes, possibly using monarch.
+
+## Selecting a cancer to work with: Uveal Melanoma
+
+To ensure a richly documented dataset, we have selected a cancer from 
+[selected cancer listings at TCGA](https://cancergenome.nih.gov/cancersselected) 
+for which both sample collection is completed and public data available.
+
+Under 'head and neck' cancer, we found 
+[uveal melanoma](https://cancergenome.nih.gov/cancersselected/UvealMelanoma). 
+We'll use this for our example.
+
+Before proceeding further, we wondered: "Are there any animal models of uveal melanoma?"
+
+A quick pubmed search did reveal [mouse models for uveal melanoma](https://www.ncbi.nlm.nih.gov/pubmed/?term=uveal+melanoma+mouse).
+
+## Uveal Melanoma as a disease at Monarch Initiative.
+
+It would be great if we could simply search for the disease by name and retrieve the top result.
+
+### Using monarchr: Find a useful ID for 'uveal melanoma'.
+
+Load monarchr.
+
+```{r}
+library(monarchr)
+```
+
+Search for "uveal melanoma" and display top results.
+
+```{r}
+term <- "uveal melanoma"
+results <- biolink_search(term)
+um <- results$search_results # keep just the results, dropping the 'response' object.
+#um
+head(um)
+```
+
+
+Note that the results are presented in order of the 'score' column. 
+This is the same ordering as we observe doing searches at the website.
+
+```{r}
+# subset(um, select = c(id, score, label, category, synonym))
+head(subset(um, select = c(id, score, label, category, synonym)), 10)
+```
+
+In this case, the top result is a perfect match for our phrase.
+
+We save the 'id' for this top result. The id is the Monarch Disease Onotology 
+(MONDO) ID and will be most useful for pulling other results from monarchr. 
+
+
+We print the definition for 'uveal melanoma'. 
+
+```{r}
+um_id <- um[1,]$id
+um[um$id == um_id,]$definition
+```
+
+This definition is the same text as given in the 'Overview' tab from our search of the website in the previous section, [MONDO:0006486](https://monarchinitiative.org/disease/MONDO:0006486).
+
+## Human Genes associated with uveal melanoma.
+
+Fetching the human genes associated with the disease is simple.
+
+```{r}
+um_genes <- bioentity_genes_assoc_w_disease(um_id)
+um_genes <- um_genes$genes # ignore the response object.
+#um_genes
+head(um_genes)
+```
+
+The HGNC IDs are most useful for further searches with monarchr. Obviously we can subset for the particular relation we want. For this vignette, we take all relation types.
+
+HGNC derives from Human identifiers by the HUGO gene nomenclaure committee [HUGO](https://www.genenames.org/).
+
+Note, the same gene can be returned more than once if there is more than one relation(?) or MONDO id (see notes).
+
+
+
+```{r}
+um_hgnc <- um_genes$subject.id
+dups <- um_genes[duplicated(um_genes$subject.id),]$subject.id
+um_genes[um_genes$subject.id %in% dups, ]
+```
+
+Save the unique gene IDs.
+
+```{r}
+um_genes <- unique(um_genes$subject.id)
+```
+
+## Homologs of human genes.
+
+Find homologs to each of the human genes.
+
+We'd like to use something like the bioentityset function 'homologs' to do 
+this all at once. But it doesn't seem to be working. I tried with our HGNC
+genes as well as with the NCBI example genes in their supplied example. We'll
+watch as the API evolves. Until then, we have to search for each gene's 
+homolog one at a time.
+
+```{r}
+homologs <- lapply(um_genes, bioentity_homologs)
+homologs <- lapply(homologs, "[[", "homologs")
+homologs <- do.call('rbind', homologs)
+```
+
+## Subset homologs to some organisms.
+
+Subset to some of the more completely researched model organisms. Note that most or all of the mouse and rat are in 1 to 1 orthology relationships, and the other organisms a little less so.
+
+```{r}
+#unique(homologs$object.taxon) # all we can choose from
+orgs <- c('Mus musculus', "Rattus norvegicus", "Danio rerio", "Drosophila melanogaster", "Caenorhabditis elegans", "Saccharomyces cerevisiae S288C")
+ho <- homologs[homologs$object.taxon %in% orgs,]
+ho <- subset(ho, select= c(subject.taxon, subject.id, object.id, object.taxon))
+ho <- ho[order(ho$object.taxon),]
+split(ho, ho$object.taxon) # list these by organism.
+```
+
+## Interactions to those homologs.
+
+TODO(soon):
+
+## plots of the homologs and their interactions.
+
+### Notes:
+
+#### The website equivalent of searching for 'uveal melanoma'.
+
+If we were using the Monarch Initiative Website Directly, we would:
+
+- search [Monarch Initiative](https://monarchinitiative.org/) for 'uveal melanoma' by entering the term in the search box and clicking 'Go'
+- take the first disease shown in the results, it is named 'uveal melanoma'. 
+- Clicking it, we get to an overview page and other tabs for 'uveal melanoma' for the [MONDO ID 0006486](https://monarchinitiative.org/disease/MONDO:0006486)
+
+Note the following tabs and counts at the website:
+
+- overview 
+- Phenotypes (17)
+- Genes (9) 
+- Models (6) 
+- Variants (9) 
+- Pathways (3) 
+- Compare
+
+We'll be interested in the overview, to make sure we found the disease we 
+are targeting. And we'll want the genes to move onto additional steps.
+
+In addition, we see that uveal melanoma is classified under 'melanoma' which is 
+classified under 'cancer'. We make note of these MONDO IDs for 
+validation or analysis steps in this or other vignettes.
+
+- cancer, MONDO:0004992
+- melanoma, MONDO:0005105
+- uveal melanoma, MONDO:0006486 
+
+Note, the entire MONDO ontology can be found here: [MONDO](http://www.obofoundry.org/ontology/mondo.html).
+
+Note, when we searched using monarchr the (label, category, synonym) columns in the tibble correspond to (Term, Category, Matching String) columns as observed at the website [result](https://monarchinitiative.org/search/uveal%20melanoma). The exception is that the website displayed only one of possibly many synonyms until we drilled further into the results. (TODO(?): How is the particular synonym chosen by monarch? It is not obvious.).
+
+Note, the number of unique genes (9) for uveal melanoma using monarchr is the same as listed under the Genes tab at the website.
+
+#### Monarch returns all genes at and below a disease ontology's level (i.e. node or leaf).
+
+When we searched for MONDO:0006486, we also returned genes for MONDO:0007966. 
+Searching monarch's website for [MONDO:0007966](https://monarchinitiative.org/disease/MONDO:0007966)
+we see it is directly below the MONDO:0006486 'uveal melanoma' term. So this makes sense, monarchr
+is returning both the genes at the disease ontology level we requested, and all those underneath it as well.
+You can confirm this by clicking on each of the nodes and leafs at the website below
+[uveal melonoma](https://monarchinitiative.org/disease/MONDO:0006486). The only leaf that shows genes is
+'susceptibility to melanoma', all other genes are classified solely at the higher level of 'uveal melanoma'. 
+(That isn't the entire story, we do see some variants and phenotypes at the other nodes and leaves.)
+
