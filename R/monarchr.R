@@ -144,28 +144,25 @@ extract_be_content <- function(df) {
 # -----------------------------------------------------------------------------
 
 
-#' Gets homolog associations for a gene.
-#'
-#' e.g. Given a gene ID, finds homologs for that gene and lists their associations
+#' Gets gene info, like catgories and labels for a gene.
 #'
 #' The monarch_api class is included in return mainly for debugging the REST requests.
 #'
 #' https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314?rows=100&fetch_objects=true
+#' https://api.monarchinitiative.org/api/bioentity/gene/HGNC%3A950?fetch_objects=true&rows=100
 #'
 #' @param gene A valid monarch initiative gene id.
 #'
-#' @return A list of (tibble of homolog information, monarch_api S3 class).
+#' @return A list of (list of gene information, monarch_api S3 class).
 #' @export
 #'
 #' @examples
 #' gene <-"NCBIGene:8314"
-#' bioentity_gene_homology_associations(gene)
-bioentity_gene_homology_associations <- function(gene) { # TODO: definitely want to add response taxons.
-  # TODO: Needs extensive testing with various NCBIGene and other IDs.
-  # TODO: Synonyms, phenotpye_assoc, disease_assoc, genotype_assoc are also populated.
-  # TODO:   do we want to process them all at once and access them individually?
-  # TODO: Need a better idea of what this monarch is trying to uncover here,
-  # TODO:   and where it comes from vs. other homolog, phenotype, genotype etc. methods.
+#' bioentity_gene_(gene)
+bioentity_gene_info <- function(gene) { # TODO: definitely want to add response taxons.
+  # NOTE: This was recently (apr, 2018) remapped by biolink-api from a previous method that was giving homology assoications.
+  # NOTE: The previous method with this same call format was giving homology associations.
+  # NOTE: Our previous name for that method was bioentity_gene_homology_associations.
   gene <- utils::URLencode(gene, reserved = TRUE)
 
   query <- list(rows=100, fetch_objects="true")
@@ -173,11 +170,9 @@ bioentity_gene_homology_associations <- function(gene) { # TODO: definitely want
                            query = query)
 
   resp <- monarch_api(url)
-  homs <- jsonlite::flatten(resp$content$homology_associations, recursive=TRUE)
+  info <- resp$content
 
-  tb <- extract_be_content(homs)
-
-  return(list(homologs = tb,
+  return(list(gene_info = info,
               response = resp))
 }
 

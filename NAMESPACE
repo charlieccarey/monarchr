@@ -3,7 +3,7 @@
 S3method(print,monarch_api)
 export(bioentity_diseases_assoc_w_gene)
 export(bioentity_exp_anatomy_assoc_w_gene)
-export(bioentity_gene_homology_associations)
+export(bioentity_gene_info)
 export(bioentity_genes_assoc_w_disease)
 export(bioentity_homologs)
 export(bioentity_interactions_assoc_w_gene)
