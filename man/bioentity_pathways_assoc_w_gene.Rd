@@ -10,7 +10,7 @@ bioentity_pathways_assoc_w_gene(gene)
 \item{gene}{A valid monarch initiative gene id.}
 }
 \value{
-A list of (tibble of variant information, monarch_api S3 class).
+A list of (tibble of pathways information, monarch_api S3 class).
 }
 \description{
 Given a gene, what pathways are associated with it.

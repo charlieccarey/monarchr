@@ -73,7 +73,7 @@ monarch_api <- function(url) {
 # -----------------------------------------------------------------------------
 #
 #
-#           Content extraction common to all(?) Bioentity content.
+#           Content extraction common to many Bioentity content.
 #
 #
 # -----------------------------------------------------------------------------
@@ -143,6 +143,7 @@ extract_be_content <- function(df) {
 #
 # -----------------------------------------------------------------------------
 
+# TODO: Arrange methods in order of equivalent ordering of swagger documentation.
 
 #' Gets gene info, like catgories and labels for a gene.
 #'
@@ -158,7 +159,7 @@ extract_be_content <- function(df) {
 #'
 #' @examples
 #' gene <-"NCBIGene:8314"
-#' bioentity_gene_(gene)
+#' bioentity_gene_info(gene)
 bioentity_gene_info <- function(gene) { # TODO: definitely want to add response taxons.
   # NOTE: This was recently (apr, 2018) remapped by biolink-api from a previous method that was giving homology assoications.
   # NOTE: The previous method with this same call format was giving homology associations.
@@ -348,7 +349,7 @@ bioentity_exp_anatomy_assoc_w_gene <- function(gene) {
 #'
 #' @param gene A valid monarch initiative gene id.
 #'
-#' @return A list of (tibble of variant information, monarch_api S3 class).
+#' @return A list of (tibble of interactions information, monarch_api S3 class).
 #' @export
 #'
 #' @examples
@@ -381,7 +382,7 @@ bioentity_interactions_assoc_w_gene <- function(gene) {
 #'
 #' @param gene A valid monarch initiative gene id.
 #'
-#' @return A list of (tibble of variant information, monarch_api S3 class).
+#' @return A list of (tibble of pathways information, monarch_api S3 class).
 #' @export
 #'
 #' @examples
@@ -410,11 +411,12 @@ bioentity_pathways_assoc_w_gene <- function(gene) {
 #'
 #' @param disease An id for a disease, like a MONDO ID.
 #'
-#' @return
+#' @return A list of (a list of information, monarch_api S3 class).
+#'
 #' @export
 #'
 #' @examples
-#' disease <- ""MONDO:0006486" # uveal melanoma
+#' disease <- "MONDO:0006486" # uveal melanoma
 #' bioentity_genes_assoc_w_disease(disease)
 bioentity_genes_assoc_w_disease <- function(disease) {
   disease <- utils::URLencode(disease, reserved = TRUE)
@@ -432,6 +434,63 @@ bioentity_genes_assoc_w_disease <- function(disease) {
   return( list(genes = tb,
                response = resp) )
 }
+
+
+#' Gets info of a 'type' from an 'id'
+#'
+#' WARNING: will return a result even if that result doesn't seem to match the type.
+#'
+#' This is a general method for when other appropriate API calls may not be available.
+#' Or you don't want to bother discovering the appropriate function name.
+#'
+#' As a side effect of our Warning, in the event of an unsuccessful mapping, the info
+#' returned  might still be useful for discovery of what categories your id maps to.
+#'
+#' mimics https://api.monarchinitiative.org/api/bioentity/disease/MONDO%3A0006486?fetch_objects=true&rows=100
+#'
+#' Types seem to map to Monarch Initiative 'categories' and are limited(?) to:
+#'
+#'     - gene
+#'     - variant
+#'     - disease
+#'     - genotype
+#'     - phenotype
+#'     - goterm
+#'     - pathway
+#'     - anatomy
+#'     - substance
+#'     - individual
+#'
+#' @param id A valid monarch initiative id.
+#' @param type A category to try for the id.
+#'
+#' @return A list of (list of info for the id, monarch_api S3 class).
+#' @export
+#'
+#' @examples
+#' disease <-"MONDO:0006486"
+#' bioentity_id_type(disease, 'disease')
+#' #' # Note in this example, the info returned includes 'categories': 'disease' and 'quality'
+#' # This is a hint of which valid 'types' will be 'successful' for a particular 'id'.
+#' # Warning: Trying other types returns same info, because the other categories
+#' # were irrelevant for this id.
+#' # bioentity_id_type(disease, 'gene') # Not run. Does not get 'gene'!
+bioentity_id_type <- function(id, type) {
+  #TODO: check on cateogries as Monarch Initiative API evolves.
+  #TODO: warning on invalid types.
+  gene <- utils::URLencode(id, reserved = TRUE)
+
+  query <- list(rows=100, fetch_objects="true")
+  url <- build_monarch_url(path = list("/api/bioentity", type, id),
+                           query = query)
+
+  resp <- monarch_api(url)
+  info <- resp$content
+
+  return(list(info = info,
+              response = resp))
+}
+
 
 # -----------------------------------------------------------------------------
 #

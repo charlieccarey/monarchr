@@ -12,15 +12,17 @@ Description: The Monarch Initiative integrates and manages ontologies,
 License: CC0
 Encoding: UTF-8
 LazyData: true
-Suggests: 
-    testthat,
-    knitr,
-    rmarkdown
 Imports: httr,
     jsonlite,
     tibble,
     magrittr,
     purrr
+Suggests: 
+    testthat,
+    knitr,
+    rmarkdown,
+    DT,
+    covr
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 URL: https://github.com/charlieccarey/monarchr

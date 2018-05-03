@@ -24,6 +24,15 @@ We are suggesting to develop the `monarchr` package based on the [Bioconductor a
 
 Using Swagger Codegen on the Biolink API will be the starting point for the `monarchr` package, as it generates stubs and auto-documentation in the R Package format. However, putting together the functions into use cases that are useful is the vital next step in development.
 
+## Current Mockup: Code and Simple Vignettes
+
+We have mocked up a partially functional example of monarchr with some simple vignettes.
+
+It is available, along with this proposal at:
+
+[monarchr on github](https://github.com/charlieccarey/monarchr)
+[documentation and vignettes (as articles)](https://charlieccarey.github.io/monarchr/index.html)
+
 ## Development of Monarch Use Cases
 
 Swagger Codegen is just the starting point for `monarchr`. The core of development will be showcasing uses of monarchr. Especially, but not exclusively, we imagine good use cases exploring phenotype and disease ontologies (esp. MONDO and HPO). This development will be `vignette`/documentation driven, where Monarch developers and users will describe a use case for `monarchr` (such as mapping disease homologs). We'll show how to accomplish selected goals in ways that are easily extensible by users.

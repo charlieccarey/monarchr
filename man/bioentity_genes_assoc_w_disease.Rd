@@ -9,6 +9,13 @@ bioentity_genes_assoc_w_disease(disease)
 \arguments{
 \item{disease}{An id for a disease, like a MONDO ID.}
 }
+\value{
+A list of (a list of information, monarch_api S3 class).
+}
 \description{
 mimics https://api.monarchinitiative.org/api/bioentity/disease/MONDO%3A0006486/genes/?fetch_objects=true&rows=100
+}
+\examples{
+disease <- "MONDO:0006486" # uveal melanoma
+bioentity_genes_assoc_w_disease(disease)
 }

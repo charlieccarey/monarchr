@@ -1,5 +1,5 @@
 ---
-title: "ex_human_cancer_genes_to_model_org"
+title: "disease_to_model_organism"
 author: "charles carey"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document

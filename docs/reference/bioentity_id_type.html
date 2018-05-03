@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Gets diseases associated with a gene. — bioentity_diseases_assoc_w_gene • monarchr</title>
+<title>Gets info of a 'type' from an 'id' — bioentity_id_type • monarchr</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,9 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Gets diseases associated with a gene. — bioentity_diseases_assoc_w_gene" />
+<meta property="og:title" content="Gets info of a 'type' from an 'id' — bioentity_id_type" />
 
-<meta property="og:description" content="Given a gene, what diseases are associated with it." />
+<meta property="og:description" content="WARNING: will return a result even if that result doesn't seem to match the type." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,82 +114,129 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Gets diseases associated with a gene.</h1>
+    <h1>Gets info of a 'type' from an 'id'</h1>
     <small>Source: <a href='https://github.com/charlieccarey/monarchr/blob/master/R/monarchr.R'><code>R/monarchr.R</code></a></small>
-    <p class="hidden name"><code>bioentity_diseases_assoc_w_gene.Rd</code></p>
+    <p class="hidden name"><code>bioentity_id_type.Rd</code></p>
     </div>
 
     
-    <p>Given a gene, what diseases are associated with it.</p>
+    <p>WARNING: will return a result even if that result doesn't seem to match the type.</p>
     
 
-    <pre class="usage"><span class='fu'>bioentity_diseases_assoc_w_gene</span>(<span class='no'>gene</span>)</pre>
+    <pre class="usage"><span class='fu'>bioentity_id_type</span>(<span class='no'>id</span>, <span class='no'>type</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>gene</th>
-      <td><p>A valid monarch initiative gene id.</p></td>
+      <th>id</th>
+      <td><p>A valid monarch initiative id.</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>A category to try for the id.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of (tibble of disease information, monarch_api S3 class).</p>
+    <p>A list of (list of info for the id, monarch_api S3 class).</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene<!-- %3A8314/diseases/?rows=100&amp;fetch_objects=true&amp;format=json --></p>
+    <p>This is a general method for when other appropriate API calls may not be available.
+Or you don't want to bother discovering the appropriate function name.</p>
+<p>As a side effect of our Warning, in the event of an unsuccessful mapping, the info
+returned  might still be useful for discovery of what categories your id maps to.</p>
+<p>mimics https://api.monarchinitiative.org/api/bioentity/disease/MONDO<!-- %3A0006486?fetch_objects=true&amp;rows=100 --></p>
+<p>Types seem to map to Monarch Initiative 'categories' and are limited(?) to:</p>
+<p>- gene
+    - variant
+    - disease
+    - genotype
+    - phenotype
+    - goterm
+    - pathway
+    - anatomy
+    - substance
+    - individual</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>gene</span> <span class='kw'>&lt;-</span> <span class='st'>"NCBIGene:8314"</span>
-<span class='fu'>bioentity_diseases_assoc_w_gene</span>(<span class='no'>gene</span>)</div><div class='output co'>#&gt; $diseases
-#&gt; # A tibble: 25 x 10
-#&gt;    subject.taxon subject.id subject relation  object     object.id object.taxon
-#&gt;  * &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;     &lt;lgl&gt;       
-#&gt;  1 Homo sapiens  HGNC:950   BAP1    is marke… lipoma     MONDO:00… NA          
-#&gt;  2 Homo sapiens  HGNC:950   BAP1    is marke… leukemia … MONDO:00… NA          
-#&gt;  3 Homo sapiens  HGNC:950   BAP1    is marke… bone canc… MONDO:00… NA          
-#&gt;  4 Homo sapiens  HGNC:950   BAP1    is marke… epithelio… MONDO:00… NA          
-#&gt;  5 Homo sapiens  HGNC:950   BAP1    is marke… testicula… MONDO:00… NA          
-#&gt;  6 Homo sapiens  HGNC:950   BAP1    is marke… meningiom… MONDO:00… NA          
-#&gt;  7 Homo sapiens  HGNC:950   BAP1    has phen… uveal mel… MONDO:00… NA          
-#&gt;  8 Homo sapiens  HGNC:950   BAP1    is marke… malignant… MONDO:00… NA          
-#&gt;  9 Homo sapiens  HGNC:950   BAP1    is marke… neuroendo… MONDO:00… NA          
-#&gt; 10 Homo sapiens  HGNC:950   BAP1    is marke… lung aden… MONDO:00… NA          
-#&gt; # ... with 15 more rows, and 3 more variables: evidence &lt;fct&gt;,
-#&gt; #   publications &lt;fct&gt;, provided_by &lt;fct&gt;
+    <pre class="examples"><div class='input'><span class='no'>disease</span> <span class='kw'>&lt;-</span><span class='st'>"MONDO:0006486"</span>
+<span class='fu'>bioentity_id_type</span>(<span class='no'>disease</span>, <span class='st'>'disease'</span>)</div><div class='output co'>#&gt; $info
+#&gt; $info$taxon
+#&gt; $info$taxon$label
+#&gt; NULL
+#&gt; 
+#&gt; $info$taxon$id
+#&gt; NULL
+#&gt; 
+#&gt; 
+#&gt; $info$xrefs
+#&gt; NULL
+#&gt; 
+#&gt; $info$synonyms
+#&gt;                          val    pred xrefs
+#&gt; 1    uvea melanoma (disease) synonym    NA
+#&gt; 2       Melanoma of the Uvea synonym    NA
+#&gt; 3              Iris melanoma synonym    NA
+#&gt; 4 MELANOMA, UVEAL, MALIGNANT synonym    NA
+#&gt; 5             uveal melanoma synonym    NA
+#&gt; 6         Choroidal melanoma synonym    NA
+#&gt; 7           melanoma of Uvea synonym    NA
+#&gt; 
+#&gt; $info$types
+#&gt; NULL
+#&gt; 
+#&gt; $info$replaced_by
+#&gt; NULL
+#&gt; 
+#&gt; $info$description
+#&gt; [1] "A melanoma derived from melanocytes of the uveal tract. It is the most common primary intraocular tumor in the United States and Western Europe. Similar to melanoma of the skin, it is rare in Africa and Asia. Diagnostic procedures include ophthalmoscopic exam, fluorescein angiography and ultrasound. Treatment includes: surgical excision of the eye, iridocyclectomy and tumor resection. Recent treatments also include radiotherapy or photo coagulation. Classification of uveal melanomas recognizes four cell types within these tumors: epithelioid, intermediate, mixed cell, and spindle cell types. The spindle cell type uveal melanomas are further sub-classified as spindle cell type A and spindle cell type B."
+#&gt; 
+#&gt; $info$categories
+#&gt; [1] "disease" "quality"
+#&gt; 
+#&gt; $info$consider
+#&gt; NULL
+#&gt; 
+#&gt; $info$deprecated
+#&gt; NULL
+#&gt; 
+#&gt; $info$label
+#&gt; [1] "uveal melanoma"
+#&gt; 
+#&gt; $info$id
+#&gt; [1] "MONDO:0006486"
+#&gt; 
 #&gt; 
 #&gt; $response
-#&gt; &lt;monarch https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/diseases/?rows=100&amp;fetch_objects=true&amp;format=json&gt;
+#&gt; &lt;monarch https://api.monarchinitiative.org/api/bioentity/disease/MONDO:0006486?rows=100&amp;fetch_objects=true&amp;format=json&gt;
 #&gt; &lt;Showing parsed R objects from json response. 2 level(s) deep&gt;
-#&gt; List of 7
-#&gt;  $ compact_associations: NULL
-#&gt;  $ associations        :'data.frame':	25 obs. of  14 variables:
-#&gt;   ..$ provided_by       :List of 25
-#&gt;   ..$ relation          :'data.frame':	25 obs. of  2 variables:
-#&gt;   ..$ object_extensions : logi [1:25] NA NA NA NA NA NA ...
-#&gt;   ..$ publications      :List of 25
-#&gt;   ..$ object            :'data.frame':	25 obs. of  3 variables:
-#&gt;   ..$ negated           : logi [1:25] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;   ..$ slim              : logi [1:25] NA NA NA NA NA NA ...
-#&gt;   ..$ subject_extensions: logi [1:25] NA NA NA NA NA NA ...
-#&gt;   ..$ type              : logi [1:25] NA NA NA NA NA NA ...
-#&gt;   ..$ qualifiers        : logi [1:25] NA NA NA NA NA NA ...
-#&gt;   ..$ evidence_graph    :'data.frame':	25 obs. of  2 variables:
-#&gt;   ..$ evidence_types    : logi [1:25] NA NA NA NA NA NA ...
-#&gt;   ..$ id                : chr [1:25] "fe8e4862-c2ee-4268-aacc-5c1b3fdc7f87" "b86a9452-7dd4-4bbc-903e-58deb5342121" "83831e6d-e228-45f9-bf9b-048eb8be4e9d" "b8162a96-b43d-44fe-b8d8-d213cf2d9b9b" ...
-#&gt;   ..$ subject           :'data.frame':	25 obs. of  3 variables:
-#&gt;  $ objects             : chr [1:25] "MONDO:0000448" "MONDO:0002120" "MONDO:0002129" "MONDO:0002367" ...
-#&gt;  $ highlighting        : NULL
-#&gt;  $ numFound            : NULL
-#&gt;  $ facet_counts        :List of 2
-#&gt;   ..$ subject_taxon_label:List of 1
-#&gt;   ..$ object_closure     :List of 25
-#&gt;  $ docs                : NULL
-#&gt; </div></pre>
+#&gt; List of 11
+#&gt;  $ taxon      :List of 2
+#&gt;   ..$ label: NULL
+#&gt;   ..$ id   : NULL
+#&gt;  $ xrefs      : NULL
+#&gt;  $ synonyms   :'data.frame':	7 obs. of  3 variables:
+#&gt;   ..$ val  : chr [1:7] "uvea melanoma (disease)" "Melanoma of the Uvea" "Iris melanoma" "MELANOMA, UVEAL, MALIGNANT" ...
+#&gt;   ..$ pred : chr [1:7] "synonym" "synonym" "synonym" "synonym" ...
+#&gt;   ..$ xrefs: logi [1:7] NA NA NA NA NA NA ...
+#&gt;  $ types      : NULL
+#&gt;  $ replaced_by: NULL
+#&gt;  $ description: chr "A melanoma derived from melanocytes of the uveal tract. It is the most common primary intraocular tumor in the "| __truncated__
+#&gt;  $ categories : chr [1:2] "disease" "quality"
+#&gt;  $ consider   : NULL
+#&gt;  $ deprecated : NULL
+#&gt;  $ label      : chr "uveal melanoma"
+#&gt;  $ id         : chr "MONDO:0006486"
+#&gt; </div><div class='input'>#' # Note in this example, the info returned includes 'categories': 'disease' and 'quality'
+# This is a hint of which valid 'types' will be 'successful' for a particular 'id'.
+# Warning: Trying other types returns same info, because the other categories
+# were irrelevant for this id.
+# bioentity_id_type(disease, 'gene') # Not run. Does not get 'gene'!
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

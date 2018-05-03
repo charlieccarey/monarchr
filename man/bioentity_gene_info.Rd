@@ -21,5 +21,5 @@ https://api.monarchinitiative.org/api/bioentity/gene/HGNC%3A950?fetch_objects=tr
 }
 \examples{
 gene <-"NCBIGene:8314"
-bioentity_gene_(gene)
+bioentity_gene_info(gene)
 }

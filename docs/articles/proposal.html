@@ -53,13 +53,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ex_human_cancer_to_model_org_gene_networks.html">ex_human_cancer_genes_to_model_org</a>
+      <a href="../articles/disease_to_model_organism.html">disease_to_model_organism</a>
     </li>
     <li>
       <a href="../articles/monarchr-simple-ex.html">Simple Example</a>
     </li>
     <li>
       <a href="../articles/proposal.html">`monarchr` - An R package for Monarch</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
     </li>
   </ul>
 </li>
@@ -87,7 +90,7 @@
 <code>monarchr</code> - An R package for Monarch</h1>
                         <h4 class="author">Charles Carey and Ted Laderas</h4>
             
-            <h4 class="date">2018-05-01</h4>
+            <h4 class="date">2018-05-02</h4>
       
       <small>Source: <a href="https://github.com/charlieccarey/monarchr/blob/master/vignettes/proposal.Rmd"><code>vignettes/proposal.Rmd</code></a></small>
       <p class="hidden name"><code>proposal.Rmd</code></p>
@@ -104,6 +107,13 @@
 <a href="#starting-steps-using-swagger-on-the-biolink-api" class="anchor"></a>Starting Steps: Using Swagger on the Biolink API</h2>
 <p><a href="https://swagger.io/swagger-codegen/">Swagger Codegen</a> is a code generation framework that is helpful in developing API clients for any API that fits the OpenAPI specification. API clients can be developed, tested and deployed in an automated fashion for a number of languages (including R, Python and Rust). In R, we’ve found a need to further modify the client code.</p>
 <p>Using Swagger Codegen on the Biolink API will be the starting point for the <code>monarchr</code> package, as it generates stubs and auto-documentation in the R Package format. However, putting together the functions into use cases that are useful is the vital next step in development.</p>
+</div>
+<div id="current-mockup-code-and-simple-vignettes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#current-mockup-code-and-simple-vignettes" class="anchor"></a>Current Mockup: Code and Simple Vignettes</h2>
+<p>We have mocked up a partially functional example of monarchr with some simple vignettes.</p>
+<p>It is available, along with this proposal at:</p>
+<p><a href="https://github.com/charlieccarey/monarchr">monarchr on github</a> <a href="https://charlieccarey.github.io/monarchr/index.html">documentation and vignettes (as articles)</a></p>
 </div>
 <div id="development-of-monarch-use-cases" class="section level2">
 <h2 class="hasAnchor">
@@ -140,6 +150,7 @@
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#starting-steps-using-swagger-on-the-biolink-api">Starting Steps: Using Swagger on the Biolink API</a></li>
+      <li><a href="#current-mockup-code-and-simple-vignettes">Current Mockup: Code and Simple Vignettes</a></li>
       <li><a href="#development-of-monarch-use-cases">Development of Monarch Use Cases</a></li>
       <li><a href="#submission-of-monarchr-as-a-bioconductor-annotation-package">Submission of <code>monarchr</code> as a Bioconductor annotation package</a></li>
       <li>

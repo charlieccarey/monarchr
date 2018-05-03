@@ -80,13 +80,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/ex_human_cancer_to_model_org_gene_networks.html">ex_human_cancer_genes_to_model_org</a>
+      <a href="../articles/disease_to_model_organism.html">disease_to_model_organism</a>
     </li>
     <li>
       <a href="../articles/monarchr-simple-ex.html">Simple Example</a>
     </li>
     <li>
       <a href="../articles/proposal.html">`monarchr` - An R package for Monarch</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
     </li>
   </ul>
 </li>
@@ -131,13 +134,69 @@
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>A list of (a list of information, monarch_api S3 class).</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>disease</span> <span class='kw'>&lt;-</span> <span class='st'>"MONDO:0006486"</span> <span class='co'># uveal melanoma</span>
+<span class='fu'>bioentity_genes_assoc_w_disease</span>(<span class='no'>disease</span>)</div><div class='output co'>#&gt; $genes
+#&gt; # A tibble: 11 x 10
+#&gt;    subject.taxon subject.id subject relation    object   object.id object.taxon
+#&gt;  * &lt;chr&gt;         &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;     &lt;lgl&gt;       
+#&gt;  1 Homo sapiens  HGNC:18274 CYSLTR2 is marker … uveal m… MONDO:00… NA          
+#&gt;  2 Homo sapiens  HGNC:24308 CLPTM1L contribute… uveal m… MONDO:00… NA          
+#&gt;  3 Homo sapiens  HGNC:950   BAP1    has phenot… uveal m… MONDO:00… NA          
+#&gt;  4 Homo sapiens  HGNC:3250  EIF1AX  is marker … uveal m… MONDO:00… NA          
+#&gt;  5 Homo sapiens  HGNC:4390  GNAQ    has phenot… uveal m… MONDO:00… NA          
+#&gt;  6 Homo sapiens  HGNC:9059  PLCB4   is marker … uveal m… MONDO:00… NA          
+#&gt;  7 Homo sapiens  HGNC:4390  GNAQ    likely_pat… suscept… MONDO:00… NA          
+#&gt;  8 Homo sapiens  HGNC:4379  GNA11   likely_pat… suscept… MONDO:00… NA          
+#&gt;  9 Homo sapiens  HGNC:8101  OCA2    contribute… uveal m… MONDO:00… NA          
+#&gt; 10 Homo sapiens  HGNC:4379  GNA11   is marker … uveal m… MONDO:00… NA          
+#&gt; 11 Homo sapiens  HGNC:10768 SF3B1   is marker … uveal m… MONDO:00… NA          
+#&gt; # ... with 3 more variables: evidence &lt;fct&gt;, publications &lt;fct&gt;,
+#&gt; #   provided_by &lt;fct&gt;
+#&gt; 
+#&gt; $response
+#&gt; &lt;monarch https://api.monarchinitiative.org/api/bioentity/disease/MONDO%3A0006486/genes/?rows=100&amp;fetch_objects=true&amp;format=json&gt;
+#&gt; &lt;Showing parsed R objects from json response. 2 level(s) deep&gt;
+#&gt; List of 7
+#&gt;  $ compact_associations: NULL
+#&gt;  $ associations        :'data.frame':	11 obs. of  14 variables:
+#&gt;   ..$ provided_by       :List of 11
+#&gt;   ..$ relation          :'data.frame':	11 obs. of  2 variables:
+#&gt;   ..$ object_extensions : logi [1:11] NA NA NA NA NA NA ...
+#&gt;   ..$ publications      :List of 11
+#&gt;   ..$ object            :'data.frame':	11 obs. of  3 variables:
+#&gt;   ..$ negated           : logi [1:11] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#&gt;   ..$ slim              : logi [1:11] NA NA NA NA NA NA ...
+#&gt;   ..$ subject_extensions: logi [1:11] NA NA NA NA NA NA ...
+#&gt;   ..$ type              : logi [1:11] NA NA NA NA NA NA ...
+#&gt;   ..$ qualifiers        : logi [1:11] NA NA NA NA NA NA ...
+#&gt;   ..$ evidence_graph    :'data.frame':	11 obs. of  2 variables:
+#&gt;   ..$ evidence_types    : logi [1:11] NA NA NA NA NA NA ...
+#&gt;   ..$ id                : chr [1:11] "7b03c05a-6e78-4bad-96a3-aa86ff2b6d44" "8985289d-08b8-426b-b5b1-d908b751c6bb" "19ceeb01-f54c-4cc6-8317-a4686b355eac" "3bac6228-3de7-4502-8dff-21dcc45b2ef3" ...
+#&gt;   ..$ subject           :'data.frame':	11 obs. of  3 variables:
+#&gt;  $ objects             : chr [1:9] "HGNC:10768" "HGNC:18274" "HGNC:24308" "HGNC:3250" ...
+#&gt;  $ highlighting        : NULL
+#&gt;  $ numFound            : NULL
+#&gt;  $ facet_counts        :List of 2
+#&gt;   ..$ subject_taxon_label:List of 1
+#&gt;   ..$ object_closure     :List of 25
+#&gt;  $ docs                : NULL
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

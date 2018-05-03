@@ -80,13 +80,16 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/ex_human_cancer_to_model_org_gene_networks.html">ex_human_cancer_genes_to_model_org</a>
+      <a href="../articles/disease_to_model_organism.html">disease_to_model_organism</a>
     </li>
     <li>
       <a href="../articles/monarchr-simple-ex.html">Simple Example</a>
     </li>
     <li>
       <a href="../articles/proposal.html">`monarchr` - An R package for Monarch</a>
+    </li>
+    <li>
+      <a href="../articles/troubleshooting.html">Troubleshooting</a>
     </li>
   </ul>
 </li>
@@ -143,7 +146,64 @@ https://api.monarchinitiative.org/api/bioentity/gene/HGNC<!-- %3A950?fetch_objec
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>gene</span> <span class='kw'>&lt;-</span><span class='st'>"NCBIGene:8314"</span>
-<span class='fu'>bioentity_gene_</span>(<span class='no'>gene</span>)</div><div class='output co'>#&gt; <span class='error'>Error in bioentity_gene_(gene): could not find function "bioentity_gene_"</span></div></pre>
+<span class='fu'>bioentity_gene_info</span>(<span class='no'>gene</span>)</div><div class='output co'>#&gt; $gene_info
+#&gt; $gene_info$taxon
+#&gt; $gene_info$taxon$label
+#&gt; [1] "Homo sapiens"
+#&gt; 
+#&gt; $gene_info$taxon$id
+#&gt; [1] "NCBITaxon:9606"
+#&gt; 
+#&gt; 
+#&gt; $gene_info$xrefs
+#&gt; NULL
+#&gt; 
+#&gt; $gene_info$synonyms
+#&gt; NULL
+#&gt; 
+#&gt; $gene_info$types
+#&gt; NULL
+#&gt; 
+#&gt; $gene_info$replaced_by
+#&gt; NULL
+#&gt; 
+#&gt; $gene_info$description
+#&gt; NULL
+#&gt; 
+#&gt; $gene_info$categories
+#&gt; [1] "gene"             "sequence feature"
+#&gt; 
+#&gt; $gene_info$consider
+#&gt; NULL
+#&gt; 
+#&gt; $gene_info$deprecated
+#&gt; NULL
+#&gt; 
+#&gt; $gene_info$label
+#&gt; [1] "BAP1"
+#&gt; 
+#&gt; $gene_info$id
+#&gt; [1] "HGNC:950"
+#&gt; 
+#&gt; 
+#&gt; $response
+#&gt; &lt;monarch https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314?rows=100&amp;fetch_objects=true&amp;format=json&gt;
+#&gt; &lt;Showing parsed R objects from json response. 2 level(s) deep&gt;
+#&gt; List of 11
+#&gt;  $ taxon      :List of 2
+#&gt;   ..$ label: chr "Homo sapiens"
+#&gt;   ..$ id   : chr "NCBITaxon:9606"
+#&gt;  $ xrefs      : NULL
+#&gt;  $ synonyms   : NULL
+#&gt;  $ types      : NULL
+#&gt;  $ replaced_by: NULL
+#&gt;  $ description: NULL
+#&gt;  $ categories : chr [1:2] "gene" "sequence feature"
+#&gt;  $ consider   : NULL
+#&gt;  $ deprecated : NULL
+#&gt;  $ label      : chr "BAP1"
+#&gt;  $ id         : chr "HGNC:950"
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
