@@ -8,6 +8,8 @@ bioentity_pathways_assoc_w_gene(gene, rows = 100)
 }
 \arguments{
 \item{gene}{A valid monarch initiative gene id.}
+
+\item{rows}{Number of rows of results to fetch.}
 }
 \value{
 A list of (tibble of pathways information, monarch_api S3 class).

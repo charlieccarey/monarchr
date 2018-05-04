@@ -156,14 +156,15 @@ extract_be_content <- function(df) {
 #' https://api.monarchinitiative.org/api/bioentity/gene/HGNC%3A950?fetch_objects=true&rows=100
 #'
 #' @param gene A valid monarch initiative gene id.
-#'
+#' @param rows Number of rows of results to fetch.
 #' @return A list of (list of gene information, monarch_api S3 class).
 #' @export
 #'
 #' @examples
 #' gene <-"NCBIGene:8314"
 #' bioentity_gene_info(gene)
-bioentity_gene_info <- function(gene, rows=100) { # TODO: definitely want to add response taxons.
+bioentity_gene_info <- function(gene,
+                                rows=100) { # TODO: definitely want to add response taxons.
   # NOTE: This was recently (apr, 2018) remapped by biolink-api from a previous method that was giving homology assoications.
   # NOTE: The previous method with this same call format was giving homology associations.
   # NOTE: Our previous name for that method was bioentity_gene_homology_associations.
@@ -191,6 +192,7 @@ bioentity_gene_info <- function(gene, rows=100) { # TODO: definitely want to add
 #'
 #' @param gene A valid monarch initiative gene id.
 #' @param homolog_taxon A taxon for the target organism.
+#' @param rows Number of rows of results to fetch.
 #'
 #' Taxon takes the form NCBITaxon:id. (human: NCBITaxon:9606)
 #'
@@ -200,7 +202,9 @@ bioentity_gene_info <- function(gene, rows=100) { # TODO: definitely want to add
 #' @examples
 #' gene <-"NCBIGene:8314"
 #' bioentity_homologs(gene)
-bioentity_homologs <- function(gene, homolog_taxon = NULL, rows = 100) {
+bioentity_homologs <- function(gene,
+                               homolog_taxon = NULL,
+                               rows = 100) {
   # TODO: Needs extensive testing with various NCBIGene and other IDs.
   gene <- utils::URLencode(gene,
                            reserved = TRUE)
@@ -233,6 +237,7 @@ bioentity_homologs <- function(gene, homolog_taxon = NULL, rows = 100) {
 #' https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/diseases/?rows=100&fetch_objects=true&format=json
 #'
 #' @param gene A valid monarch initiative gene id.
+#' @param rows Number of rows of results to fetch.
 #'
 #' @return A list of (tibble of disease information, monarch_api S3 class).
 #' @export
@@ -240,7 +245,8 @@ bioentity_homologs <- function(gene, homolog_taxon = NULL, rows = 100) {
 #' @examples
 #' gene <- "NCBIGene:8314"
 #' bioentity_diseases_assoc_w_gene(gene)
-bioentity_diseases_assoc_w_gene <- function(gene, rows = 100) {
+bioentity_diseases_assoc_w_gene <- function(gene,
+                                            rows = 100) {
   gene <- utils::URLencode(gene, reserved = TRUE)
   query <- list(rows=rows, fetch_objects="true")
   url <- build_monarch_url(path = list("/api/bioentity/gene",
@@ -265,6 +271,7 @@ bioentity_diseases_assoc_w_gene <- function(gene, rows = 100) {
 #' https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/phenotypes/?rows=100&fetch_objects=true
 #'
 #' @param gene A valid monarch initiative gene id.
+#' @param rows Number of rows of results to fetch.
 #'
 #' @return A list of (tibble of phenotype information, monarch_api S3 class).
 #' @export
@@ -272,7 +279,8 @@ bioentity_diseases_assoc_w_gene <- function(gene, rows = 100) {
 #' @examples
 #' gene <- "NCBIGene:8314"
 #' bioentity_phenotypes_assoc_w_gene(gene)
-bioentity_phenotypes_assoc_w_gene <- function(gene, rows=100) {
+bioentity_phenotypes_assoc_w_gene <- function(gene,
+                                              rows=100) {
   gene <- utils::URLencode(gene, reserved = TRUE)
   query <- list(rows=rows, fetch_objects="true")
   url <- build_monarch_url(path = list("/api/bioentity/gene",
@@ -297,6 +305,7 @@ bioentity_phenotypes_assoc_w_gene <- function(gene, rows=100) {
 #' https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/expression/anatomy?rows=100&fetch_objects=true
 #'
 #' @param gene A valid monarch initiative gene id.
+#' @param rows Number of rows of results to fetch.
 #'
 #' @return A list of (tibble of anatomy information, monarch_api S3 class).
 #' @export
@@ -304,7 +313,8 @@ bioentity_phenotypes_assoc_w_gene <- function(gene, rows=100) {
 #' @examples
 #' gene <- "NCBIGene:8314"
 #' bioentity_exp_anatomy_assoc_w_gene(gene)
-bioentity_exp_anatomy_assoc_w_gene <- function(gene, rows=100) {
+bioentity_exp_anatomy_assoc_w_gene <- function(gene,
+                                               rows=100) {
   gene <- utils::URLencode(gene, reserved = TRUE)
   query <- list(rows=rows, fetch_objects="true")
   url <- build_monarch_url(path = list("/api/bioentity/gene",
@@ -360,6 +370,7 @@ bioentity_exp_anatomy_assoc_w_gene <- function(gene, rows=100) {
 #' https://api.monarchinitiative.org/api/bioentity/gene/HGNC%3A950/interactions/?rows=100&fetch_objects=true
 #'
 #' @param gene A valid monarch initiative gene id.
+#' @param rows Number of rows of results to fetch.
 #'
 #' @return A list of (tibble of interactions information, monarch_api S3 class).
 #' @export
@@ -367,7 +378,8 @@ bioentity_exp_anatomy_assoc_w_gene <- function(gene, rows=100) {
 #' @examples
 #' gene <- "NCBIGene:8314"
 #' bioentity_interactions_assoc_w_gene(gene)
-bioentity_interactions_assoc_w_gene <- function(gene, rows = 100) {
+bioentity_interactions_assoc_w_gene <- function(gene,
+                                                rows = 100) {
   gene <- utils::URLencode(gene, reserved = TRUE)
   query <- list(rows=rows, fetch_objects="true")
   url <- build_monarch_url(path = list("/api/bioentity/gene",
@@ -397,6 +409,7 @@ bioentity_interactions_assoc_w_gene <- function(gene, rows = 100) {
 #'
 #'
 #' @param gene A valid monarch initiative gene id.
+#' @param rows Number of rows of results to fetch.
 #'
 #' @return A list of (tibble of pathways information, monarch_api S3 class).
 #' @export
@@ -404,7 +417,8 @@ bioentity_interactions_assoc_w_gene <- function(gene, rows = 100) {
 #' @examples
 #' gene <- "NCBIGene:8314"
 #' bioentity_pathways_assoc_w_gene(gene)
-bioentity_pathways_assoc_w_gene <- function(gene, rows=100) {
+bioentity_pathways_assoc_w_gene <- function(gene,
+                                            rows=100) {
   gene <- utils::URLencode(gene, reserved = TRUE)
   query <- list(rows=rows, fetch_objects="true")
   url <- build_monarch_url(path = list("/api/bioentity/gene",
@@ -426,7 +440,9 @@ bioentity_pathways_assoc_w_gene <- function(gene, rows=100) {
 #' mimics https://api.monarchinitiative.org/api/bioentity/disease/MONDO%3A0006486/genes/?fetch_objects=true&rows=100
 #'
 #' @param disease An id for a disease, like a MONDO ID.
-#'
+#' @param rows Number of rows of results to fetch.
+#' @param start The starting row of the results to fetch.
+#' @param fetch_objects Whether or not to fetch objects at the top level of the json response.
 #' @return A list of (a list of information, monarch_api S3 class).
 #'
 #' @export
@@ -434,7 +450,10 @@ bioentity_pathways_assoc_w_gene <- function(gene, rows=100) {
 #' @examples
 #' disease <- "MONDO:0006486" # uveal melanoma
 #' bioentity_genes_assoc_w_disease(disease)
-bioentity_genes_assoc_w_disease <- function(disease, rows = 100, start = 0, fetch_objects = FALSE) {
+bioentity_genes_assoc_w_disease <- function(disease,
+                                            rows = 100,
+                                            start = 0,
+                                            fetch_objects = FALSE) {
   disease <- utils::URLencode(disease, reserved = TRUE)
   query <- list(rows=rows, fetch_objects=fetch_objects, start=start)
   url <- build_monarch_url(path = list("/api/bioentity/disease",
@@ -479,6 +498,7 @@ bioentity_genes_assoc_w_disease <- function(disease, rows = 100, start = 0, fetc
 #'
 #' @param id A valid monarch initiative id.
 #' @param type A category to try for the id.
+#' @param rows Number of rows of results to fetch.
 #'
 #' @return A list of (list of info for the id, monarch_api S3 class).
 #' @export
@@ -491,7 +511,9 @@ bioentity_genes_assoc_w_disease <- function(disease, rows = 100, start = 0, fetc
 #' # Warning: Trying other types returns same info, because the other categories
 #' # were irrelevant for this id.
 #' # bioentity_id_type(disease, 'gene') # Not run. Does not get 'gene'!
-bioentity_id_type <- function(id, type, rows=100) {
+bioentity_id_type <- function(id,
+                              type,
+                              rows=100) {
   #TODO: check on cateogries as Monarch Initiative API evolves.
   #TODO: warning on invalid types.
   gene <- utils::URLencode(id, reserved = TRUE)
@@ -524,6 +546,7 @@ bioentity_id_type <- function(id, type, rows=100) {
 #'
 #'  https://api.monarchinitiative.org/api/search/entity/autocomplete/MELANOMA%2C%20UVEAL?rows=20&start=1&category=disease # finds MONDO:0006486 as 3rd result.
 #' @param phrase_or_id Something for which we are looking for more information, or to find useful entities.
+#' @param rows Number of rows of results to fetch.
 #'
 #' @return A list of (the search results, and monarch_api S3 class.)
 #' @export
@@ -531,7 +554,8 @@ bioentity_id_type <- function(id, type, rows=100) {
 #' @examples
 #' term <- "uveal melanoma"
 #' biolink_search(term)
-biolink_search <- function(phrase_or_id, rows=20) {
+biolink_search <- function(phrase_or_id,
+                           rows=20) {
   term <- utils::URLencode(phrase_or_id, reserved = TRUE)
   query <- list(rows=rows)
   url <- build_monarch_url(path = list("/api/search/entity",

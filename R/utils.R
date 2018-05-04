@@ -106,7 +106,8 @@ build_monarch_url <- function(path, query=NULL) {
 #'
 #' @return A summary of x and, invisibly, x.
 #' @export
-print.monarch_api <- function(x, depth = 2, ...) {
+print.monarch_api <- function(x,
+                              depth = 2, ...) {
   cat("<monarch ", x$url, ">\n", sep = "")
   cat("<Showing parsed R objects from json response.", depth, "level(s) deep>\n")
   utils::str(x$content, max.level = depth)
@@ -187,7 +188,8 @@ list_of_paths_to_basenames <- function(paths) {
 #' gene <-"NCBIGene:8314"
 #' homs <- bioentity_homologs(gene)$homologs
 #' evidence <- extract_matching_phrases_from_lists(homs$evidence_graph.nodes, 'evidence')
-extract_matching_phrases_from_lists <- function(things, phrase) {
+extract_matching_phrases_from_lists <- function(things,
+                                                phrase) {
   # Note: This is a hack so we can ignore the actual structures, which might
   #       be graphs as dataframes or simply dataframes.
   # TODO? Target replacing this with better reasoning over the JSON types?

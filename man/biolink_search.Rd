@@ -8,6 +8,8 @@ biolink_search(phrase_or_id, rows = 20)
 }
 \arguments{
 \item{phrase_or_id}{Something for which we are looking for more information, or to find useful entities.}
+
+\item{rows}{Number of rows of results to fetch.}
 }
 \value{
 A list of (the search results, and monarch_api S3 class.)

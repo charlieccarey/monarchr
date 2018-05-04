@@ -27,7 +27,7 @@
 <script src="../pkgdown.js"></script>
 <meta property="og:title" content="Builds URL for a monarch GET request. — build_monarch_url" />
 
-<meta property="og:description" content="Builds URL for a monarch GET request." />
+<meta property="og:description" content="The path needs to be safely encoded." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -83,10 +83,10 @@
       <a href="../articles/disease_to_model_organism.html">disease_to_model_organism</a>
     </li>
     <li>
-      <a href="../articles/monarchr-simple-ex.html">Simple Example</a>
+      <a href="../articles/proposal.html">proposal: `monarchr` - An R package for Monarch</a>
     </li>
     <li>
-      <a href="../articles/proposal.html">`monarchr` - An R package for Monarch</a>
+      <a href="../articles/simple_ex_gene_info.html">Simple Example: info for a gene</a>
     </li>
     <li>
       <a href="../articles/troubleshooting.html">Troubleshooting</a>
@@ -120,7 +120,7 @@
     </div>
 
     
-    <p>Builds URL for a monarch GET request.</p>
+    <p>The path needs to be safely encoded.</p>
     
 
     <pre class="usage"><span class='fu'>build_monarch_url</span>(<span class='no'>path</span>, <span class='kw'>query</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
@@ -135,14 +135,22 @@
     <tr>
       <th>query</th>
       <td><p>A list of url parameter settings. TRUE FALSE set to
-"true" "false".</p>
-<p>The path needs to be safely encoded.</p></td>
+"true" "false".</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>URL as a safely encoded string.</p>
+    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>But the query apparently will be re-encoded, even if it is already encoded.
+So it is best not to do any or our own encoding on the query list.</p>
+<p>url &lt;- httr::modify_url("https://api.monarchinitiative.org",
+           path = "test<!-- %3Ame", -->
+           query = list(x='this_is:ok', y="but_this_is<!-- %3Anotok")) -->
+    "https://api.monarchinitiative.org/test<!-- %3Ame?x=this_is%3Aok&amp;y=but_this_is%253Anotok" --></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -173,6 +181,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
       

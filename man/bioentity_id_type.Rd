@@ -10,6 +10,8 @@ bioentity_id_type(id, type, rows = 100)
 \item{id}{A valid monarch initiative id.}
 
 \item{type}{A category to try for the id.}
+
+\item{rows}{Number of rows of results to fetch.}
 }
 \value{
 A list of (list of info for the id, monarch_api S3 class).

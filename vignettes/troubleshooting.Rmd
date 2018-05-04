@@ -1,6 +1,6 @@
 ---
 title: "Troubleshooting"
-author: "charles carey"
+author: "Charles Carey"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 ---

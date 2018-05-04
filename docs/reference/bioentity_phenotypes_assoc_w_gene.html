@@ -83,10 +83,10 @@
       <a href="../articles/disease_to_model_organism.html">disease_to_model_organism</a>
     </li>
     <li>
-      <a href="../articles/monarchr-simple-ex.html">Simple Example</a>
+      <a href="../articles/proposal.html">proposal: `monarchr` - An R package for Monarch</a>
     </li>
     <li>
-      <a href="../articles/proposal.html">`monarchr` - An R package for Monarch</a>
+      <a href="../articles/simple_ex_gene_info.html">Simple Example: info for a gene</a>
     </li>
     <li>
       <a href="../articles/troubleshooting.html">Troubleshooting</a>
@@ -123,7 +123,7 @@
     <p>Given a gene, what phenotypes are associated with it.</p>
     
 
-    <pre class="usage"><span class='fu'>bioentity_phenotypes_assoc_w_gene</span>(<span class='no'>gene</span>)</pre>
+    <pre class="usage"><span class='fu'>bioentity_phenotypes_assoc_w_gene</span>(<span class='no'>gene</span>, <span class='kw'>rows</span> <span class='kw'>=</span> <span class='fl'>100</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,6 +131,10 @@
     <tr>
       <th>gene</th>
       <td><p>A valid monarch initiative gene id.</p></td>
+    </tr>
+    <tr>
+      <th>rows</th>
+      <td><p>Number of rows of results to fetch.</p></td>
     </tr>
     </table>
     

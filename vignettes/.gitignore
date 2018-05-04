@@ -1,3 +1,7 @@
 *.html
 *.R
 *.Rhistory
+*.out
+*.aux
+*.fls
+*.fdb_latexmk

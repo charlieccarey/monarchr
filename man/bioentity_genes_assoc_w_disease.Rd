@@ -9,6 +9,12 @@ bioentity_genes_assoc_w_disease(disease, rows = 100, start = 0,
 }
 \arguments{
 \item{disease}{An id for a disease, like a MONDO ID.}
+
+\item{rows}{Number of rows of results to fetch.}
+
+\item{start}{The starting row of the results to fetch.}
+
+\item{fetch_objects}{Whether or not to fetch objects at the top level of the json response.}
 }
 \value{
 A list of (a list of information, monarch_api S3 class).

@@ -9,7 +9,9 @@ bioentity_homologs(gene, homolog_taxon = NULL, rows = 100)
 \arguments{
 \item{gene}{A valid monarch initiative gene id.}
 
-\item{homolog_taxon}{A taxon for the target organism.
+\item{homolog_taxon}{A taxon for the target organism.}
+
+\item{rows}{Number of rows of results to fetch.
 
 Taxon takes the form NCBITaxon:id. (human: NCBITaxon:9606)}
 }
