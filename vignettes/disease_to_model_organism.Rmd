@@ -124,7 +124,7 @@ um_genes[um_genes$subject.id %in% dups, ]
 Save the unique gene IDs.
 
 ```{r}
-um_genes <- unique(um_genes$subject.id)
+um_genes_ids <- unique(um_genes$subject.id)
 ```
 
 ## Homologs of human genes.
@@ -138,7 +138,7 @@ watch as the API evolves. Until then, we have to search for each gene's
 homolog one at a time.
 
 ```{r}
-homologs <- lapply(um_genes, bioentity_homologs)
+homologs <- lapply(um_genes_ids, bioentity_homologs)
 homologs <- lapply(homologs, "[[", "homologs")
 homologs <- do.call('rbind', homologs)
 ```
@@ -156,17 +156,291 @@ ho <- ho[order(ho$object.taxon),]
 split(ho, ho$object.taxon) # list these by organism.
 ```
 
-## Interactions to those homologs.
+## Get interactions of the orthologs.
 
-TODO(soon):
+Monarch Initiative has indicated that while only 51% of human genes have an annotation associated with them, if one includes annotations of orthologs to those genes in other organisms, 89% have some annotation [Monarch Initiative Nucleic Acids Research paper](doi:10.1093/nar/gkw11128).
 
-## plots of the homologs and their interactions.
+A possible inference from that is that by looking for interactions in other organisms, we might extend what we know about interactions for humans.
 
-TODO(soon):
+Of course we also want interactions in humans.
 
-### Notes:
+Find all interactions within each species. 
 
-#### The website equivalent of searching for 'uveal melanoma'.
+```{r}
+all_genes <- c(um_genes_ids, ho$object.id)
+all_intxns <- lapply(all_genes, bioentity_interactions_assoc_w_gene)
+all_intxns <- lapply(all_intxns, "[[", "interactions")
+all_intxns <- do.call('rbind', all_intxns)
+all_intxns <- all_intxns[all_intxns$subject.taxon ==  all_intxns$object.taxon, ]
+
+# unique(all_intxns$relation) # "interacts with" "genetically interacts with"
+
+# nrow(all_intxns) # 3456
+# length(all_intxns$object.id) # 3456
+# length(unique(c(all_intxns$object.id, all_intxns$subject.id))) # 2677
+# length(unique(all_intxns$object.id)) # 2646
+
+all_intxns_split <- split(all_intxns, all_intxns$subject.taxon)
+
+lapply(all_intxns_split, nrow)
+```
+
+Note, sometimes interactions are reported across species. We dropped those.
+
+3484 interactions were found, 720 in human. Including both the subject and object genes, we have a total set of 2755 genes. We didn't find interactions for yeast. We don't know if the lack of yeast interactions is a monarch shortcoming or indicative of there really being no interactions for these particular yeast genes.
+
+(TODO: evaluate counts inline as they'll change with future updates to monarch initiative's data sources.)
+
+### Orthologs to the interactions.
+
+This is getting to be a large dataset. Let's continue by focusing on only one of the original human uveal melanoma genes and its orthologs and interactors of those.
+
+We'll focus on the human gene 'BAP1', which has the unique id 'HGNC:950'.
+
+```{r}
+bap1 <- "HGNC:950"
+bap1_homologs <- homologs[homologs$subject.id == bap1,] # includes paralogs.
+# all_intxns[all_intxns$subject.id %in% bap1_homologs$object.id,] # does not include interactions to human bap1
+# Include interacations to human bap1 and all orthologs of bap1.
+bap1_homolog_intxns <- all_intxns[all_intxns$subject.id %in% c(bap1, bap1_homologs$object.id),]
+bap1_homolog_intxns_split <- split(bap1_homolog_intxns, bap1_homolog_intxns$object.taxon)
+lapply(bap1_homolog_intxns_split, nrow)
+```
+
+We found 97 interactions in humans and 50-100 in other organisms.
+
+Note! Some of these counts are suspiciously close to our default max_rows used to query monarch. We could go back and change the all_intxns to allow for more rows, but we'll continue on, understanding we are limiting our results, for now.
+
+TODO: yeah, we should go back and redo that, but we only need bap1 interactions.
+
+Each of these tibbles represent graphs with a central node of bap1 (or bap1's orthologs) connected to each of its interactors.
+
+We can continue from here to look at qualities of these bap1 centralized network in data from each organism. That is left as an exercise.
+
+We try to fix our limited results, and proceed only with mouse and human bap1, as there are lots of interactions.
+
+```{r}
+bap1_and_mouse_bap1 <- c(bap1, "MGI:1206586")
+hm_bap1_homolog_intxns <- lapply(bap1_and_mouse_bap1, bioentity_interactions_assoc_w_gene, rows = 3000)  
+hm_bap1_intxns <- lapply(hm_bap1_homolog_intxns, "[[", "interactions")
+hm_bap1_intxns <- do.call('rbind', hm_bap1_intxns)
+split(hm_bap1_intxns, hm_bap1_intxns$subject.id)
+```
+
+We found all the possible bap1 interactions as neither mouse nor human exceed our row limits.
+
+We restrict to only within organism matches.
+
+```{r}
+hm_bap1_intxns <- hm_bap1_intxns[hm_bap1_intxns$subject.taxon == hm_bap1_intxns$object.taxon,]
+```
+
+## Map the interactions in the other organisms back to human.
+
+Now, we get a little crazy, and take the point of view that each organism's bap1 centralized network represents a version of all networks which might be relevant (or not) to human bap1.
+
+We project the interactions back to human to get their human orthologs. 
+
+We already have all the human interactors to bap1, we just save them with a new name.
+
+We need to project the mouse interactions back to human.
+
+```{r}
+bap1_human_intxns <- hm_bap1_intxns[hm_bap1_intxns$subject.taxon == "Homo sapiens",]
+bap1_orthos_mouse <- hm_bap1_intxns[hm_bap1_intxns$subject.taxon == "Mus musculus",]
+
+# we add back the mouse bap1 homolog to all the other mouse genes.
+bap1_orthos_mouse_ids <- unique(c(bap1_orthos_mouse$subject.id, 
+                                  bap1_orthos_mouse$object.id))
+# x <- lapply(bm, bioentity_homologs, homolog_taxon="NCBITaxon:9606")
+# Nicer to server with sleep.
+bap1_orthos_mouse2human <- lapply(bap1_orthos_mouse_ids, 
+                                  function(x) {
+                                    r <- bioentity_homologs(gene = x, homolog_taxon = "NCBITaxon:9606", rows = 3000)
+                                    Sys.sleep(0.1)
+                                    r
+                                    })
+m2h <- lapply(bap1_orthos_mouse2human, "[[", "homologs")
+m2h <- do.call('rbind', m2h)
+nrow(m2h) # 105
+length(unique(m2h$object.id)) # 102
+```
+
+We note imperfect 1 to 1 orthology led to the discrepancy in our counts above.
+
+```{r}
+m2h[m2h$object.id %in% m2h[duplicated(m2h$object.id),]$object.id,]
+```
+
+When we project these mouse interactors to bap1 back to human, we have a projected network of 102 unique human IDs.
+
+Recall we had a network of 98 human IDs using only the human interactions. (97 interactions + bap1 as the hub)
+
+## Compare human network and human network as projected from mouse.
+
+What is the difference between the human network and the projected mouse network?
+
+Note, we're switching to working with the gene labels rather than IDs.
+
+```{r}
+h_genes <- c(bap1_human_intxns$object, "BAP1")
+m2h_genes <- m2h$object
+```
+
+Common to both.
+
+```{r}
+length(intersect(h_genes, m2h_genes))
+```
+
+Altogher.
+
+```{r}
+length(union(h_genes, m2h_genes))
+```
+
+Unique within the human network.
+
+```{r}
+nrow(setdiff(h_genes, m2h_genes))
+```
+
+unique within the mouse genes.
+
+```{r}
+uniq_mouse <- setdiff(m2h_genes, h_genes)
+uniq_mouse
+```
+
+We expand the potential network of genes interact with Bap1 by considering interactions in mouse, and projecting those interactions back to human.
+
+To the extent anything is known of the new genes (the unique to mouse genes) vis a vis cancer or melanoma, these genes might be useful to pursue further. 
+Alternatively, if nothing is known with respect to cancer for these genes, they might be interesting as novel targets for discovery.
+
+### Are the novel mouse genes associated with melanoma?
+
+In the appendix, we note that MONDO:0005105 is the identifier for Melanoma.
+
+We ask if any of the genes unique to the mouse network (as projected to human) are noted as melanoma genes.
+
+```{r}
+melanoma <- bioentity_genes_assoc_w_disease("MONDO:0005105")
+mel_genes <- unique(melanoma$genes$subject)
+length(mel_genes)
+intersect(mel_genes, uniq_mouse)
+```
+
+No new melanoma genes from the mouse network. This isn't too surprising as we relatively 
+few genes have been associated with melanoma according to the MONDO ontology.
+
+Nonetheless, the genes might be useful for futher study with regards to melanoma.
+
+### Are the novel mouse genes associated with cancer?
+
+Cancer has MONDO id 'MONDO:0004992'.
+
+We suspect there are lots of genes tagged for cancer.
+
+Indeed, https://monarchinitiative.org/disease/MONDO:0004992 shows 3055.
+
+We need them all instead of the default 100 that monarchr provides. But we
+need to play nice with the server (either because of server limits or
+because of maximum size limits for the json, or both.)
+
+
+Note, we get far more than 3035 genes. The Monarch Initiative website count
+included a handfulfrom non-human organims.  We narrowed them to human, and 
+took only the unique results.
+
+```{r}
+#TODO: user shouldn't have to do this, wrap it in all methods instead.
+check_for_more = TRUE
+start_row = 0
+group = 1
+results = list()
+while(check_for_more == TRUE) {
+  print(paste("fetching", group, "start", start_row))
+  cancer <- bioentity_genes_assoc_w_disease("MONDO:0004992", 
+                                            rows = 100, 
+                                            start=start_row, 
+                                            fetch_objects = FALSE)
+  if (nrow(cancer$genes) < 100) {
+    check_for_more <- FALSE
+  }
+  start_row <- start_row + 100
+  group <- group + 1
+  results <- c(results, cancer$genes[cancer$genes$subject.taxon == "Homo sapiens", ]$subject)
+  Sys.sleep(0.5)
+}
+cancer_genes <- unique(unlist(results))
+```
+
+```{r}
+intersect(cancer_genes, uniq_mouse)
+```
+
+These 2 genes are Bap1 interactors in mouse. They are not noted as Bap1 interactors in human. 
+In human, they are noted as having some association with cancer.
+
+## Get more info on the 2 new genes identified from projecting mouse to human.
+
+Because we now have gene symbols, instead of gene IDs, further searches with monarchr are difficult.
+
+### mygene.info is handy to convert symbols back to useful monarch ids.
+
+We use mygene.info to get back to an HGNC identifier.
+
+```{r}
+library(mygene)
+new_genes <- intersect(cancer_genes, uniq_mouse)
+# queryMany(new_genes, scopes = "symbol", species = "human", fields = "all")
+new_genes_myinfo <- queryMany(new_genes, scopes = "symbol", species = "human", fields = "HGNC")$HGNC
+new_genes_hgnc <- paste0("HGNC:", new_genes_myinfo)
+# We need to give some time for mygene.info to respond.
+Sys.sleep(1)
+```
+
+### List disease and phenotype associations (including cancer) for our 2 candidates.
+
+Then we explore how these candidate human bap1 interactors are annotated for disease.
+
+```{r}
+new_genes <- lapply(new_genes_hgnc, bioentity_diseases_assoc_w_gene)
+new_genes <- lapply(new_genes, "[[", "diseases")
+new_genes <- do.call(rbind, new_genes)
+new_genes
+```
+
+Of the new genes of interest, KDM1A has the most cancer disease terms associated with it.
+
+What are some of the phenotypes associated with either of the new genes.
+
+```{r}
+new_genes <- lapply(new_genes_hgnc, bioentity_phenotypes_assoc_w_gene)
+new_genes <- lapply(new_genes, "[[", "phenotypes")
+new_genes <- do.call("rbind", new_genes)
+new_genes
+```
+
+With a neoplasm listed for PKCA, maybe we were too hasty to suggest focusing more on KDM1A.
+
+We think this sufficiently demonstrates the value of looking at the multiple types of 
+annotations as are readily available from Monarch Initiative.
+
+# Summary
+
+- We used monarchr to find genes associated with a disease, uveal melanoma. 
+- We found model organism orthologs of these genes.
+- We then focused on the human gene BAP1, and its mouse ortholog, identifying genes that interact with these.
+- We projected the mouse interactors to their human orthologs.
+- We compared the networks (centered on the single hub, BAP1)
+- We found there were some interactors that were unique to the mouse network (projected back to humans).
+- We described that the novel mouse projection candidates had no annotations for melanoma, but 2 did for cancer.
+- We further described the 2 novel bap1 human interaction candidates by searching Monarch disease and phenotype terms.
+
+# Appendix
+
+## The website equivalent of searching for 'uveal melanoma'.
 
 If we were using the Monarch Initiative Website Directly, we would:
 
@@ -201,7 +475,7 @@ Note, when we searched using monarchr the (label, category, synonym) columns in 
 
 Note, the number of unique genes (9) for uveal melanoma using monarchr is the same as listed under the Genes tab at the website.
 
-#### Monarch returns all genes at and below a disease ontology's level (i.e. node or leaf).
+## Monarch returns all genes at and below a disease ontology's level (i.e. node or leaf).
 
 When we searched for MONDO:0006486, we also returned genes for MONDO:0007966. 
 Searching monarch's website for [MONDO:0007966](https://monarchinitiative.org/disease/MONDO:0007966)
@@ -211,4 +485,20 @@ You can confirm this by clicking on each of the nodes and leafs at the website b
 [uveal melonoma](https://monarchinitiative.org/disease/MONDO:0006486). The only leaf that shows genes is
 'susceptibility to melanoma', all other genes are classified solely at the higher level of 'uveal melanoma'. 
 (That isn't the entire story, we do see some variants and phenotypes at the other nodes and leaves.)
+
+## We need to check server limits, or at least play nice.
+
+TODO: Using all organisms seems to be taking a while. Is this on the server or on my end?
+TODO: We haven't seen any server limits in the headers from our previous requests, but it is still on us to play nice.
+TODO: However, did we miss any request limits or time limits on subsequent requests?
+
+## response$content$objects might be a handy shortcut for some searches.
+
+We note that in the json  when we searched for cancer genes using the MONDO term, 
+cancer$response$content$objects" gets all 3055 unique objects,
+even when asking for a limited number of rows. This suggests a shortcut,
+where we don't have to query for all information.
+
+However, these "cancer$response$content$objects" are in form of gene IDs rather
+than gene names. Therefore, we had to loop through all the detailed results.
 

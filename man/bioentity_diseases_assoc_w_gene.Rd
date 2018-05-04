@@ -4,7 +4,7 @@
 \alias{bioentity_diseases_assoc_w_gene}
 \title{Gets diseases associated with a gene.}
 \usage{
-bioentity_diseases_assoc_w_gene(gene)
+bioentity_diseases_assoc_w_gene(gene, rows = 100)
 }
 \arguments{
 \item{gene}{A valid monarch initiative gene id.}

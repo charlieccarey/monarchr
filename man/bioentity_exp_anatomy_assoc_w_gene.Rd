@@ -4,7 +4,7 @@
 \alias{bioentity_exp_anatomy_assoc_w_gene}
 \title{Gets expression anatomy associated with a gene.}
 \usage{
-bioentity_exp_anatomy_assoc_w_gene(gene)
+bioentity_exp_anatomy_assoc_w_gene(gene, rows = 100)
 }
 \arguments{
 \item{gene}{A valid monarch initiative gene id.}

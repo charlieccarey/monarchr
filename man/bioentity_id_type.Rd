@@ -4,7 +4,7 @@
 \alias{bioentity_id_type}
 \title{Gets info of a 'type' from an 'id'}
 \usage{
-bioentity_id_type(id, type)
+bioentity_id_type(id, type, rows = 100)
 }
 \arguments{
 \item{id}{A valid monarch initiative id.}

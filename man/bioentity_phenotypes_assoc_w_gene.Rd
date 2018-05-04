@@ -4,7 +4,7 @@
 \alias{bioentity_phenotypes_assoc_w_gene}
 \title{Gets phenotypes associated with a gene.}
 \usage{
-bioentity_phenotypes_assoc_w_gene(gene)
+bioentity_phenotypes_assoc_w_gene(gene, rows = 100)
 }
 \arguments{
 \item{gene}{A valid monarch initiative gene id.}

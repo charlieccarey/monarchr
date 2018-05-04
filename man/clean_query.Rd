@@ -19,5 +19,5 @@ Converts R booleans to monarch_api values and drops NULL parameters from query l
 clean_query(list(rows = 100,
                  fetch_objects = TRUE,
                  use_compact_associations = FALSE,
-                 unselect_evidence=NULL, format = "json"))
+                 unselect_evidence = NULL, format = "json"))
 }

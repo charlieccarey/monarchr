@@ -4,7 +4,7 @@
 \alias{bioentity_gene_info}
 \title{Gets gene info, like catgories and labels for a gene.}
 \usage{
-bioentity_gene_info(gene)
+bioentity_gene_info(gene, rows = 100)
 }
 \arguments{
 \item{gene}{A valid monarch initiative gene id.}

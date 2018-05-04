@@ -4,7 +4,7 @@
 \alias{bioentity_pathways_assoc_w_gene}
 \title{Gets pathways associated with a gene.}
 \usage{
-bioentity_pathways_assoc_w_gene(gene)
+bioentity_pathways_assoc_w_gene(gene, rows = 100)
 }
 \arguments{
 \item{gene}{A valid monarch initiative gene id.}

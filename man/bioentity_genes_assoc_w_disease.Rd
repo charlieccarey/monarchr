@@ -4,7 +4,8 @@
 \alias{bioentity_genes_assoc_w_disease}
 \title{Get genes associated with a disease}
 \usage{
-bioentity_genes_assoc_w_disease(disease)
+bioentity_genes_assoc_w_disease(disease, rows = 100, start = 0,
+  fetch_objects = FALSE)
 }
 \arguments{
 \item{disease}{An id for a disease, like a MONDO ID.}

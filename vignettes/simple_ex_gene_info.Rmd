@@ -1,12 +1,8 @@
 ---
-title: "Simple Example"
-author: "Charles Champney Carey"
+title: "Simple Example: info for a gene"
+author: "Charles Carey"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Simple Example}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}

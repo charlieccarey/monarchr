@@ -10,15 +10,22 @@ build_monarch_url(path, query = NULL)
 \item{path}{A path as a list to the monarch resource to use.}
 
 \item{query}{A list of url parameter settings. TRUE FALSE set to
-"true" "false".
-
-The path needs to be safely encoded.}
+"true" "false".}
 }
 \value{
 URL as a safely encoded string.
 }
 \description{
-Builds URL for a monarch GET request.
+The path needs to be safely encoded.
+}
+\details{
+But the query apparently will be re-encoded, even if it is already encoded.
+So it is best not to do any or our own encoding on the query list.
+
+url <- httr::modify_url("https://api.monarchinitiative.org",
+           path = "test%3Ame",
+           query = list(x='this_is:ok', y="but_this_is%3Anotok"))
+    "https://api.monarchinitiative.org/test%3Ame?x=this_is%3Aok&y=but_this_is%253Anotok"
 }
 \examples{
 m_path <- "/api/bioentity/gene"

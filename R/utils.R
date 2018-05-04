@@ -29,7 +29,7 @@ monarch_homolog_url_tf <-
 #' clean_query(list(rows = 100,
 #'                  fetch_objects = TRUE,
 #'                  use_compact_associations = FALSE,
-#'                  unselect_evidence=NULL, format = "json"))
+#'                  unselect_evidence = NULL, format = "json"))
 clean_query <- function(query) {
   # TODO: Additional error checking on parameter names and values.
   # TODO: (If these are consistent across most methods for one or more of the APIs.)
@@ -38,6 +38,7 @@ clean_query <- function(query) {
   # TODO: (And delete query parameters that have no effects.
   # TODO: e.g. I've seen no effect of toggling some of the other parameters?
   # TODO: unselect_evidence?)
+  # TODO: drop empty strings (in addition to NULL strings, which we're already doing.)
   query %>%
     purrr::compact() %>%
     purrr::map(function(x) ifelse(is.logical(x), tolower(as.character(x)), x))
@@ -46,11 +47,20 @@ clean_query <- function(query) {
 
 #' Builds URL for a monarch GET request.
 #'
+#' The path needs to be safely encoded.
+#'
+#' But the query apparently will be re-encoded, even if it is already encoded.
+#' So it is best not to do any or our own encoding on the query list.
+#'
+#'     url <- httr::modify_url("https://api.monarchinitiative.org",
+#'            path = "test%3Ame",
+#'            query = list(x='this_is:ok', y="but_this_is%3Anotok"))
+#'     "https://api.monarchinitiative.org/test%3Ame?x=this_is%3Aok&y=but_this_is%253Anotok"
+#'
 #' @param path A path as a list to the monarch resource to use.
 #' @param query A list of url parameter settings. TRUE FALSE set to
 #' "true" "false".
 #'
-#' The path needs to be safely encoded.
 #' @seealso \link[utils]{URLencode}
 #' @return URL as a safely encoded string.
 #' @export

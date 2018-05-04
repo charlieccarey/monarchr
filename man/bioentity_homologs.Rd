@@ -4,10 +4,14 @@
 \alias{bioentity_homologs}
 \title{Gets homologs for a gene.}
 \usage{
-bioentity_homologs(gene)
+bioentity_homologs(gene, homolog_taxon = NULL, rows = 100)
 }
 \arguments{
 \item{gene}{A valid monarch initiative gene id.}
+
+\item{homolog_taxon}{A taxon for the target organism.
+
+Taxon takes the form NCBITaxon:id. (human: NCBITaxon:9606)}
 }
 \value{
 A list of (tibble of homolog information, monarch_api S3 class).
@@ -16,9 +20,10 @@ A list of (tibble of homolog information, monarch_api S3 class).
 Replicates info in view: https://api.monarchinitiative.org/api/#!/bioentity/get_gene_homologs
 }
 \details{
-The monarch_api class is included in return mainly for debugging.
+mimics calls like these
 
 https://api.monarchinitiative.org/api/bioentity/gene/NCBIGene%3A8314/homologs/?rows=100&fetch_objects=true
+https://api.monarchinitiative.org/api/bioentity/gene/HGNC%3A950/homologs/?homolog_taxon=NCBITaxon%3A9606&fetch_objects=true&rows=100
 }
 \examples{
 gene <-"NCBIGene:8314"

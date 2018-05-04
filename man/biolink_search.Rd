@@ -4,7 +4,7 @@
 \alias{biolink_search}
 \title{Get a list of results matching a search term.}
 \usage{
-biolink_search(phrase_or_id)
+biolink_search(phrase_or_id, rows = 20)
 }
 \arguments{
 \item{phrase_or_id}{Something for which we are looking for more information, or to find useful entities.}
