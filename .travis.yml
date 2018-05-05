@@ -1,13 +1,8 @@
 language: r
+r: bioc-devel
+
 sudo: false
 cache: packages
 
-env:
-  global:
-    - BIOC_USE_DEVEL="FALSE"
-
-install:
-  - ./travis-tool.sh install_bioc mygene
-
 after_success:
-  - Rscript -e 'library(covr); codecov()'
+    - Rscript -e 'library(covr); codecov()'

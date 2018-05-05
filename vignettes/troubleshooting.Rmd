@@ -2,7 +2,11 @@
 title: "Troubleshooting"
 author: "Charles Carey"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
+output: rmarkdown::html_document
+vignette: >
+  %\VignetteIndexEntry{Troubleshooting}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r setup, include=FALSE}

@@ -1,8 +1,12 @@
 ---
-title: "disease_to_model_organism"
+title: "disease to model organism"
 author: "Charles Carey"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: html_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{disease to model organism}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
 ---
 
 ```{r setup, include=FALSE}

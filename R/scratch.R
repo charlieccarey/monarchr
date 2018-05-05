@@ -1,3 +1,9 @@
+#
+# Building with travis and bioconductor.
+#    https://docs.travis-ci.com/user/languages/r#Bioconductor
+#    https://docs.travis-ci.com/user/languages/r
+#    older but is this still relevant? http://jtleek.com/protocols/travis_bioc_devel/
+#
 # Scratch as I implement functions.
 #
 #' for some reason I can't ignore this file from building.# so its commented out so I can build rest of project.## getting several result types so as to develop off of these while offline.
