@@ -52,7 +52,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/disease_to_model_organism.html">disease_to_model_organism</a>
+      <a href="../articles/disease_to_model_organism.html">disease to model organism</a>
     </li>
     <li>
       <a href="../articles/proposal.html">proposal: `monarchr` - An R package for Monarch</a>
@@ -92,7 +92,7 @@
       <h1>Simple Example: info for a gene</h1>
                         <h4 class="author">Charles Carey</h4>
             
-            <h4 class="date">2018-05-04</h4>
+            <h4 class="date">2018-05-09</h4>
       
       <small>Source: <a href="https://github.com/charlieccarey/monarchr/blob/master/vignettes/simple_ex_gene_info.Rmd"><code>vignettes/simple_ex_gene_info.Rmd</code></a></small>
       <p class="hidden name"><code>simple_ex_gene_info.Rmd</code></p>
@@ -101,22 +101,27 @@
 
     
     
-<p>Replicate the 11 tabs from Monarch Initiative that result from a search on a human gene.</p>
-<p>Here are a some of them for now.</p>
-<p>We load the monarchr client and the DT libraries.</p>
-<p>(DT is the datatables package which we use to display the results.)</p>
+<div id="goal-show-homologs-diseases-phenotypes-anatomy-pathways-and-interactions-associated-with-a-gene-" class="section level1">
+<h1 class="hasAnchor">
+<a href="#goal-show-homologs-diseases-phenotypes-anatomy-pathways-and-interactions-associated-with-a-gene-" class="anchor"></a>GOAL: show homologs, diseases, phenotypes, anatomy, pathways and interactions associated with a gene.</h1>
+<p>We demonstrate these associations which correspond to tabs from Monarch Initiative website that result from a search at the website for the human gene NCBIGene:8314.</p>
+<div id="loading-monarchr-client-library-and-libraries-for-displaying-tables-" class="section level2">
+<h2 class="hasAnchor">
+<a href="#loading-monarchr-client-library-and-libraries-for-displaying-tables-" class="anchor"></a>Loading monarchr client library and libraries for displaying tables.</h2>
+<p>(DT is the datatables package which we use to display the results. knitr includes kable, another way to generate tables.)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(monarchr)
 <span class="kw">library</span>(DT)
 <span class="kw">library</span>(knitr)
 gene &lt;-<span class="st"> "NCBIGene:8314"</span></code></pre></div>
+</div>
 <div id="get-the-homologs-paralogs-orthologs-and-homologs-to-a-gene-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-the-homologs-paralogs-orthologs-and-homologs-to-a-gene-" class="anchor"></a>Get the homologs (paralogs, orthologs and homologs) to a gene.</h2>
 <p>Homologs of gene, displayed using DataTable.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">homs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/bioentity_homologs.html">bioentity_homologs</a></span>(gene)
 <span class="kw"><a href="http://www.rdocumentation.org/packages/DT/topics/datatable">datatable</a></span>(homs<span class="op">$</span>homologs)</code></pre></div>
-<div id="htmlwidget-64b066546ee2128575f4" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-64b066546ee2128575f4">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"],["Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens"],["HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950"],["BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1"],["in paralogy relationship with","in paralogy relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in paralogy relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in orthology relationship with","in 1 to 1 orthology relationship with","in orthology relationship with","in 1 to 1 orthology relationship with"],["UCHL5","UCHL3","BAP1","Bap1","UCH2","Bap1","BAP1","UCHL1","bap1","BAP1","BAP1","BAP1","BAP1","UCH1","bap1","bap1","calypso"],["HGNC:19678","HGNC:12515","NCBIGene:100051934","RGD:1311938","NCBIGene:842876","MGI:1206586","NCBIGene:100124510","HGNC:12513","Xenbase:XB-GENE-494978","NCBIGene:460426","NCBIGene:100030960","NCBIGene:100154798","NCBIGene:697221","NCBIGene:831492","NCBIGene:100557123","ZFIN:ZDB-GENE-050208-492","FlyBase:FBgn0262166"],["Homo sapiens","Homo sapiens","Equus caballus","Rattus norvegicus","Arabidopsis thaliana","Mus musculus","Bos taurus","Homo sapiens","Xenopus (Silurana) tropicalis","Pan troglodytes","Monodelphis domestica","Sus scrofa","Macaca mulatta","Arabidopsis thaliana","Anolis carolinensis","Danio rerio","Drosophila melanogaster"],["phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","sequence similarity evidence, phylogenetic evidence, protein BLAST evidence used in manual assertion","phylogenetic evidence"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"ZFIN:ZDB-PUB-030905-1",null],["panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther, zfin","panther"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>subject.taxon<\/th>\n      <th>subject.id<\/th>\n      <th>subject<\/th>\n      <th>relation<\/th>\n      <th>object<\/th>\n      <th>object.id<\/th>\n      <th>object.taxon<\/th>\n      <th>evidence<\/th>\n      <th>publications<\/th>\n      <th>provided_by<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-edf07e709df50bb93dab" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-edf07e709df50bb93dab">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"],["Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens","Homo sapiens"],["HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950","HGNC:950"],["BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1","BAP1"],["in paralogy relationship with","in paralogy relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in paralogy relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in 1 to 1 orthology relationship with","in orthology relationship with","in 1 to 1 orthology relationship with","in orthology relationship with","in 1 to 1 orthology relationship with"],["UCHL5","UCHL3","BAP1","Bap1","UCH2","Bap1","BAP1","UCHL1","bap1","BAP1","BAP1","BAP1","BAP1","UCH1","bap1","bap1","calypso"],["HGNC:19678","HGNC:12515","NCBIGene:100051934","RGD:1311938","NCBIGene:842876","MGI:1206586","NCBIGene:100124510","HGNC:12513","Xenbase:XB-GENE-494978","NCBIGene:460426","NCBIGene:100030960","NCBIGene:100154798","NCBIGene:697221","NCBIGene:831492","NCBIGene:100557123","ZFIN:ZDB-GENE-050208-492","FlyBase:FBgn0262166"],["Homo sapiens","Homo sapiens","Equus caballus","Rattus norvegicus","Arabidopsis thaliana","Mus musculus","Bos taurus","Homo sapiens","Xenopus (Silurana) tropicalis","Pan troglodytes","Monodelphis domestica","Sus scrofa","Macaca mulatta","Arabidopsis thaliana","Anolis carolinensis","Danio rerio","Drosophila melanogaster"],["phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","phylogenetic evidence","sequence similarity evidence, phylogenetic evidence, protein BLAST evidence used in manual assertion","phylogenetic evidence"],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"ZFIN:ZDB-PUB-030905-1",null],["panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther","panther, zfin","panther"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>subject.taxon<\/th>\n      <th>subject.id<\/th>\n      <th>subject<\/th>\n      <th>relation<\/th>\n      <th>object<\/th>\n      <th>object.id<\/th>\n      <th>object.taxon<\/th>\n      <th>evidence<\/th>\n      <th>publications<\/th>\n      <th>provided_by<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="get-the-diseases-associated-with-a-gene-" class="section level2">
 <h2 class="hasAnchor">
@@ -864,7 +869,7 @@ gene &lt;-<span class="st"> "NCBIGene:8314"</span></code></pre></div>
 </tr>
 </tbody>
 </table>
-<!-- Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format: --><!-- - Never uses retina figures --><!-- - Has a smaller default figure size --><!-- - Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style --><!-- ## Vignette Info --><!-- Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette. --><!-- ## Styles --><!-- The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows: --><!--     output:  --><!--       rmarkdown::html_vignette: --><!--         css: mystyles.css --><!-- ## Figures --><!-- The figure sizes have been customised so that you can easily put two images side-by-side.  --><!-- ```{r, fig.show='hold'} --><!-- plot(1:10) --><!-- plot(10:1) --><!-- ``` --><!-- You can enable figure captions by `fig_caption: yes` in YAML: --><!--     output: --><!--       rmarkdown::html_vignette: --><!--         fig_caption: yes --><!-- Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**. --><!-- ## More Examples --><!-- You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`. --><!-- ```{r, echo=FALSE, results='asis'} --><!-- knitr::kable(head(mtcars, 10)) --><!-- ``` --><!-- Also a quote using `>`: --><!-- > "He who gives up [code] safety for [code] speed deserves neither." --><!-- ([via](https://twitter.com/hadleywickham/status/504368538874703872)) -->
+</div>
 </div>
   </div>
 
@@ -873,12 +878,17 @@ gene &lt;-<span class="st"> "NCBIGene:8314"</span></code></pre></div>
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#get-the-homologs-paralogs-orthologs-and-homologs-to-a-gene-">Get the homologs (paralogs, orthologs and homologs) to a gene.</a></li>
+<li>
+<a href="#goal-show-homologs-diseases-phenotypes-anatomy-pathways-and-interactions-associated-with-a-gene-">GOAL: show homologs, diseases, phenotypes, anatomy, pathways and interactions associated with a gene.</a><ul class="nav nav-pills nav-stacked">
+<li><a href="#loading-monarchr-client-library-and-libraries-for-displaying-tables-">Loading monarchr client library and libraries for displaying tables.</a></li>
+      <li><a href="#get-the-homologs-paralogs-orthologs-and-homologs-to-a-gene-">Get the homologs (paralogs, orthologs and homologs) to a gene.</a></li>
       <li><a href="#get-the-diseases-associated-with-a-gene-">Get the diseases associated with a gene.</a></li>
       <li><a href="#get-the-phenotypes-associated-with-a-gene-">Get the phenotypes associated with a gene.</a></li>
       <li><a href="#get-the-anatomy-associated-with-a-gene-">Get the anatomy associated with a gene.</a></li>
       <li><a href="#get-the-pathways-associated-with-a-gene-">Get the pathways associated with a gene.</a></li>
       <li><a href="#get-the-interactions-associated-with-a-gene-">Get the interactions associated with a gene.</a></li>
+      </ul>
+</li>
       </ul>
 </div>
       </div>

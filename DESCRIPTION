@@ -18,10 +18,10 @@ Imports: httr,
     magrittr,
     purrr
 Suggests: 
+    mygene,
     testthat,
     knitr,
     rmarkdown,
-    mygene,
     DT,
     covr
 RoxygenNote: 6.0.1

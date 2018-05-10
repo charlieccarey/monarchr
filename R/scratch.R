@@ -4,6 +4,15 @@
 #    https://docs.travis-ci.com/user/languages/r
 #    older but is this still relevant? http://jtleek.com/protocols/travis_bioc_devel/
 #
+#    https://github.com/kevinrue/TVTB/blob/master/.travis.yml
+#
+#    https://stat.ethz.ch/pipermail/bioc-devel/2016-October/009962.html
+#
+#    example of a guy using bioconductor packages... https://github.com/llrs
+#
+#    IT IS SUFFICIENT to include in .yaml (though it takes travis a long time to build)
+#    r: bioc-devel
+#
 # Scratch as I implement functions.
 #
 #' for some reason I can't ignore this file from building.# so its commented out so I can build rest of project.## getting several result types so as to develop off of these while offline.

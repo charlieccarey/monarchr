@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>disease_to_model_organism • monarchr</title>
+<title>disease to model organism • monarchr</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="disease_to_model_organism">
+<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="disease to model organism">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -52,7 +52,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/disease_to_model_organism.html">disease_to_model_organism</a>
+      <a href="../articles/disease_to_model_organism.html">disease to model organism</a>
     </li>
     <li>
       <a href="../articles/proposal.html">proposal: `monarchr` - An R package for Monarch</a>
@@ -85,10 +85,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>disease_to_model_organism</h1>
+      <h1>disease to model organism</h1>
                         <h4 class="author">Charles Carey</h4>
             
-            <h4 class="date">04 May, 2018</h4>
+            <h4 class="date">09 May, 2018</h4>
       
       <small>Source: <a href="https://github.com/charlieccarey/monarchr/blob/master/vignettes/disease_to_model_organism.Rmd"><code>vignettes/disease_to_model_organism.Rmd</code></a></small>
       <p class="hidden name"><code>disease_to_model_organism.Rmd</code></p>
@@ -121,7 +121,7 @@
 <li>We’ll use mygene <a href="https://www.bioconductor.org/packages/release/bioc/html/mygene.html">mygene.info</a> to retrieve useful ids for monarch.</li>
 <li>We’ll use Monarch to describe the interactions novel to the model organism network as projected on human.</li>
 </ol>
-<p>In other vignettes, we’ll use some of the results we produce here to pull related information from non-monarch resources.</p>
+<p>In other vignettes, we’ll use some of the results we produce here to pull other related information from monarch and non-monarch resources.</p>
 </div>
 <div id="selecting-a-cancer-to-work-with-uveal-melanoma" class="section level2">
 <h2 class="hasAnchor">
@@ -401,10 +401,10 @@ bap1_homolog_intxns_split &lt;-<span class="st"> </span><span class="kw">split</
 ## [1] 50</code></pre>
 <p>We found 97 interactions in humans and 50-100 in other organisms.</p>
 <p>Note! Some of these counts are suspiciously close to our default max_rows used to query monarch. We could go back and change the all_intxns to allow for more rows, but we’ll continue on, understanding we are limiting our results, for now.</p>
-<p>TODO: yeah, we should go back and redo that, but we only need bap1 interactions.</p>
-<p>Each of these tibbles represent graphs with a central node of bap1 (or bap1’s orthologs) connected to each of its interactors.</p>
-<p>We can continue from here to look at qualities of these bap1 centralized network in data from each organism. That is left as an exercise.</p>
-<p>We try to fix our limited results, and proceed only with mouse and human bap1, as there are lots of interactions.</p>
+<p>TODO: yeah, we should go back and redo that, but we only need BAP1 interactions.</p>
+<p>Each of these tibbles represent graphs with a central node of BAP1 (or BAP1’s orthologs) connected to each of its interactors.</p>
+<p>We can continue from here to look at qualities of these BAP1 centralized network in data from each organism. That is left as an exercise.</p>
+<p>We try to fix our limited results, and proceed only with mouse and human BAP1, as there are lots of interactions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bap1_and_mouse_bap1 &lt;-<span class="st"> </span><span class="kw">c</span>(bap1, <span class="st">"MGI:1206586"</span>)
 hm_bap1_homolog_intxns &lt;-<span class="st"> </span><span class="kw">lapply</span>(bap1_and_mouse_bap1, bioentity_interactions_assoc_w_gene, <span class="dt">rows =</span> <span class="dv">3000</span>)  
 hm_bap1_intxns &lt;-<span class="st"> </span><span class="kw">lapply</span>(hm_bap1_homolog_intxns, <span class="st">"[["</span>, <span class="st">"interactions"</span>)
@@ -443,7 +443,7 @@ hm_bap1_intxns &lt;-<span class="st"> </span><span class="kw">do.call</span>(<sp
 ## 10 Mus musculus  MGI:12065… Bap1    interac… Psma4  MGI:1347… Mus musculus
 ## # ... with 106 more rows, and 3 more variables: evidence &lt;fct&gt;,
 ## #   publications &lt;fct&gt;, provided_by &lt;fct&gt;</code></pre>
-<p>We found all the possible bap1 interactions as neither mouse nor human exceed our row limits.</p>
+<p>We found all the possible BAP1 interactions as neither mouse nor human exceed our row limits.</p>
 <p>We restrict to only within organism matches.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">hm_bap1_intxns &lt;-<span class="st"> </span>hm_bap1_intxns[hm_bap1_intxns<span class="op">$</span>subject.taxon <span class="op">==</span><span class="st"> </span>hm_bap1_intxns<span class="op">$</span>object.taxon,]</code></pre></div>
 </div>
@@ -451,9 +451,9 @@ hm_bap1_intxns &lt;-<span class="st"> </span><span class="kw">do.call</span>(<sp
 <div id="map-the-interactions-in-the-other-organisms-back-to-human-" class="section level2">
 <h2 class="hasAnchor">
 <a href="#map-the-interactions-in-the-other-organisms-back-to-human-" class="anchor"></a>Map the interactions in the other organisms back to human.</h2>
-<p>Now, we get a little crazy, and take the point of view that each organism’s bap1 centralized network represents a version of all networks which might be relevant (or not) to human bap1.</p>
+<p>Now, we get a little crazy, and take the point of view that each organism’s BAP1 centralized network represents a version of all networks which might be relevant (or not) to human BAP1.</p>
 <p>We project the interactions back to human to get their human orthologs.</p>
-<p>We already have all the human interactors to bap1, we just save them with a new name.</p>
+<p>We already have all the human interactors to BAP1, we just save them with a new name.</p>
 <p>We need to project the mouse interactions back to human.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bap1_human_intxns &lt;-<span class="st"> </span>hm_bap1_intxns[hm_bap1_intxns<span class="op">$</span>subject.taxon <span class="op">==</span><span class="st"> "Homo sapiens"</span>,]
 bap1_orthos_mouse &lt;-<span class="st"> </span>hm_bap1_intxns[hm_bap1_intxns<span class="op">$</span>subject.taxon <span class="op">==</span><span class="st"> "Mus musculus"</span>,]
@@ -488,8 +488,8 @@ m2h &lt;-<span class="st"> </span><span class="kw">do.call</span>(<span class="s
 ## 6 Mus musculus  MGI:1347014 Psmb3   in 1 to… PSMB3  HGNC:9540 Homo sapiens
 ## # ... with 3 more variables: evidence &lt;fct&gt;, publications &lt;fct&gt;,
 ## #   provided_by &lt;fct&gt;</code></pre>
-<p>When we project these mouse interactors to bap1 back to human, we have a projected network of 102 unique human genes.</p>
-<p>Recall we had a network of 98 human genes using only the human interactions. (97 interactions + bap1 as the hub)</p>
+<p>When we project these mouse interactors to BAP1 back to human, we have a projected network of 102 unique human genes.</p>
+<p>Recall we had a network of 98 human genes using only the human interactions. (97 interactions + BAP1 as the hub)</p>
 </div>
 <div id="compare-human-network-and-human-network-as-projected-from-mouse-" class="section level2">
 <h2 class="hasAnchor">
@@ -513,7 +513,7 @@ uniq_mouse</code></pre></div>
 <pre><code>##  [1] "KIAA2012"    "BCORP1"      "COMMD3-BMI1" "HIST2H2AA4"  "PRKCA"      
 ##  [6] "NFRKB"       "OTUD4"       "SMOX"        "KDM1A"       "PAOX"       
 ## [11] "YY2"         "PIP5K1C"     "ANKRD2"      "ANKRD1"      "ASB4"</code></pre>
-<p>We expand the potential network of genes interact with Bap1 by considering interactions in mouse, and projecting those interactions back to human.</p>
+<p>We expand the potential network of genes interact with BAP1 by considering interactions in mouse, and projecting those interactions back to human.</p>
 <p>To the extent anything is known of the new genes (the unique to mouse genes) vis a vis cancer or melanoma, these genes might be useful to pursue further. Alternatively, if nothing is known with respect to cancer for these genes, they might be interesting as novel targets for discovery.</p>
 <div id="are-the-novel-mouse-genes-associated-with-melanoma" class="section level3">
 <h3 class="hasAnchor">
@@ -559,7 +559,7 @@ results =<span class="st"> </span><span class="kw">list</span>()
 cancer_genes &lt;-<span class="st"> </span><span class="kw">unique</span>(<span class="kw">unlist</span>(results))</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">intersect</span>(cancer_genes, uniq_mouse)</code></pre></div>
 <pre><code>## [1] "PRKCA" "KDM1A"</code></pre>
-<p>These 2 genes are Bap1 interactors in mouse. They are not noted as Bap1 interactors in human. In human, they are noted as having some association with cancer.</p>
+<p>These 2 genes are BAP1 interactors in mouse. They are not noted as BAP1 interactors in human. In human, they are noted as having some association with cancer.</p>
 </div>
 </div>
 <div id="get-more-info-on-the-2-new-genes-identified-from-projecting-mouse-to-human-" class="section level2">
@@ -582,7 +582,7 @@ new_genes_myinfo &lt;-<span class="st"> </span><span class="kw"><a href="http://
 <div id="list-disease-and-phenotype-associations-including-cancer-for-our-2-candidates-" class="section level3">
 <h3 class="hasAnchor">
 <a href="#list-disease-and-phenotype-associations-including-cancer-for-our-2-candidates-" class="anchor"></a>List disease and phenotype associations (including cancer) for our 2 candidates.</h3>
-<p>Then we explore how these candidate human bap1 interactors are annotated for disease.</p>
+<p>Then we explore how these candidate human BAP1 interactors are annotated for disease.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_genes &lt;-<span class="st"> </span><span class="kw">lapply</span>(new_genes_hgnc, bioentity_diseases_assoc_w_gene)
 new_genes &lt;-<span class="st"> </span><span class="kw">lapply</span>(new_genes, <span class="st">"[["</span>, <span class="st">"diseases"</span>)
 new_genes &lt;-<span class="st"> </span><span class="kw">do.call</span>(rbind, new_genes)
@@ -625,7 +625,7 @@ new_genes</code></pre></div>
 <p>With a neoplasm listed for PKCA, maybe we were too hasty to suggest focusing more on KDM1A.</p>
 <p>We think this sufficiently demonstrates the value of looking at the multiple types of annotations as are readily available from Monarch Initiative.</p>
 <p>We note that both of these genes are subjects of intensive study in a variety of organisms. What is novel to our discovery here is that in the case of BAP1, we might want to consider each of these (PKCA, KDM1A) as possible interactors in human. And by extension of BAP1’s role in uveal melanoma, possible roles in uveal melanoma.</p>
-<p>Finally, we looked at interactions of only 1 (BAP1) of the 9 ‘melanoma’ genes in detail. And we only projected interactors from one organism (mouse) back to human. If we wanted to cast as wide a net as possible, we could repeat these steps using all model organisms and interactions to all of the 11 melanoma genes. Of course we could also go in the other direction, identifying new research targets or questions for model organisms based on orthology to humans.</p>
+<p>Finally, we looked at interactions of only 1 (BAP1) of the 9 ‘melanoma’ genes in detail. And we only projected interactors from one organism (mouse) back to human. If we wanted to cast as wide a net as possible, we could repeat these steps using all model organisms and interactions to all of the 9 melanoma genes. Of course we could also go in the other direction, identifying new research targets or questions for model organisms based on orthology to humans.</p>
 </div>
 </div>
 <div id="summary" class="section level1">
@@ -639,7 +639,7 @@ new_genes</code></pre></div>
 <li>We compared the networks (centered on the single hub, BAP1)</li>
 <li>We found there were some interactors that were unique to the mouse network (projected back to humans).</li>
 <li>We described that the novel mouse projection candidates had no annotations for melanoma, but 2 did for cancer.</li>
-<li>We further described the 2 novel bap1 human interaction candidates by searching Monarch disease and phenotype terms.</li>
+<li>We further described the 2 novel BAP1 human interaction candidates by searching Monarch disease and phenotype terms.</li>
 </ul>
 </div>
 <div id="appendix" class="section level1">
@@ -688,9 +688,9 @@ new_genes</code></pre></div>
 </div>
 <div id="responsecontentobjects-might-be-a-handy-shortcut-for-some-searches-" class="section level2">
 <h2 class="hasAnchor">
-<a href="#responsecontentobjects-might-be-a-handy-shortcut-for-some-searches-" class="anchor"></a>response<span class="math inline">\(content\)</span>objects might be a handy shortcut for some searches.</h2>
-<p>We note that in the json when we searched for cancer genes using the MONDO term, cancer<span class="math inline">\(response\)</span>content$objects" gets all 3055 unique objects, even when asking for a limited number of rows. This suggests a shortcut, where we don’t have to query for all information.</p>
-<p>However, these “cancer<span class="math inline">\(response\)</span>content$objects” are in form of gene IDs rather than gene names. Therefore, we had to loop through all the detailed results.</p>
+<a href="#responsecontentobjects-might-be-a-handy-shortcut-for-some-searches-" class="anchor"></a>response$content$objects might be a handy shortcut for some searches.</h2>
+<p>We note that in the json when we searched for cancer genes using the MONDO term, cancer$response$content$objects" gets all 3055 unique objects, even when asking for a limited number of rows. This suggests a shortcut, where we don’t have to query for all information.</p>
+<p>However, these “cancer$response$content$objects” are in form of gene IDs rather than gene names. Therefore, we had to loop through all the detailed results.</p>
 </div>
 </div>
   </div>
@@ -716,7 +716,7 @@ new_genes</code></pre></div>
 <li><a href="#the-website-equivalent-of-searching-for-uveal-melanoma-">The website equivalent of searching for ‘uveal melanoma’.</a></li>
       <li><a href="#monarch-returns-all-genes-at-and-below-a-disease-ontologys-level-i-e-node-or-leaf-">Monarch returns all genes at and below a disease ontology’s level (i.e. node or leaf).</a></li>
       <li><a href="#we-need-to-check-server-limits-or-at-least-play-nice-">We need to check server limits, or at least play nice.</a></li>
-      <li><a href="#responsecontentobjects-might-be-a-handy-shortcut-for-some-searches-">response<span class="math inline">\(content\)</span>objects might be a handy shortcut for some searches.</a></li>
+      <li><a href="#responsecontentobjects-might-be-a-handy-shortcut-for-some-searches-">response$content$objects might be a handy shortcut for some searches.</a></li>
       </ul>
 </li>
       </ul>

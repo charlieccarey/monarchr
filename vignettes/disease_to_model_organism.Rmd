@@ -39,7 +39,7 @@ We'll try to do these using monarch as follows:
 7. We'll use Monarch to describe the interactions novel to the model organism network as projected on human.
 
 In other vignettes, we'll use some of the results we produce here to 
-pull related information from non-monarch resources.
+pull other related information from monarch and non-monarch resources.
 
 ## Selecting a cancer to work with: Uveal Melanoma
 
@@ -487,7 +487,7 @@ Finally, we looked at interactions of only 1 (BAP1) of the
 9 'melanoma' genes in detail. And we only projected interactors from 
 one organism (mouse) back to human. If we wanted to cast as wide a net 
 as possible, we could repeat these steps using all model organisms and 
-interactions to all of the 11 melanoma genes. Of course we could also
+interactions to all of the 9 melanoma genes. Of course we could also
 go in the other direction, identifying new research targets or questions 
 for model organisms based on orthology to humans.
 
@@ -569,13 +569,13 @@ the other nodes and leaves.)
 TODO: We haven't seen any server limits in the headers from our 
 TODO:   previous requests, but it is still on us to play nice.
 
-## response$content$objects might be a handy shortcut for some searches.
+## response\$content\$objects might be a handy shortcut for some searches.
 
 We note that in the json  when we searched for cancer genes using the 
-MONDO term, cancer$response$content$objects" gets all 3055 unique objects,
+MONDO term, cancer\$response\$content\$objects" gets all 3055 unique objects,
 even when asking for a limited number of rows. This suggests a shortcut,
 where we don't have to query for all information.
 
-However, these "cancer$response$content$objects" are in form of gene IDs rather
+However, these "cancer\$response\$content\$objects" are in form of gene IDs rather
 than gene names. Therefore, we had to loop through all the detailed results.
 
