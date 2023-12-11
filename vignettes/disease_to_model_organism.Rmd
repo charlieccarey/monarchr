@@ -134,7 +134,7 @@ um_genes[um_genes$subject.id %in% dups, ]
 Save the unique gene IDs.
 
 ```{r}
-um_genes_ids <- unique(um_genes$subject.id)
+um_genes_ids <- unique(um_genes$object.id)
 ```
 
 ## Homologs of human genes.
